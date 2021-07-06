@@ -1,0 +1,100 @@
+@import "../../../../../../scss/constants";
+
+:host {
+  width: 100%;
+  height: 100%;
+  .tb-entity-table {
+    .tb-entity-table-content {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+
+      .mat-toolbar-tools {
+        min-height: auto;
+      }
+
+      .title-container {
+        overflow: hidden;
+      }
+
+      .tb-entity-table-title {
+        padding-right: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .table-container {
+        margin-top: 10px;
+        overflow: auto;
+      }
+
+      //.tb-entity-table-info {
+      //  white-space: nowrap;
+      //  overflow: hidden;
+      //  text-overflow: ellipsis;
+      //}
+    }
+  }
+
+  @media #{$mat-xs} {
+    .mat-toolbar {
+      height: auto;
+      min-height: 100px;
+
+      .tb-entity-table-title {
+        padding-bottom: 5px;
+        width: 100%;
+      }
+    }
+  }
+}
+
+form {
+  width: 100%;
+}
+
+.b-container {
+  overflow: auto;
+}
+
+.b-chart-section {
+  width: 100%;
+  min-height: 110vh;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #D3e5f8 !important;
+  padding: 0.3rem 0;
+}
+th{
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  color: #6F7780;
+  height: 48px;
+  background: #F7FCFF;
+  padding: 13px 16px;
+}
+td {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  color: #43484D;
+  padding: 13px 16px;
+}
+
+// binhdv
+.b-space-bottom{
+  width: 100%;
+  min-height: 50px;
+}

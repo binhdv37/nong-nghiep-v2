@@ -1,0 +1,83 @@
+<div style="width: 100%; height: 100%; overflow: hidden;">
+  <form [formGroup]="myForm">
+    <div fxLayout="row">
+      <mat-form-field fxFlex="60">
+        <mat-label>Tên luật cảnh báo</mat-label>
+        <input matInput formControlName="alarmType" />
+      </mat-form-field>
+      <div fxFlex></div>
+    </div>
+
+    <div class="b-margin-t-10">Thiết lập ngưỡng</div>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="30" fxLayout="row" fxLayoutAlign="end center">
+        <span fxFlex="none" style="margin-right: 20px">{{getNguongTrenLabel()}}</span>
+      </div>
+      <div fxFlex fxLayout="row">
+        <mat-form-field fxFlex="70" style="display: inline;">
+          <mat-label>Ngưỡng trên</mat-label>
+          <input matInput formControlName="nguongTren"/>
+        </mat-form-field>
+        <div fxFlex></div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="30" fxLayout="row" fxLayoutAlign="end center">
+        <span fxFlex="none" style="margin-right: 20px">{{getNguongDuoiLabel()}}</span>
+      </div>
+      <div fxFlex fxLayout="row">
+        <mat-form-field fxFlex="70" style="display: inline;">
+          <mat-label>Ngưỡng dưới</mat-label>
+          <input matInput formControlName="nguongDuoi"/>
+        </mat-form-field>
+        <div fxFlex></div>
+      </div>
+    </div>
+
+    <div class="margin-t-16">Khoảng thời gian xác nhận cảnh báo</div>
+
+    <div class="margin-t-16" fxLayout="row" fxLayoutAlign="space-around center">
+      <mat-form-field fxFlex="25" >
+        <mat-label>Giờ</mat-label>
+        <mat-select formControlName="hour">
+          <mat-option *ngFor="let hour of [].constructor(24) let i = index" [value]="i">
+            {{i}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="25">
+        <mat-label>Phút</mat-label>
+        <mat-select formControlName="minute">
+          <mat-option *ngFor="let hour of [].constructor(60) let i = index" [value]="i">
+            {{i}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="25">
+        <mat-label>Giây</mat-label>
+        <mat-select formControlName="second">
+          <mat-option *ngFor="let hour of [].constructor(60) let i = index" [value]="i">
+            {{i}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>Gửi thông báo cho tôi qua</div>
+
+    <div class="margin-t-16" fxLayout="row" fxLayoutAlign="space-around none">
+      <mat-checkbox fxFlex="25" formControlName="viaNotification">Notification</mat-checkbox>
+      <mat-checkbox fxFlex="25" formControlName="viaSms">SMS</mat-checkbox>
+      <mat-checkbox fxFlex="25" formControlName="viaEmail">Email</mat-checkbox>
+    </div>
+
+    <div class="margin-t-16 b-margin-l-10">
+      <mat-slide-toggle labelPosition="before"  formControlName="active">Kích hoạt</mat-slide-toggle>
+    </div>
+
+  </form>
+</div>

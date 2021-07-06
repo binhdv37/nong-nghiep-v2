@@ -1,0 +1,61 @@
+<mat-drawer-container hasBackdrop="false" class="tb-absolute-fill">
+  <mat-drawer-content *ngIf="data">
+    <div class="mat-padding tb-entity-table tb-absolute-fill">
+      <div fxLayout="column" class="mat-elevation-z1 tb-entity-table-content">
+        <mat-toolbar class="mat-table-toolbar header-background">
+          <div class="mat-toolbar-tools">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+                 class="title-container">
+              <span class="tb-entity-table-title">Xem chi tiết: {{data?.name}}</span>
+              <tb-anchor #entityTableHeader></tb-anchor>
+            </div>
+            <span fxFlex></span>
+          </div>
+        </mat-toolbar>
+        <mat-tab-group mat-align-tabs="start" class="mat-tab-fill-height" animationDuration="0ms" [selectedIndex]="1">
+          <mat-tab label="Thông tin chung">
+            <ng-template matTabContent>
+              <tb-damtom-table></tb-damtom-table>
+            </ng-template>
+          </mat-tab>
+          <mat-tab *ngIf="checkAuth(authority.TENANT_ADMIN) || checkAuth(authority.PAGES_GIAMSAT)" label="Giám sát"
+                   [disabled]="!data?.active">
+            <ng-template matTabContent>
+              <tb-damtom-giamsat *ngIf="data" [assertId]="data?.asset.id" [damTomId]="data?.id"></tb-damtom-giamsat>
+            </ng-template>
+          </mat-tab>
+          <mat-tab *ngIf="checkAuth(authority.TENANT_ADMIN) || checkAuth(authority.PAGES_DIEUKHIEN)" label="Điều khiển"
+                   [disabled]="!data?.active">
+            <ng-template matTabContent>
+              <tb-damtom-rpc *ngIf="data.id" [damTomId]="data?.id"></tb-damtom-rpc>
+            </ng-template>
+          </mat-tab>
+          <mat-tab *ngIf="checkAuth(authority.TENANT_ADMIN) || checkAuth(authority.PAGES_DLCAMBIEN)"
+                   label="Dữ liệu cảm biến" [disabled]="!data?.active">
+            <ng-template matTabContent>
+              <tb-damtom-dlcb *ngIf="data.id" [damTomId]="data?.id"></tb-damtom-dlcb>
+            </ng-template>
+          </mat-tab>
+          <mat-tab *ngIf="checkAuth(authority.TENANT_ADMIN) || checkAuth(authority.PAGES_TLLUATCANHBAO)"
+                   label="Thiết lập luật cảnh báo" [disabled]="!data?.active">
+            <ng-template matTabContent>
+              <tb-damtom-luat [damtomId]="id"></tb-damtom-luat>
+            </ng-template>
+          </mat-tab>
+          <mat-tab *ngIf="checkAuth(authority.TENANT_ADMIN) || checkAuth(authority.PAGES_QLCAMERA)"
+                   label="Quản lý camera" [disabled]="!data?.active">
+            <ng-template matTabContent>
+              <tb-qlcamera [damtomId]="id"></tb-qlcamera>
+            </ng-template>
+          </mat-tab>
+          <mat-tab *ngIf="checkAuth(authority.TENANT_ADMIN) || checkAuth(authority.PAGES_QLTHIETBI)"
+                   label="Quản lý thiết bị" [disabled]="!data?.active">
+            <ng-template matTabContent>
+              <tb-damtom-thietbi [damtomId]="id"></tb-damtom-thietbi>
+            </ng-template>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

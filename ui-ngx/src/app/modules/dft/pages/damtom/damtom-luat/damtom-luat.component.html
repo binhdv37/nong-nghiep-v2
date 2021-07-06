@@ -1,0 +1,105 @@
+<mat-drawer-container hasBackdrop="false" class="tb-absolute-fill">
+  <mat-drawer-content style="padding: 0px !important;">
+    <div class="tb-entity-table tb-absolute-fill">
+      <div fxLayout="column" class="mat-elevation-z1 tb-entity-table-content">
+        <mat-toolbar style="padding: 0px 0px 0px 24px !important; border-radius: 0px !important;"
+                     class="mat-table-toolbar header-background">
+          <div class="mat-toolbar-tools">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+                 class="title-container">
+              <span class="tb-entity-table-title">Danh sách luật cảnh báo</span>
+              <tb-anchor #entityTableHeader></tb-anchor>
+            </div>
+            <span fxFlex></span>
+            <div>
+              <button mat-icon-button
+                      matTooltip="Thêm mới luật cảnh báo"
+                      matTooltipPosition="above"
+                      color="primary"
+                      (click)="openCreateDialog()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-toolbar>
+        <label class="t-k">Tìm kiếm</label>
+        <mat-toolbar class="mat-table-toolbar">
+          <div class="mat-toolbar-tools">
+            <div class="col-md-6 text-position" style="padding: 0px !important;">
+              <mat-form-field fxFlex class="mat-block">
+                <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+                <mat-label>&nbsp;</mat-label>
+                <input matInput #searchInput (keyup)="applyFilter()" placeholder="Nhập tên luật cảnh báo"/>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-toolbar>
+        <div fxFlex class="table-container">
+          <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="detailsRuler(element)">
+                    <span>{{ 'dft.users.details-button' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="editRuler(element)">
+                    <span>{{ 'dft.users.update-button' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteAlarmRule(element.id, element.alarmType)">
+                    <span>{{ 'dft.users.delete-button' | translate }}</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Tên luật cảnh báo</th>
+              <td mat-cell *matCellDef="let element"> {{element.alarmType}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="keyType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Cảm biến</th>
+              <td mat-cell *matCellDef="let element">{{getAlarmKeyType(element)}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="active">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Kích hoạt</th>
+              <td mat-cell *matCellDef="let element">
+                <mat-icon class="material-icons mat-icon">
+                  {{getAlarmActive(element) ? 'check_box' : 'check_box_outline_blank'}}
+                </mat-icon>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdTime" >
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.dftAlarmRule.createdTime !== null
+                ? (element.dftAlarmRule.createdTime | date: "dd/MM/yyyy")
+                : (1624381200000 | date: "dd/MM/yyyy")
+                }}
+              </td>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <!--          <div class="mat-table-message" style="border: 1px solid black;" *ngIf="(dataSource === null || dataSource === undefined || dataSource.data.length===0)">Không có dữ liệu</div>-->
+          <div fxLayout="row" fxLayoutAlign="center center"
+               *ngIf="(dataSource === null || dataSource === undefined || dataSource.data.length===0)">
+            <span fxLayoutAlign="center center" style="margin-top: 60px;">
+              Không có dữ liệu
+            </span>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-paginator class="footer-format1 footer-format2 footer-format3" [pageSizeOptions]="pageSizeOptions"
+                       showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,96 @@
+<mat-drawer-container hasBackdrop="false" class="tb-absolute-fill">
+  <mat-drawer-content>
+    <div class="mat-padding tb-entity-table tb-absolute-fill">
+      <div fxLayout="column" class="mat-elevation-z1 tb-entity-table-content">
+        <mat-toolbar class="mat-table-toolbar header-background">
+          <div class="mat-toolbar-tools">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+                 class="title-container">
+              <span class="tb-entity-table-title">{{ 'dft.bao-cao.lap-lich-bc' | translate }}</span>
+              <tb-anchor #entityTableHeader></tb-anchor>
+            </div>
+            <span fxFlex></span>
+            <div>
+              <!-- <button mat-raised-button color="primary" [disabled]="isLoading$ | async" matTooltip="{{ 'dft.admin.khachhang.add-button' | translate }}"
+                      matTooltipPosition="above"
+                      (click)="openEditDialog()">
+                {{ 'dft.admin.khachhang.add-button' | translate }}
+              </button> -->
+              <button mat-icon-button color="primary" [disabled]="isLoading$ | async" matTooltip="{{ 'dft.admin.khachhang.add-button' | translate }}"
+              matTooltipPosition="above"
+              (click)="openEditDialog()">
+              <mat-icon class="hover-icon">add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-toolbar>
+        <div fxFlex class="table-container">
+          <table mat-table [dataSource]="dataSource" matSort #sort="matSort" matSortActive="created_time"
+                 matSortDirection="desc" matSortDisableClear>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item  mat-menu-item (click)="openDetailsDialog(element.id)" >
+                    <span>{{ 'dft.report-schedule.detail-button' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="openUpdateDialog(element.id)">
+                    <span>{{ 'dft.report-schedule.edit-button' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteEntity(element.id, element.scheduleName)" >
+                    <span>{{ 'dft.report-schedule.delete-button' | translate }}</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="schedule_name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.report-schedule.report-schedule-name' | translate }}</th>
+              <td mat-cell *matCellDef="let element"> {{element.scheduleName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="report_name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.report-schedule.report-name' | translate }}</th>
+              <td mat-cell *matCellDef="let element"> {{getTenBaoCao(element.reportName).value}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="lap_lai">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.report-schedule.repeat' | translate }}</th>
+              <td mat-cell *matCellDef="let element"> {{convertCronToRepeatName(element.cron)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ngay_gio">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.report-schedule.date-time-send-report' | translate }}</th>
+              <td mat-cell *matCellDef="let element"> {{convertCronToDate(element.cron)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="active">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.report-schedule.active' | translate }}</th>
+              <td mat-cell *matCellDef="let element">
+                <mat-icon class="material-icons mat-icon">
+                  {{element.active ? 'check_box' : 'check_box_outline_blank'}}
+                </mat-icon>
+              </td>
+            </ng-container>
+
+             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </table>
+          <span [fxShow]="(dataSource.data === null || dataSource.data.length === 0) && !(isLoading$ | async)"
+                fxLayoutAlign="center center"
+                class="no-data-found">Không tìm thấy báo cáo</span>
+          <span [fxShow]="(isLoading$ | async)"
+                fxLayoutAlign="center center"
+                class="no-data-found">{{ 'common.loading' | translate }}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-paginator class="footer-format1 footer-format2 footer-format3" [length]="tolalElements" [pageSizeOptions]="pageSizeOptions" [disabled]="(isLoading$ | async)"
+                       [pageSize]="defaultPageSize" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

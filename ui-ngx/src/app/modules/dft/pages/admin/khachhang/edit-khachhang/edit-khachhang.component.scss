@@ -1,0 +1,46 @@
+:host ::ng-deep .mat-padding {
+  padding: 0;
+}
+
+.close-button {
+  float: right;
+  top: -24px;
+  right: -24px;
+}
+
+::ng-deep .icon-outside .close-button {
+  float: right;
+  top: -52px;
+  right: -52px;
+}
+
+::ng-deep .icon-outside .mat-dialog-container {
+  overflow: unset
+}
+
+.ng-dropzone-custom {
+  height: 60px;
+  // width: 70px;
+}
+
+.file-name-wrap {
+  overflow: hidden;
+  width: 100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.my-dialog-content {
+  height: 620px;
+  max-height: 73vh;
+  overflow: unset !important;
+}
+
+.clear-button {
+  float: right;
+}
+.b-dialog-title{
+  margin: 0px;
+  padding: 0px;
+  display: inline;
+}

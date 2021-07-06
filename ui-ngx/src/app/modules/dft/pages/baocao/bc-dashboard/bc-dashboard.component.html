@@ -1,0 +1,8 @@
+<div *ngIf="listUsageDashboard.length > 0">
+  <div *ngFor="let usageDashboard of listUsageDashboard" style="height: 93.5vh;">
+    <div style="display: block; position: relative; height: 100%;">
+      <tb-dashboard-page [embedded]="true" [dashboard]="usageDashboard"></tb-dashboard-page>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+</div>

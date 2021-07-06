@@ -1,0 +1,90 @@
+@import "src/scss/constants.scss";
+
+.b-dialog-header {
+  margin: 0;
+  padding: 0;
+}
+
+.b-dialog-title {
+  margin: 0px;
+  padding: 0px;
+  display: inline;
+}
+
+.close-button {
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+mat-tab-group {
+  width: 100%;
+  height: 100%;
+}
+
+.b-margin-top {
+  margin-top: 20px;
+}
+
+.b-display-block {
+  display: block;
+}
+
+.b-textarea {
+  min-height: 100px;
+}
+
+.my-dialog-content {
+  width: 70vw;
+  //min-height: 75vh;
+}
+
+:host {
+  width: 100%;
+  height: 100%;
+
+  .tb-entity-table {
+    .tb-entity-table-content {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+
+      .mat-toolbar-tools {
+        min-height: auto;
+      }
+
+      .title-container {
+        overflow: hidden;
+      }
+
+      .tb-entity-table-title {
+        padding-right: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .table-container {
+        overflow: auto;
+      }
+
+      .tb-entity-table-info {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  @media #{$mat-xs} {
+    .mat-toolbar {
+      height: auto;
+      min-height: 100px;
+
+      .tb-entity-table-title {
+        padding-bottom: 5px;
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,190 @@
+<mat-toolbar class="mat-table-toolbar header-background" style="border-radius: 0px !important;">
+  <div class="mat-toolbar-tools">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+         class="title-container">
+         <span class="tb-entity-table-title">{{ 'dft.alarm-history.list' | translate }}</span>
+      <tb-anchor #entityTableHeader></tb-anchor>
+    </div>
+    <span fxFlex></span>
+  </div>
+</mat-toolbar>
+<div style="margin-top: 67px !important;" class="tb-entity-table tb-absolute-fill">
+  <div fxLayout="column" class="tb-entity-table-content">
+    <!-- <mat-toolbar class="mat-table-toolbar custom-mat-toolbar"> -->
+    <!-- <div class="mat-toolbar-tools"> -->
+    <form (ngSubmit)="onSubmitForm()" [formGroup]="formTimeQuery">
+      <div class="row">
+        <label class="t-k">Tìm kiếm</label>
+        <mat-toolbar class="mat-table-toolbar">
+          <div class="mat-toolbar-tools">
+            <div class="col-md-5 text-position" style="padding: 0px !important;">
+              <mat-form-field fxFlex class="mat-block">
+                <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+                <mat-label>&nbsp;</mat-label>
+                <input #searchInput (keyup)="onSearch()" matInput
+                       placeholder="{{ 'dft.alarm-history.search' | translate }}" />
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-toolbar>
+      </div>
+      <div class="row">
+        <div class="col-md-5" style="padding: 9px !important">
+          <span class="text-tim-kiem" translate="dft.dlcb.startTime" style="padding-top: 20px"></span>
+          <mat-form-field class="mat-block datetime-input">
+            <mat-datepicker-toggle class="size-icon" [for]="startDatetimePicker" matSuffix>
+              <mat-icon matDatepickerToggleIcon>history</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datetimepicker #startDatetimePicker type="datetime" openOnFocus="false">
+            </mat-datetimepicker>
+            <input matInput [matDatetimepicker]="startDatetimePicker" autocomplete="false" [max]="maxDate"
+              [min]="minDate" formControlName="startRangeTime">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-5" style="padding: 9px !important">
+          <span class="text-tim-kiem" translate="dft.dlcb.endTime" style="padding-top: 20px"></span>
+          <mat-form-field class="mat-block datetime-input">
+            <input matInput [matDatetimepicker]="endDatetimePicker" autocomplete="false" [max]="maxDate" [min]="minDate"
+              formControlName="endRangeTime">
+            <mat-datepicker-toggle class="size-icon" [for]="endDatetimePicker" matSuffix>
+              <mat-icon matDatepickerToggleIcon>update</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datetimepicker #endDatetimePicker type="datetime" openOnFocus="false">
+            </mat-datetimepicker>
+            <mat-error *ngIf="formTimeQuery.get('endRangeTime').hasError('timeRangeInvalid')">
+              {{ 'dft.dlcb.validate.timeRangeInvalid' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div style="text-align: center !important; padding-top: 30px !important;">
+          <button mat-icon-button color="primary" type="submit"
+                  [disabled]="(isLoading$ | async) || formTimeQuery?.invalid">
+            <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+            <!-- <mat-icon *ngIf="(isLoading$ | async)" class="icon-rotate">loop</mat-icon> -->
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" style="padding: 0px 0px 10px 9px !important;">
+          <button mat-raised-button color="primary" class="btn-luu"
+                  style="color: #3D85CC; height: 48px; font-size: 16px; font-weight: 600 !important;" type="button"
+                  [disabled]="(isLoading$ | async) || selection.isEmpty()"
+                  matTooltip="{{ 'dft.alarm-history.clear' | translate }}" matTooltipPosition="above"
+                  (click)="onClearAllAlarm()">
+            <mat-icon>check</mat-icon>
+            {{ 'dft.alarm-history.clear' | translate }}
+          </button>
+        </div>
+      </div>
+
+    </form>
+    <!-- </div> -->
+    <!-- </mat-toolbar> -->
+    <div fxFlex class="table-container min-heigth-tb">
+      <table mat-table class="alarm-table" [dataSource]="dataSource" matSort #sort="matSort"
+        matSortActive="timeSnapshot" matSortDirection="desc" matSortDisableClear multiTemplateDataRows>
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let data" [attr.rowspan]="data.span" [style.display]="data.display ? '' : 'none'">
+            <mat-checkbox *ngIf="!data.clear && data.display" (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(data) : null" [checked]="selection.isSelected(data)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>{{ 'dft.alarm-history.field.actions' | translate }}</th>
+          <td mat-cell *matCellDef="let data" [attr.rowspan]="data.span" [style.display]="data.display ? '' : 'none'">
+            <button class="rotate-90" mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="onClearAlarm(data.id)" [disabled]="data.clear">
+                <span>{{ 'dft.alarm-history.clear' | translate }}</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="timeSnapshot">
+          <th mat-header-cell *matHeaderCellDef class="w-100" mat-sort-header>{{ 'dft.alarm-history.field.thoiGian' |
+            translate }}</th>
+          <td mat-cell *matCellDef="let data;" [attr.rowspan]="data.span" [style.display]="data.display ? '' : 'none'">
+            {{ data.thoiGian | date:'dd/MM/yyyy HH:mm'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tenCanhBao">
+          <th mat-header-cell *matHeaderCellDef>{{ 'dft.alarm-history.field.tenCanhBao' | translate }}</th>
+          <td mat-cell *matCellDef="let data;" [attr.rowspan]="data.span" [style.display]="data.display ? '' : 'none'">
+            {{ data.tenCanhBao }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tenGateway">
+          <th mat-header-cell *matHeaderCellDef>{{ 'dft.alarm-history.field.tenGateway' | translate }}</th>
+          <td mat-cell *matCellDef="let data;" [ngClass]="data.alarmGateway ? 'alarm-color' : 'none'">
+            {{ data.gatewayName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Temperature">
+          <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.alarm-history.field.Temperature' |
+            translate }}</th>
+          <td mat-cell *matCellDef="let data"
+            [ngClass]="(data.alarmGateway && checkKeyAlarm(data.alarmKeys, telemetryKey.TEMPERATURE)) ? 'alarm-color' : 'none'">
+            {{
+            data.data?.Temperature }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pH">
+          <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.alarm-history.field.pH' | translate }}
+          </th>
+          <td mat-cell *matCellDef="let data"
+            [ngClass]="(data.alarmGateway && checkKeyAlarm(data.alarmKeys, telemetryKey.PH)) ? 'alarm-color' : 'none'">
+            {{ data.data?.pH
+            }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Salinity">
+          <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.alarm-history.field.Salinity' | translate
+            }}</th>
+          <td mat-cell *matCellDef="let data"
+            [ngClass]="(data.alarmGateway && checkKeyAlarm(data.alarmKeys, telemetryKey.SALINITY)) ? 'alarm-color' : 'none'">
+            {{
+            data.data?.Salinity }} </td>
+        </ng-container>
+        <ng-container matColumnDef="DO">
+          <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.alarm-history.field.DO' | translate }}
+          </th>
+          <td mat-cell *matCellDef="let data"
+            [ngClass]="(data.alarmGateway && checkKeyAlarm(data.alarmKeys, telemetryKey.DO)) ? 'alarm-color' : 'none'">
+            {{ data.data?.DO
+            }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="clear">
+          <th mat-header-cell *matHeaderCellDef class="w-100">{{ 'dft.alarm-history.field.clear' |
+            translate }}</th>
+          <td mat-cell *matCellDef="let data;" [attr.rowspan]="data.span" [style.display]="data.display ? '' : 'none'"
+            [ngClass]="!data.clear ? 'alarm-color' : 'clear-color'">
+            {{ data.clear ? ('dft.alarm-history.clear' | translate) : 'dft.alarm-history.not-clear' | translate}} </td>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns ; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </table>
+      <span [fxShow]="(dataSource.data === null || dataSource.data.length === 0) && !(isLoading$ | async)"
+        fxLayoutAlign="center center" class="no-data-found">Không có dữ liệu</span>
+      <span [fxShow]="(isLoading$ | async)" fxLayoutAlign="center center" class="no-data-found">{{ 'common.loading'
+        | translate }}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-paginator class="footer-format1 footer-format2 footer-format3" [length]="tolalElements"
+      [pageSizeOptions]="pageSizeOptions" [disabled]="(isLoading$ | async)" [pageSize]="defaultPageSize"
+      showFirstLastButtons></mat-paginator>
+  </div>
+</div>

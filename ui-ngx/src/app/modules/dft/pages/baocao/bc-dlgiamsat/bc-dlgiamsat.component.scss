@@ -1,0 +1,61 @@
+@import "../../../../../../scss/constants";
+
+:host {
+  width: 100%;
+  height: 100%;
+  .tb-entity-table {
+    .tb-entity-table-content {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+
+      .mat-toolbar-tools {
+        min-height: auto;
+      }
+
+      .title-container {
+        overflow: hidden;
+      }
+
+      .tb-entity-table-title {
+        padding-right: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .table-container {
+        margin-top: 10px;
+        overflow: auto;
+      }
+
+      //.tb-entity-table-info {
+      //  white-space: nowrap;
+      //  overflow: hidden;
+      //  text-overflow: ellipsis;
+      //}
+    }
+  }
+
+  @media #{$mat-xs} {
+    .mat-toolbar {
+      height: auto;
+      min-height: 100px;
+
+      .tb-entity-table-title {
+        padding-bottom: 5px;
+        width: 100%;
+      }
+    }
+  }
+}
+.b-chart-container {
+  box-shadow: 0px 0px 8px rgba(50, 50, 71, 0.08), 0px 8px 16px rgba(50, 50, 71, 0.06);
+  border-radius: 20px;
+  transition: 0.3s;
+  padding: 10px;
+}
+.b-container {
+  overflow: auto;
+}
+

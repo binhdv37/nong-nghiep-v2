@@ -1,0 +1,66 @@
+.b-dialog{
+  min-width: 500px;
+  max-width: 500px;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+td {
+  padding-right: 8px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}
+
+.b-dialog-header{
+  margin: 0;
+  padding: 0;
+}
+
+.b-dialog-title{
+  margin: 0px;
+  padding: 0px;
+  display: inline;
+}
+
+.close-button{
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+
+//binhdv
+.b-margin-top{
+  margin-top: 25px;
+}
+
+.b-w-50{
+  width: 50%;
+}
+
+.b-d-block{
+  display: block;
+}
+
+.b-margin{
+  margin: 15px 0;
+}

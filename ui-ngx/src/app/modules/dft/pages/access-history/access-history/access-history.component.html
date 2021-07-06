@@ -1,0 +1,155 @@
+<mat-drawer-container hasBackdrop="false" class="tb-absolute-fill">
+  <mat-drawer-content>
+    <div class="mat-padding tb-entity-table tb-absolute-fill">
+      <div fxLayout="column" class="mat-elevation-z1 tb-entity-table-content">
+        <!-- top tool bar -->
+        <mat-toolbar class="mat-table-toolbar header-background">
+          <div class="mat-toolbar-tools">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+              class="title-container">
+              <span class="tb-entity-table-title">Lịch sử truy cập</span>
+              <tb-anchor #entityTableHeader></tb-anchor>
+            </div>
+            <span fxFlex></span>
+            <div>
+              <button mat-icon-button color="primary" [disabled]="isLoading$ | async" matTooltip="Xuất excel"
+                matTooltipPosition="above" (click)="exportExcel()">
+                <dft-label-icon [name]="'DownloadSimple'"></dft-label-icon>
+              </button>
+            </div>
+          </div>
+        </mat-toolbar>
+        <!-- / top tool bar -->
+        <label class="t-k">Tìm kiếm</label>
+        <!-- search bar -->
+        <mat-toolbar class="mat-table-toolbar">
+          <div class="mat-toolbar-tools">
+            <div class="col-md-6 text-position" style="padding: 0px !important;">
+              <mat-form-field fxFlex class="mat-block">
+                <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+                <mat-label>&nbsp;</mat-label>
+                <input #searchInput matInput (keyup)="onSearch()"
+                  placeholder="Nhập tên Đối tượng, Tài khoản tác động" />
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-toolbar>
+        <!-- / search bar -->
+        <!-- pick time bar -->
+        <form (ngSubmit)="onSubmitForm()" [formGroup]="formTimeQuery" id="myForm">
+          <div class="row">
+            <div class="col-md-3" style="padding: 0px 8px 0px 24px !important;">
+              <span class="text-tim-kiem">Loại đối tượng</span>
+              <mat-form-field style="width: 100% !important;" class="margin-cmb-tk">
+                <mat-select (selectionChange)="onChangeEntityType($event)" disableRipple>
+                  <mat-option>Chọn</mat-option>
+                  <mat-option *ngFor="let entityType of listEntityType" [value]="entityType">
+                    {{convertEntityType(entityType)}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" style="padding: 0px 8px !important;">
+              <span class="text-tim-kiem" translate="dft.dlcb.startTime"></span>
+              <mat-form-field class="mat-block datetime-input">
+                <mat-datepicker-toggle class="size-icon" [for]="startDatetimePicker" matSuffix>
+                  <mat-icon matDatepickerToggleIcon>history</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datetimepicker #startDatetimePicker type="datetime" openOnFocus="false">
+                </mat-datetimepicker>
+                <input matInput [matDatetimepicker]="startDatetimePicker" autocomplete="false" [max]="maxDate"
+                  [min]="minDate" formControlName="startRangeTime">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" style="padding: 0px 8px !important;">
+              <span class="text-tim-kiem" translate="dft.dlcb.endTime"></span>
+              <mat-form-field class="mat-block datetime-input">
+                <mat-datepicker-toggle class="size-icon" [for]="endDatetimePicker" matSuffix>
+                  <mat-icon matDatepickerToggleIcon>update</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datetimepicker #endDatetimePicker type="datetime" openOnFocus="false">
+                </mat-datetimepicker>
+                <input matInput [matDatetimepicker]="endDatetimePicker" autocomplete="false" [max]="maxDate"
+                  [min]="minDate" formControlName="endRangeTime">
+                <mat-error *ngIf="formTimeQuery.get('endRangeTime').hasError('timeRangeInvalid')">
+                  {{ 'dft.dlcb.validate.timeRangeInvalid' | translate }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-1" style="text-align: center !important; padding-top: 30px !important;">
+              <button mat-icon-button color="primary" form="myForm"
+                [disabled]="(isLoading$ | async) || formTimeQuery?.invalid">
+                <mat-icon *ngIf="(isLoading$ | async)" class="icon-rotate">loop</mat-icon>
+                <dft-label-icon *ngIf="!(isLoading$ | async)" [name]="'MagnifyingGlass'"></dft-label-icon>
+              </button>
+            </div>
+          </div>
+        </form>
+        <div fxFlex class="table-container">
+          <table mat-table [dataSource]="dataSource" matSort #sort="matSort" matSortActive="createdTime"
+            matSortDirection="desc" matSortDisableClear>
+
+            <ng-container matColumnDef="createdTime">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Thời gian</th>
+              <td mat-cell *matCellDef="let element"> {{element.createdTime | date:'dd/MM/yyy hh:mm:ss'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="entityType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Loại đối tượng</th>
+              <td mat-cell *matCellDef="let element"> {{convertEntityType(element.entityId.entityType)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="entityName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Đối tượng</th>
+              <td mat-cell *matCellDef="let element"> {{element.entityName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="userName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Tài khoản tác động</th>
+              <td mat-cell *matCellDef="let element">{{element.userName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actionType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Hành động</th>
+              <td mat-cell *matCellDef="let element">{{convertActionType(element.actionType)}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actionStatus">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái</th>
+              <td mat-cell *matCellDef="let element">{{convertActionStatus(element.actionStatus)}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="details">
+              <th mat-header-cell *matHeaderCellDef>Chi tiết</th>
+              <td mat-cell *matCellDef="let element">
+                <button (click)="openDialogDetails(element.id.id)" mat-icon-button
+                  aria-label="Example icon-button with a menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+          </table>
+          <span [fxShow]="(dataSource.data === null || dataSource.data.length === 0) && !(isLoading$ | async)"
+            fxLayoutAlign="center center" class="no-data-found">{{'dft.users.noLogEntities' | translate}}</span>
+          <span [fxShow]="(isLoading$ | async)" fxLayoutAlign="center center" class="no-data-found">{{ 'common.loading'
+            | translate }}</span>
+          <mat-progress-bar mode="indeterminate" *ngIf="!isLoading$"></mat-progress-bar>
+        </div>
+        <!-- / table container section -->
+        <mat-divider></mat-divider>
+
+        <!-- pagination -->
+        <mat-paginator class="footer-format1 footer-format2 footer-format3" [length]="totalElements"
+          [pageSizeOptions]="pageSizeOptions" [disabled]="!isLoading$" [pageSize]="defaultPageSize"
+          showFirstLastButtons>
+        </mat-paginator>
+        <!-- / pagination -->
+
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

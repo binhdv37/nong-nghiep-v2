@@ -1,0 +1,29 @@
+<div fxLayout="column" style="width: 100%; height: 100%">
+
+  <div fxFlex="15" fxLayout="row" fxLayoutAlign="space-around center">
+    <span style="font-size: 20px">{{chartTitle}}</span>
+  </div>
+
+  <div fxFlex="85">
+    <ngx-charts-bar-vertical
+
+      [scheme]="colorScheme"
+
+      [results]="data"
+
+      [gradient]="gradient"
+
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+
+      [legend]="showLegend"
+
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      (select)="onSelect($event)">
+    </ngx-charts-bar-vertical>
+  </div>
+
+</div>

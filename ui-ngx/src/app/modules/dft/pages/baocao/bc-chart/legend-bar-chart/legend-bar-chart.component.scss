@@ -1,0 +1,11 @@
+::ng-deep b-pie-chart {
+  .chart-legend .legend-wrap {
+    display: flex;
+    justify-content: center;
+
+    .legend-labels {
+      white-space: pre-wrap;
+      width: auto !important;
+    }
+  }
+}

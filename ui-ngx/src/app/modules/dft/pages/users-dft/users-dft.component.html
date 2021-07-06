@@ -1,0 +1,116 @@
+<mat-drawer-container hasBackdrop="false" class="tb-absolute-fill">
+  <mat-drawer-content>
+    <div class="mat-padding tb-entity-table tb-absolute-fill">
+      <div fxLayout="column" class="mat-elevation-z1 tb-entity-table-content">
+        <mat-toolbar class="mat-table-toolbar header-background">
+          <div class="mat-toolbar-tools">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+                 class="title-container">
+              <span class="tb-entity-table-title">{{ 'dft.users.manage' | translate }}</span>
+              <tb-anchor #entityTableHeader></tb-anchor>
+            </div>
+            <span fxFlex></span>
+            <div>
+              <!-- <button type="button"
+                      mat-raised-button
+                      color="primary"
+                      [disabled]="isLoading$ | async" matTooltip="{{ 'dft.users.add' | translate }}"
+                      matTooltipPosition="above"
+                      (click)="openCreateDialog()">
+                Thêm mới
+              </button> -->
+              <button mat-icon-button
+              color="primary"
+              [disabled]="isLoading$ | async" matTooltip="{{ 'dft.users.add' | translate }}"
+              matTooltipPosition="above"
+              (click)="openCreateDialog()">
+              <mat-icon class="hover-icon">add</mat-icon>
+             </button>
+            </div>
+          </div>
+        </mat-toolbar>
+        <label class="t-k">Tìm kiếm</label>
+        <mat-toolbar class="mat-table-toolbar">
+          <div class="mat-toolbar-tools">
+            <div class="col-md-6 text-position" style="padding: 0px !important;">
+            <mat-form-field fxFlex class="mat-block">
+             <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+              <mat-label>&nbsp;</mat-label>
+              <input #searchInput matInput (keyup)="onSearch()" placeholder="{{ 'dft.users.search-placeholder' | translate}}"/>
+            </mat-form-field>
+          </div>
+          </div>
+        </mat-toolbar>
+        <div fxFlex class="table-container " style="margin: 10px 0px 0px 0px !important;">
+          <table mat-table [dataSource]="dataSource" matSort #sort="matSort" matSortActive="createdTime"
+                 matSortDirection="desc" matSortDisableClear>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="openDetailsDialog(element.id)">
+                    <span>{{ 'dft.users.details-button' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="openEditDialog(element.id, 0)">
+                    <span>{{ 'dft.users.update-button' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="openEditDialog(element.id, 1)">
+                    <span>{{ 'dft.users.update-permission' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteEntity(element)">
+                    <span>{{ 'dft.users.delete-button' | translate }}</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.users.firstName' | translate }}</th>
+              <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.users.email' | translate }}</th>
+              <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'dft.users.lastName' | translate }}</th>
+              <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="uc.enabled">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.users.active' | translate }}</th>
+              <td mat-cell *matCellDef="let element">
+                <mat-icon class="material-icons mat-icon">
+                  {{element.enabled ? 'check_box' : 'check_box_outline_blank'}}
+                </mat-icon>
+              </td>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </table>
+          <span [fxShow]="(dataSource.data === null || dataSource.data.length === 0) && !(isLoading$ | async)"
+                fxLayoutAlign="center center"
+                class="no-data-found">{{ 'dft.users.noEntities' | translate }}</span>
+          <span [fxShow]="(isLoading$ | async)"
+                fxLayoutAlign="center center"
+                class="no-data-found">{{ 'common.loading' | translate }}</span>
+          <mat-progress-bar mode="indeterminate" *ngIf="!isLoading$"></mat-progress-bar>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-paginator class="footer-format1 footer-format2 footer-format3" [length]="tolalElements"
+                       [pageSizeOptions]="pageSizeOptions"
+                       [disabled]="!isLoading$"
+                       [pageSize]="defaultPageSize"
+                       showFirstLastButtons>
+
+        </mat-paginator>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,27 @@
+<form class="popup-c" (ngSubmit)="onSubmit()">
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title">Thêm mới luật cảnh báo</h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">close</mat-icon>
+  </div>
+  <div class="fixed-modal-height">
+    <mat-tab-group  class="m-g" style="min-width: 600px !important;" mat-align-tabs="start">
+
+      <mat-tab *ngFor="let key of allKey" label="{{keyToLabel(key)}}">
+        <tb-create-alarm-tab
+          [key]="key"
+          (formDataChange)="updateOutputFormData($event)"
+        >
+        </tb-create-alarm-tab>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="end" class="binhdv-dialog-action">
+    <button class="btn-huy" mat-button mat-dialog-close> <mat-icon >clear</mat-icon> Hủy</button>
+    <button  class="btn-luu" mat-button cdkFocusInitial type="submit"
+             [disabled]="(isLoading$ | async) || !outputFormDataValid()">
+      <dft-label-icon class="icon-center" [name]="'FloppyDisk'">
+      </dft-label-icon>Lưu</button>
+  </mat-dialog-actions>
+</form>

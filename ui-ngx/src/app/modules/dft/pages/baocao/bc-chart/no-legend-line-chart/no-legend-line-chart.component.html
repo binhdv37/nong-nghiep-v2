@@ -1,0 +1,34 @@
+<div style="width: 100%; height: 100%" fxLayout="column">
+
+  <div fxFlex="15" fxLayout="column" fxLayoutAlign="space-around center">
+    <span style="font-size: 20px">{{chartTitle}}</span>
+  </div>
+
+  <div fxFlex="85">
+    <ngx-charts-line-chart
+
+      [results]="data"
+
+      [scheme]="colorScheme"
+
+      [legend]="legend"
+
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+
+      [xAxis]="xAxis"
+      [yAxis]="yAxis"
+
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+
+      [timeline]="timeline"
+
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)"
+    >
+    </ngx-charts-line-chart>
+  </div>
+
+</div>

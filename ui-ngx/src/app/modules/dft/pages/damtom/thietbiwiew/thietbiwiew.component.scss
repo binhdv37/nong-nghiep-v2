@@ -1,0 +1,24 @@
+.example-full-width {
+  width: 100%;
+}
+
+.close-button{
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+.b-dialog-title{
+  margin: 0px;
+  padding: 0px;
+  display: inline;
+}
+.b-dialog-header{
+  margin: 0;
+  padding: 0;
+}
+
+.b-dialog-content{
+  width: 50vw;
+  height: 60vh;
+  overflow: unset !important;
+}

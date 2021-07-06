@@ -1,0 +1,224 @@
+<form class="popup-c" (ngSubmit)="onSubmitForm()" [formGroup]="entityForm" (keydown.enter)="$event.preventDefault()">
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title"> {{ getTitleAndView() }} </h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">
+      close
+    </mat-icon>
+  </div>
+  <mat-dialog-content class="b-dialog-content b-margin-top">
+    <fieldset style="margin-top: 16px !important;" [disabled]="(isLoading$ | async)">
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td colspan="2">
+            <mat-form-field class="margin-t-16">
+              <mat-label>Nhập tên hẹn giờ điều khiển</mat-label>
+              <input matInput #inputName formControlName="name" required/>
+              <mat-hint align="end">{{inputName.value?.length || 0}}/255</mat-hint>
+              <mat-error *ngIf="entityForm.get('name').hasError('required')">
+                {{ 'dft.admin.khachhang.validate.required' | translate }}
+              </mat-error>
+              <mat-error *ngIf="entityForm.get('name').hasError('maxlength')">
+                {{ 'dft.admin.khachhang.validate.maxLength' | translate: {number: '255'} }}
+              </mat-error>
+              <mat-error *ngIf="entityForm.get('name').hasError('uniqueRpcScheduleName')">
+                {{ 'dft.group-rpc.unique-name' | translate }}
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <div fxLayout="column" style="padding-top: 15px;">
+        <mat-form-field class="mat-block" appearance="fill">
+          <mat-label>Chọn nhóm điều khiển hay thiết bị</mat-label>
+          <mat-select formControlName="isSelectRpc" required>
+            <mat-option [value]="true">
+              Thiết bị
+            </mat-option>
+            <mat-option [value]="false">
+              Nhóm điều khiển
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <section *ngIf="!entityForm.get('isSelectRpc').value">
+        <div fxLayout="column" style="padding-top: 15px;">
+          <mat-form-field appearance="fill">
+            <mat-label>Nhóm điều khiển *</mat-label>
+            <mat-select formControlName="groupRpcId">
+              <mat-option *ngFor="let groupRpc of listGroupRpc" [value]="groupRpc.groupRpcId">
+                {{groupRpc.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </section>
+      <section *ngIf="entityForm.get('isSelectRpc').value">
+        <div fxLayout="column" style="padding-top: 15px;">
+          <mat-form-field appearance="fill">
+            <mat-label>Thiết bị *</mat-label>
+            <mat-select formControlName="deviceId">
+              <mat-option *ngFor="let deviceRpc of listDeviceRpc" [value]="deviceRpc.deviceId">
+                {{deviceRpc.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <fieldset [disabled]="(isLoading$ | async)" style="margin: 24px 0px 16px 0px !important;">
+          <mat-label>{{ 'dft.device-rpc.valueControl' | translate }}: &nbsp;</mat-label>
+          <mat-slide-toggle
+            formControlName="valueControl">{{entityForm.get("valueControl").value ? ('dft.device-rpc.on' | translate) : ('dft.device-rpc.off' | translate)}}</mat-slide-toggle>
+        </fieldset>
+        <div class="mat-block" style="padding-bottom: 15px;">
+          <mat-checkbox formControlName="callbackOption" (change)="onChangeCallbackOption($event)">Thực hiện trong
+          </mat-checkbox>
+        </div>
+        <br>
+        <div fxLayout.gt-xs="row" fxLayoutGap.gt-sm="20px" style="padding-top: 15px;">
+          <mat-form-field appearance="fill">
+            <mat-label>Giờ</mat-label>
+            <mat-select formControlName="hourCallback">
+              <mat-option *ngFor="let hour of [].constructor(24) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Phút</mat-label>
+            <mat-select formControlName="minuteCallback">
+              <mat-option *ngFor="let hour of [].constructor(60) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Giây</mat-label>
+            <mat-select formControlName="secondsCallback">
+              <mat-option *ngFor="let hour of [].constructor(60) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="mat-block" style="padding-bottom: 15px;">
+          <mat-checkbox formControlName="loopOption" (change)="onChangeLoopOption($event)">Lặp lại</mat-checkbox>
+        </div>
+        <mat-label>Lặp lại sau</mat-label>
+        <br>
+        <div fxLayout.gt-xs="row" fxLayoutGap.gt-sm="20px" style="padding-top: 15px;">
+          <mat-form-field appearance="fill">
+            <mat-label>Giờ</mat-label>
+            <mat-select formControlName="hourLoop">
+              <mat-option *ngFor="let number of [].constructor(24) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Phút</mat-label>
+            <mat-select formControlName="minuteLoop">
+              <mat-option *ngFor="let number of [].constructor(60) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Giây</mat-label>
+            <mat-select formControlName="secondsLoop">
+              <mat-option *ngFor="let number of [].constructor(60) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" style="padding-top: 15px;">
+          <mat-form-field class="mat-block" appearance="fill">
+            <mat-label>Số lần lặp lại</mat-label>
+            <mat-select formControlName="loopCount">
+              <mat-option *ngFor="let number of [].constructor(20) let i = index" [value]="i+1">
+                {{i + 1}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </section>
+      <mat-label>Vào lúc</mat-label>
+      <br>
+      <div fxLayout.gt-xs="row" fxLayoutGap.gt-sm="20px" style="padding-top: 15px;">
+        <mat-form-field appearance="fill">
+          <mat-label>Giờ</mat-label>
+          <mat-select formControlName="cronHours">
+            <mat-option *ngFor="let hour of [].constructor(24) let i = index" [value]="i">
+              {{i}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Phút</mat-label>
+          <mat-select formControlName="cronMinutes">
+            <mat-option *ngFor="let hour of [].constructor(60) let i = index" [value]="i">
+              {{i}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Giây</mat-label>
+          <mat-select formControlName="cronSeconds">
+            <mat-option *ngFor="let hour of [].constructor(60) let i = index" [value]="i">
+              {{i}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-xs-2 col-md-2 col-sm-12">
+          Các ngày:
+        </div>
+        <div class="col-xs-10 col-md-10 col-sm-12">
+          <div class="row">
+            <section>
+              <mat-checkbox [disabled]="isDetailsEntity" formControlName="cronT2">Thứ 2
+              </mat-checkbox>&nbsp;&nbsp;
+              <mat-checkbox [disabled]="isDetailsEntity" formControlName="cronT3"
+                            (click)="onClickDayOfWeekSchedule('T3')">Thứ 3
+              </mat-checkbox>&nbsp;&nbsp;
+              <mat-checkbox [disabled]="isDetailsEntity" formControlName="cronT4"
+                            (click)="onClickDayOfWeekSchedule('T4')">Thứ 4
+              </mat-checkbox>&nbsp;&nbsp;
+              <mat-checkbox [disabled]="isDetailsEntity" formControlName="cronT5"
+                            (click)="onClickDayOfWeekSchedule('T5')">Thứ 5
+              </mat-checkbox>&nbsp;&nbsp;
+              <mat-checkbox [disabled]="isDetailsEntity" formControlName="cronT6"
+                            (click)="onClickDayOfWeekSchedule('T6')">Thứ 6
+              </mat-checkbox>&nbsp;&nbsp;
+              <mat-checkbox [disabled]="isDetailsEntity" formControlName="cronT7"
+                            (click)="onClickDayOfWeekSchedule('T7')">Thứ 7
+              </mat-checkbox>&nbsp;&nbsp;
+              <mat-checkbox [disabled]="isDetailsEntity" formControlName="cronCN"
+                            (click)="onClickDayOfWeekSchedule('CN')">Chủ nhật
+              </mat-checkbox>
+            </section>
+          </div>
+        </div>
+      </div>
+      <mat-slide-toggle  style="margin-bottom: 16px !important;" formControlName="active" checked="true">Kích hoạt</mat-slide-toggle>
+    </fieldset>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions fxLayoutAlign="end center">
+    <button class="btn-huy" [fxShow]="isDetailsEntity" mat-button color="primary" type="button" cdkFocusInitial
+            [disabled]="(isLoading$ | async)" [mat-dialog-close]="true">
+      <mat-icon>clear</mat-icon>
+      {{ 'dft.admin.khachhang.close-button' | translate }}
+    </button>
+    <button class="btn-huy" [fxShow]="isAddEntity || isEditEntity" mat-button color="primary" type="button"
+            cdkFocusInitial [disabled]="(isLoading$ | async)" [mat-dialog-close]="true">
+      <mat-icon>clear</mat-icon>
+      {{ 'dft.admin.khachhang.cancel-button' | translate }}
+    </button>
+    <button class="btn-luu" [fxShow]="isAddEntity || isEditEntity" mat-raised-button color="primary" type="submit"
+            [disabled]="(isLoading$ | async) || entityForm?.invalid">
+      <dft-label-icon class="icon-center" [name]="'FloppyDisk'"></dft-label-icon>
+      {{ 'dft.admin.khachhang.submit-button' | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>

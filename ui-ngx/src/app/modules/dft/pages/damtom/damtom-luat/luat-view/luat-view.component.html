@@ -1,0 +1,97 @@
+<form class ="popup-c" [formGroup]="createForm">
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title">Xem chi tiết: {{tenCanhBao}}</h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">close</mat-icon>
+  </div>
+  <mat-dialog-content class="create-form">
+    <table style="margin-top: 16px !important;" class="example-full-width" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Tên luật cảnh báo</mat-label>
+            <input matInput formControlName="name" required/>
+          </mat-form-field>
+        </td>
+        <td style="padding: 0px 0px 0px 8px !important;">
+          <mat-form-field class="example-full-width">
+            <mat-label>Toán tử</mat-label>
+            <mat-select formControlName="operatorAndOr">
+              <mat-option *ngFor="let value of arrOperatorAndOr"
+                          [value]="value.id"> {{value.displayName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <div class="accordion" id="accordionExample" style="margin-bottom: 25px">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h2 class="mb-0">
+            <span class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+              Luật cảnh báo
+            </span>
+          </h2>
+        </div>
+
+        <div formArrayName="profile_Data" id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+            <table class="example-full-width" cellspacing="0">
+              <tr>
+                <th class="width-30" cellspacing="0">Dữ liệu cảm biến</th>
+                <th class="width-30" cellspacing="0">Toán tử</th>
+                <th class="width-30" cellspacing="0">Giá trị</th>
+                <th class="width-10" cellspacing="0"></th>
+              </tr>
+            </table>
+            <table *ngFor="let value of getDieuKienArray.controls let i = index" [formGroupName]="i" class="example-full-width" cellspacing="0">
+              <tr class="example-full-width" cellspacing="0">
+                <th class="width-30" cellspacing="0">
+                  <mat-select formControlName="key">
+                    <mat-option *ngFor="let value of telemitryArr"
+                                [value]="value.id"> {{value.displayName}}</mat-option>
+                  </mat-select>
+                </th>
+                <th class="width-30" cellspacing="0">
+                  <mat-select formControlName="operation">
+                    <mat-option *ngFor="let value of numberArr"
+                                [value]="value.id"> {{value.displayName}}</mat-option>
+                  </mat-select>
+                </th>
+                <th class="width-30" cellspacing="0">
+                  <!--                  <mat-label>Tên luật cảnh báo</mat-label>-->
+                  <input matInput formControlName="defaultValue" required/>
+                </th>
+                <th class="width-10" cellspacing="0">
+                  <button disabled type="button" mat-icon-button matTooltip="Xóa Dữ liệu cảm biến" matTooltipPosition="above">
+                    <mat-icon color="warn" style="cursor: pointer;" >delete</mat-icon>
+                  </button>
+                </th>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-label>Gửi thông báo cho tôi qua</mat-label>
+    <p></p>
+    <mat-slide-toggle formControlName="notification" checked="true" style="margin-right: 10px">Notification</mat-slide-toggle>
+    <mat-slide-toggle formControlName="sms" checked="true" style="margin-right: 10px">SMS</mat-slide-toggle>
+    <mat-slide-toggle formControlName="email" checked="true" style="margin-right: 10px">Email</mat-slide-toggle>
+
+    <mat-form-field class="example-full-width">
+      <b style="font-size: 15px">Khi có cảnh báo thực hiện tự động điều khiển</b>
+      <mat-select style="margin-top: 15px" formControlName="thucHienDieuKhien" floatlLabel="never">
+        <mat-option value="" selected>Chọn bộ điều khiển</mat-option>
+        <mat-option *ngFor="let rpc of listGroupRPC"
+                    [value]="rpc.groupRpcId"> {{rpc.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="end">
+    <button class="btn-huy" mat-button mat-dialog-close type="reset" (click)="backToIndex()"><mat-icon >clear</mat-icon>Đóng</button>
+  </mat-dialog-actions>
+
+</form>

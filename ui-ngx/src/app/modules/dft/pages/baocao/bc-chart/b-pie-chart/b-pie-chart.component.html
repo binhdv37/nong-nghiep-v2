@@ -1,0 +1,66 @@
+<div fxLayout="column" style="width: 100%; height: 100%">
+  <div fxFlex="15" fxLayout="column" fxLayoutAlign="space-around center">
+    <h4>{{ chartTitle }}</h4>
+  </div>
+
+  <div fxFlex="75" *ngIf="data.length > 0">
+    <ngx-charts-pie-chart
+
+      [scheme]="colorScheme"
+
+      [results]="data"
+
+      [gradient]="gradient"
+
+      [legend]="showLegend"
+
+      [activeEntries]="activeEntries"
+
+      [legendPosition]="legendPosition"
+      [legendTitle]="legendTitle"
+
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)"
+    >
+
+      <!-- custom tool tip-->
+      <ng-template #tooltipTemplate let-model="model">
+        <div style="font-size: 18px; padding: 5px">{{model.name}}</div>
+        <div style="font-size: 14px; padding: 5px;">{{getTooltip(model.value)}}</div>
+      </ng-template>
+
+
+    </ngx-charts-pie-chart>
+  </div>
+
+  <div fxFlex="10" fxLayout="column" *ngIf="data.length > 0" >
+    <ngx-charts-legend
+
+      fxFlex
+
+      class="chart-legend"
+
+      [title]=""
+
+      [data]="chartNames"
+
+      [colors]="colors"
+
+      horizontal="true"
+
+      (labelActivate)="legendLabelActivate($event)"
+      (labelDeactivate)="legendLabelDeactivate($event)">
+    </ngx-charts-legend>
+  </div>
+
+  <!-- no data -->
+  <div *ngIf="data.length == 0" fxFlex fxLayout="column" fxLayoutAlign="center center">
+    <span fxFlex="none">Không tìm thấy cảnh báo</span>
+  </div>
+
+</div>
+
+
+
+

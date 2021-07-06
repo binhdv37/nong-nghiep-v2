@@ -1,0 +1,113 @@
+    <div class="tb-entity-table tb-absolute-fill">
+      <div fxLayout="column" class="tb-entity-table-content">
+        <!-- <mat-toolbar class="mat-table-toolbar">
+          <div class="mat-toolbar-tools">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+              class="title-container">
+              <span class="tb-entity-table-title">{{'dft.dlcb.list' | translate}}</span>
+              <tb-anchor #entityTableHeader></tb-anchor>
+            </div>
+            <span fxFlex></span>
+          </div>
+        </mat-toolbar> -->
+        <form (ngSubmit)="onSubmitForm()" [formGroup]="formTimeQuery">
+          <div class="row">
+            <div class="col-md-5" style="padding: 16px 8px 0px 24px !important;">
+              <span class="text-tim-kiem" translate="dft.dlcb.startTime" style="padding-top: 20px"></span>
+              <mat-form-field style="width: 100% !important;" class="datetime-input">
+                <mat-datepicker-toggle class="size-icon" [for]="startDatetimePicker" matSuffix>
+                  <mat-icon matDatepickerToggleIcon>history</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datetimepicker #startDatetimePicker type="datetime" openOnFocus="false">
+                </mat-datetimepicker>
+                <input matInput [matDatetimepicker]="startDatetimePicker" autocomplete="false" [max]="maxDate"
+                [min]="minDate" formControlName="startRangeTime">
+              </mat-form-field>
+            </div>
+            <!-- <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> -->
+            <div class="col-md-5"style="padding: 16px 0px 0px 8px !important;">
+              <span class="text-tim-kiem" translate="dft.dlcb.endTime" style="padding-top: 20px"></span>
+              <mat-form-field style="width: 100% !important;" class="datetime-input">
+                <mat-datepicker-toggle class="size-icon" [for]="endDatetimePicker" matSuffix>
+                  <mat-icon matDatepickerToggleIcon>update</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datetimepicker #endDatetimePicker type="datetime" openOnFocus="false">
+                </mat-datetimepicker>
+                <input matInput [matDatetimepicker]="endDatetimePicker" autocomplete="false" [max]="maxDate"
+                [min]="minDate" formControlName="endRangeTime">
+                <mat-error *ngIf="formTimeQuery.get('endRangeTime').hasError('timeRangeInvalid')">
+                  {{ 'dft.dlcb.validate.timeRangeInvalid' | translate }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> -->
+            <div class="col-md-2" style="padding-top: 48px !important;">
+              <button mat-icon-button color="primary" type="submit" class="custom-border-buttom"
+              [disabled]="(isLoading$ | async) || formTimeQuery?.invalid">
+              <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+              <!-- <mat-icon *ngIf="(isLoading$ | async)" class="icon-rotate">loop</mat-icon> -->
+            </button>
+          </div>
+        </div>
+      </form>
+      <mat-toolbar  style="padding: 0px 0px 0px 24px !important; border-radius: 0px !important;" class="mat-table-toolbar custom-mat-toolbar header-background">
+        <div class="mat-toolbar-tools">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+          class="title-container">
+          <span class="tb-entity-table-title">Dữ liệu cảm biến</span>
+          </div>
+        </div>
+        </mat-toolbar>
+        <div fxFlex class="table-container">
+          <table *ngIf="dataSource.data.length > 0" mat-table class="dbcl-table" [dataSource]="dataSource"
+            multiTemplateDataRows>
+            <ng-container matColumnDef="khoangThoiGian">
+              <th mat-header-cell *matHeaderCellDef class="w-100"> {{ 'dft.dlcb.khoangThoiGian' | translate }} </th>
+              <td mat-cell *matCellDef="let data;" [attr.rowspan]="data.span"
+                [style.display]="data.display ? '' : 'none'">
+                {{ data.khoangThoiGian }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tenGateway">
+              <th mat-header-cell *matHeaderCellDef class="data-col-width"> {{ 'dft.dlcb.tenGateway' | translate }} </th>
+              <td mat-cell *matCellDef="let data"> {{ data.tenGateway }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Temperature">
+              <th mat-header-cell *matHeaderCellDef class="data-col-width"> {{ 'dft.dlcb.Temperature' | translate }}</th>
+              <td mat-cell *matCellDef="let data"> {{ data.data?.Temperature }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="pH">
+              <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.dlcb.pH' | translate }}</th>
+              <td mat-cell *matCellDef="let data"> {{ data.data?.pH }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Salinity">
+              <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.dlcb.Salinity' | translate }}</th>
+              <td mat-cell *matCellDef="let data"> {{ data.data?.Salinity }} </td>
+            </ng-container>
+
+<!--            <ng-container matColumnDef="ORP">-->
+<!--              <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.dlcb.ORP' | translate }}</th>-->
+<!--              <td mat-cell *matCellDef="let data"> {{ data.data?.ORP }} </td>-->
+<!--            </ng-container>-->
+
+            <ng-container matColumnDef="DO">
+              <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.dlcb.DO' | translate }}</th>
+              <td mat-cell *matCellDef="let data"> {{ data.data?.DO }} </td>
+            </ng-container>
+
+             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </table>
+          <span [fxShow]="(dataSource.data === null || dataSource.data.length === 0) && !(isLoading$ | async)"
+            fxLayoutAlign="center center" class="no-data-found">{{ 'dft.dlcb.noData' | translate }}</span>
+          <span [fxShow]="(isLoading$ | async)" fxLayoutAlign="center center" class="no-data-found">{{ 'common.loading'
+            | translate }}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-paginator class="footer-format1 footer-format2 footer-format3" [length]="tolalElements" [pageSizeOptions]="pageSizeOptions" [disabled]="(isLoading$ | async)"
+          [pageSize]="defaultPageSize" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>

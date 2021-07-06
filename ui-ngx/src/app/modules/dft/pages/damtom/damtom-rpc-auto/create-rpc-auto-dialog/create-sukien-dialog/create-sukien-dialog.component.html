@@ -1,0 +1,91 @@
+<form class="popup-c" (ngSubmit)="onSubmit()" [formGroup]="myForm">
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title">{{getDialogTitle()}}</h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">
+      close
+    </mat-icon>
+  </div>
+
+
+  <!-- content -->
+  <mat-dialog-content class="b-dialog fixed-modal-height" >
+
+    <!-- dl cam bien -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Dữ liệu cảm biến</mat-label>
+      <mat-select formControlName="duLieuCamBien" disableRipple>
+        <mat-option *ngFor="let item of getListTelemetry()" [value]="item.key">
+          {{item.display}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- kieu du lieu-->
+    <mat-form-field class="example-full-width">
+      <mat-label>Kiểu dữ liệu</mat-label>
+      <mat-select formControlName="kieuDuLieu" disableRipple>
+        <mat-option value="BAT_KY">
+          Cảm biến bất kỳ
+        </mat-option>
+        <mat-option value="CU_THE">
+          Cảm biến cụ thể
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- cam bien -->
+    <mat-form-field *ngIf="myForm.controls['kieuDuLieu'].value == 'CU_THE'" class="example-full-width">
+      <mat-label>Cảm biến</mat-label>
+      <mat-select formControlName="camBien" disableRipple>
+        <mat-option value="">
+          Chọn cảm biến
+        </mat-option>
+        <mat-option *ngFor="let cambien of getSensorDeviceByKey()" [value]="cambien.id">
+          {{cambien.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="b-margin-top">
+      <mat-radio-button checked="true">Thiết lập ngưỡng</mat-radio-button>
+    </div>
+
+    <!-- toan tu -->
+    <mat-form-field class="b-d-block b-w-50 b-margin-top">
+      <mat-label>Toán tử</mat-label>
+      <mat-select formControlName="toanTu" disableRipple>
+        <mat-option value="GREATER_OR_EQUAL">
+          >=
+        </mat-option>
+        <mat-option value="LESS_OR_EQUAL">
+          <=
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- gia tri-->
+    <mat-form-field class="b-d-block b-w-50 b-margin-top">
+      <mat-label>Giá trị</mat-label>
+      <input matInput formControlName="nguongGiaTri"/>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="end" class="binhdv-dialog-action">
+    <!--    <button  class="btn-huy" mat-button mat-dialog-close type="reset" [disabled]="(isLoading$ | async)" (click)="backToIndex()"><mat-icon >clear</mat-icon>Hủy</button>-->
+    <!--    <button class="btn-luu" mat-button cdkFocusInitial type="submit" [disabled]="createForm?.invalid || (isLoading$ | async) "><dft-label-icon class="icon-center" [name]="'FloppyDisk'"></dft-label-icon>Lưu</button>-->
+    <button class="btn-huy" mat-button mat-dialog-close type="reset">
+      <mat-icon>clear</mat-icon>
+      Hủy
+    </button>
+    <button class="btn-luu" mat-button cdkFocusInitial type="submit"
+            [disabled]="!isFormValid()">
+      <dft-label-icon class="icon-center" [name]="'FloppyDisk'">
+      </dft-label-icon>
+      Lưu
+    </button>
+  </mat-dialog-actions>
+
+</form>

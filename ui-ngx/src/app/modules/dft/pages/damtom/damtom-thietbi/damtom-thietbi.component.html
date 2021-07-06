@@ -1,0 +1,85 @@
+<div class="tb-entity-table tb-absolute-fill">
+  <div fxLayout="column" class="tb-entity-table-content">
+    <mat-toolbar class="mat-table-toolbar header-background" style="padding: 0px 0px 0px 24px !important; border-radius: 0px !important;">
+      <div class="mat-toolbar-tools">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+          class="title-container">
+          <span class="tb-entity-table-title">Danh sách bộ thiết bị</span>
+          <tb-anchor #entityTableHeader></tb-anchor>
+        </div>
+        <span fxFlex></span>
+        <div>
+          <button mat-icon-button matTooltip="Thêm mới thiết bị" matTooltipPosition="above" color="primary"
+            (click)="openCreateDialog()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-toolbar>
+    <label class="t-k">Tìm kiếm</label>
+        <mat-toolbar class="mat-table-toolbar">
+          <div class="mat-toolbar-tools">
+            <div class="col-md-6 text-position" style="padding: 0px !important;">
+            <mat-form-field fxFlex class="mat-block" style="padding-bottom: 12px !important;">
+             <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+              <mat-label>&nbsp;</mat-label>
+              <input #searchInput (keyup)="getDataThietBi()" matInput placeholder="Tìm kiếm theo tên bộ thiết bị"/>
+            </mat-form-field>
+          </div>
+          </div>
+        </mat-toolbar>
+        <div fxFlex class="table-container">
+          <table mat-table [dataSource]="dataSource" matSort #sort="matSort" matSortActive="createdTime"
+                 matSortDirection="desc"
+                 matSortDisableClear>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="view(element)">
+                    <span>{{ 'dft.users.details-button' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="edit(element)">
+                    <span>{{ 'dft.users.update-button' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="delete(element)">
+                    <span>{{ 'dft.users.delete-button' | translate }}</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+        <ng-container matColumnDef="device.name">
+          <th mat-header-cell *matHeaderCellDef>Tên thiết bị</th>
+          <td mat-cell *matCellDef="let element"> {{element.device.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>Số lượng</th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{dataSource2.data[i]?.sl}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="note">
+          <th mat-header-cell *matHeaderCellDef> Ghi chú</th>
+          <td mat-cell *matCellDef="let element"> {{element.device.additionalInfo.description}} </td>
+        </ng-container>
+
+            <ng-container matColumnDef="active">
+              <th mat-header-cell *matHeaderCellDef>Trạng thái</th>
+              <td mat-cell *matCellDef="let element"> {{element.active ? 'Kích hoạt' : 'Chưa kích hoạt'}} </td>
+            </ng-container>
+             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </table>
+          <span class="no-data-found" fxLayoutAlign="center center" *ngIf="(dataSource.data === null || dataSource.data.length === 0)">Không tìm thấy thiết bị
+          </span>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-paginator class="footer-format1 footer-format2 footer-format3" [length]="tolalElements" [pageSizeOptions]="pageSizeOptions"
+                       [pageSize]="defaultPageSize" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+

@@ -1,0 +1,115 @@
+<mat-drawer-container hasBackdrop="false" class="tb-absolute-fill">
+  <mat-drawer-content>
+    <div class="mat-padding tb-entity-table tb-absolute-fill">
+      <div fxLayout="column" class="mat-elevation-z1 tb-entity-table-content">
+        <!-- toolbar ben tren-->
+        <mat-toolbar fxFlex="none" class="mat-table-toolbar header-background">
+          <div class="mat-toolbar-tools">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+              class="title-container">
+              <span class="tb-entity-table-title">Báo cáo dữ liệu giám sát</span>
+              <tb-anchor #entityTableHeader></tb-anchor>
+            </div>
+            <span fxFlex></span>
+          </div>
+        </mat-toolbar>
+        <div style="padding-bottom: 20px !important; border-radius: 0px 0px 20px 20px !important;" fxLayout="column"
+          class="mat-elevation-z1 tb-entity-table-content b-container ">
+          <!-- date time picker -->
+          <form (ngSubmit)="onSubmitForm()" [formGroup]="formTimeQuery">
+            <div class="row" style="padding: 16px 24px 0px 24px !important;">
+              <div fxFlex="48" style="padding: 0px 8px 0px 0px !important;">
+                <span class="text-tim-kiem" translate="dft.dlcb.startTime" style="padding-top: 20px"></span>
+                <mat-form-field class="mat-block datetime-input">
+                  <mat-datepicker-toggle class="size-icon" [for]="startDatetimePicker" matSuffix>
+                    <mat-icon matDatepickerToggleIcon>history</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datetimepicker #startDatetimePicker type="date" openOnFocus="false">
+                  </mat-datetimepicker>
+                  <input matInput [matDatetimepicker]="startDatetimePicker" autocomplete="false" [max]="maxDate"
+                    [min]="minDate" formControlName="startRangeTime">
+                </mat-form-field>
+              </div>
+              <div fxFlex="48" style="padding: 0px 8px !important;">
+                <span class="text-tim-kiem" translate="dft.dlcb.endTime" style="padding-top: 20px"></span>
+                <mat-form-field class="mat-block datetime-input">
+                  <mat-datepicker-toggle class="size-icon" [for]="endDatetimePicker" matSuffix>
+                    <mat-icon matDatepickerToggleIcon>update</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datetimepicker #endDatetimePicker type="date" openOnFocus="false">
+                  </mat-datetimepicker>
+                  <input matInput [matDatetimepicker]="endDatetimePicker" autocomplete="false" [max]="maxDate"
+                    [min]="minDate" formControlName="endRangeTime">
+                  <mat-error *ngIf="formTimeQuery.get('endRangeTime').hasError('timeRangeInvalid')">
+                    {{ 'dft.dlcb.validate.timeRangeInvalid' | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="4" style="text-align: center !important; padding-top: 30px !important;">
+                <button mat-icon-button color="primary" type="submit"
+                  [disabled]="(isLoading$ | async) || formTimeQuery?.invalid">
+                  <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+                  <!-- <mat-icon *ngIf="(isLoading$ | async)" class="icon-rotate">loop</mat-icon> -->
+                </button>
+              </div>
+            </div>
+          </form>
+          <div style="padding: 0px 24px !important;">
+
+            <!-- chart section -->
+            <!-- chart section 1-->
+            <div class="row" fxLayout="row" fxLayoutAlign="space-between none" style="padding-bottom: 24px !important;">
+
+              <!-- chart container 1-->
+              <div fxFlex="49">
+
+                <tb-b-line-chart class="title-bao-cao-duong" [data]="dataMaps[0].data"
+                  [chartTitle]="dataMaps[0].chartTitle">
+                </tb-b-line-chart>
+
+              </div>
+
+              <!-- chart container 2-->
+              <div fxFlex="49">
+
+                <tb-b-line-chart class="title-bao-cao-duong" [data]="dataMaps[1].data"
+                  [chartTitle]="dataMaps[1].chartTitle">
+                </tb-b-line-chart>
+
+              </div>
+
+            </div>
+
+            <!-- chart section 2-->
+            <div class="row" fxLayout="row" fxLayoutAlign="space-between none">
+              <!-- chart container 1-->
+              <div fxFlex="49">
+                <tb-b-line-chart class="title-bao-cao-duong" [data]="dataMaps[2].data"
+                  [chartTitle]="dataMaps[2].chartTitle">
+                </tb-b-line-chart>
+              </div>
+
+              <!-- chart container 2-->
+              <div fxFlex="49">
+                <tb-b-line-chart class="title-bao-cao-duong" [data]="dataMaps[3].data"
+                  [chartTitle]="dataMaps[3].chartTitle">
+                </tb-b-line-chart>
+              </div>
+
+              <!-- chart container 3-->
+              <!--            <div fxFlex="32">-->
+              <!--              <tb-b-line-chart-->
+              <!--                [data]="dataMaps[4].data"-->
+              <!--                [chartTitle]="dataMaps[4].chartTitle">-->
+              <!--              </tb-b-line-chart>-->
+              <!--            </div>-->
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

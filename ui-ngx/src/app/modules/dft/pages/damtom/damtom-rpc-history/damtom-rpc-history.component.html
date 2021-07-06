@@ -1,0 +1,94 @@
+<div class="tb-entity-table tb-absolute-fill">
+  <div fxLayout="column" class="mat-elevation-z1 tb-entity-table-content">
+    <form (ngSubmit)="onSubmitForm()" [formGroup]="formTimeQuery">
+      <div class="row" style="margin-top: 16px !important;">
+        <div class="col-md-5" style="padding: 0px 8px 0px 8px !important;" >
+          <span class="text-tim-kiem" style="padding-top: 20px">Tên thiết bị</span>
+          <mat-form-field class="mat-block datetime-input">
+            <mat-select [(value)]="deviceId">
+              <mat-option [value]="0" (click)="changeSelectedDevice()">
+                Tất cả
+              </mat-option>
+              <mat-option *ngFor="let deviceRpc of listDeviceRpc" [value]="deviceRpc.deviceId"
+                          (click)="changeSelectedDevice()">
+                {{deviceRpc.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 16px !important;">
+        <div class="col-md-5" style="padding: 0px 8px !important;">
+          <span class="text-tim-kiem" translate="dft.dlcb.startTime" style="padding-top: 20px"></span>
+          <mat-form-field class="mat-block datetime-input">
+            <mat-datepicker-toggle class="size-icon" [for]="startDatetimePicker" matSuffix>
+              <mat-icon matDatepickerToggleIcon>history</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datetimepicker #startDatetimePicker type="date" openOnFocus="false">
+            </mat-datetimepicker>
+            <input matInput [matDatetimepicker]="startDatetimePicker" autocomplete="false" [max]="maxDate"
+                   [min]="minDate" formControlName="startRangeTime">
+          </mat-form-field>
+        </div>
+        <div class="col-md-5" style="padding: 0px 8px !important;">
+          <span class="text-tim-kiem" translate="dft.dlcb.endTime" style="padding-top: 20px"></span>
+          <mat-form-field class="mat-block datetime-input">
+            <mat-datepicker-toggle class="size-icon" [for]="endDatetimePicker" matSuffix>
+              <mat-icon matDatepickerToggleIcon>update</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datetimepicker #endDatetimePicker type="date" openOnFocus="false">
+            </mat-datetimepicker>
+            <input matInput [matDatetimepicker]="endDatetimePicker" autocomplete="false" [max]="maxDate"
+                   [min]="minDate" formControlName="endRangeTime">
+            <mat-error *ngIf="formTimeQuery.get('endRangeTime').hasError('timeRangeInvalid')">
+              {{ 'dft.dlcb.validate.timeRangeInvalid' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div style="text-align: center !important; padding-top: 30px !important;">
+          <button mat-icon-button color="primary" type="submit"
+                  [disabled]="(isLoading$ | async) || formTimeQuery?.invalid">
+            <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+            <!-- <mat-icon *ngIf="(isLoading$ | async)" class="icon-rotate">loop</mat-icon> -->
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div fxFlex class="table-container" style="height: 85% !important; overflow: auto !important;">
+      <table mat-table [dataSource]="dataSource" matSort #sort="matSort" matSortActive="commandTime"
+             matSortDirection="desc" matSortDisableClear>
+
+        <ng-container matColumnDef="commandTime">
+          <th mat-header-cell *matHeaderCellDef>Thời gian</th>
+          <td mat-cell *matCellDef="let element"> {{element.commandTime | date:"dd/MM/yyyy"}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="label">
+          <th mat-header-cell *matHeaderCellDef>Tên thiết bị</th>
+          <td mat-cell
+              *matCellDef="let element"> {{element.label !== null ? element.label : element.deviceName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="valueControl">
+          <th mat-header-cell *matHeaderCellDef>Thao tác</th>
+          <td mat-cell *matCellDef="let element"> {{element.valueControl === 1 ? 'Bật' : 'Tắt' }} </td>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </table>
+      <span [fxShow]="(dataSource.data === null || dataSource.data.length === 0) && !(isLoading$ | async)"
+            fxLayoutAlign="center center" style="padding-top: 15%; padding-bottom: 15%">
+    Không có dữ liệu</span>
+      <span [fxShow]="(isLoading$ | async)"
+            fxLayoutAlign="center center"
+            style="padding-top: 15%; padding-bottom: 15%">{{ 'common.loading' | translate }}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-paginator class="footer-format1 footer-format2 footer-format3"
+                   [length]="tolalElements" [pageSizeOptions]="pageSizeOptions" [disabled]="!isLoading$"
+                   [pageSize]="defaultPageSize" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+

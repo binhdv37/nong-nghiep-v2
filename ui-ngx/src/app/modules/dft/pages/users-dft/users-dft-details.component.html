@@ -1,0 +1,62 @@
+<div class="popup-c" >
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title">Xem chi tiết: {{currentUser?.firstName}}</h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">close</mat-icon>
+  </div>
+  <div class="fixed-modal-height">
+
+    <mat-tab-group class="m-g"  style="min-width: 600px !important;" mat-align-tabs="start">
+      <mat-tab label="Thông tin chung">
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+                <dft-label-icon matSuffix [name]="'User'"></dft-label-icon>
+                <mat-label>Họ tên người dùng</mat-label>
+                <input matInput [value]="currentUser?.firstName" required disabled/>
+              </mat-form-field>
+            </td>
+            <td style="padding: 0px 0px 0px 8px !important;">
+              <mat-form-field class="example-full-width">
+                <dft-label-icon matSuffix [name]="'EnvelopeOpen'"></dft-label-icon>
+                <mat-label>Địa chỉ Email</mat-label>
+                <input matInput [value]="currentUser?.email" required disabled/>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+  
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td style="padding: 0px !important;">
+              <mat-form-field class="example-full-width">
+                <dft-label-icon matSuffix [name]="'Phone'"></dft-label-icon>
+                <mat-label>SĐT</mat-label>
+                <input matInput [value]="currentUser?.lastName" disabled/>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+  
+        <mat-slide-toggle [checked]="currentUser?.enabled" disabled>Kích hoạt</mat-slide-toggle>
+  
+        <mat-form-field class="example-full-width binhdv-margin-top">
+          <dft-label-icon matSuffix [name]="'Note'"></dft-label-icon>
+          <mat-label>Ghi chú</mat-label>
+          <textarea matInput rows="1" [value]="currentUser?.additionalInfo.description" disabled></textarea>
+        </mat-form-field>
+      </mat-tab>
+      <mat-tab label="Phân quyền">
+        <div *ngFor="let role of roleList" >
+          <section class="example-section">
+            <mat-checkbox class="example-margin" [value]="role.id" [checked]="compareRoleId(role)" disabled>{{role.name}}</mat-checkbox>
+          </section>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="end">
+    <button class="btn-huy" mat-button mat-dialog-close><mat-icon >clear</mat-icon>Đóng</button>
+  </mat-dialog-actions>
+</div>

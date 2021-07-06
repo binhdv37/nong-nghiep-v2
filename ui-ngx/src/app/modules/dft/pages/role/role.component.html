@@ -1,0 +1,116 @@
+<mat-drawer-container hasBackdrop="false" class="tb-absolute-fill">
+  <mat-drawer-content>
+    <div class="mat-padding tb-entity-table tb-absolute-fill">
+      <div fxLayout="column" class="mat-elevation-z1 tb-entity-table-content">
+        <!-- toolbar ben tren-->
+        <mat-toolbar class="mat-table-toolbar header-background">
+          <div class="mat-toolbar-tools">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+              class="title-container">
+              <span class="tb-entity-table-title">{{ 'dft.role.manage' | translate }}</span>
+              <tb-anchor #entityTableHeader></tb-anchor>
+            </div>
+            <span fxFlex></span>
+            <div>
+              <button mat-icon-button [disabled]="isLoading$ | async"
+                matTooltip="{{ 'dft.role.add-button' | translate }}" matTooltipPosition="above"
+                (click)="openEditDialog(0,null, null, tableAction.ADD_ENTITY)">
+                <mat-icon class="hover-icon">add</mat-icon>
+              </button>
+            </div>
+            <!-- <button mat-raised-button [disabled]="isLoading$ | async"
+                      matTooltip="{{ 'dft.role.add-button' | translate }}"
+                      matTooltipPosition="above"
+                      color="primary"
+                      (click)="openEditDialog(0,null, null, tableAction.ADD_ENTITY)">
+                {{ 'dft.role.add-button' | translate }}
+              </button> -->
+          </div>
+        </mat-toolbar>
+
+
+        <!-- thanh tim kiem -->
+        <label class="t-k">Tìm kiếm</label>
+        <mat-toolbar class="mat-table-toolbar">
+          <div class="mat-toolbar-tools">
+            <div class="col-md-6 text-position" style="padding: 0px !important;">
+            <mat-form-field fxFlex class="mat-block">
+             <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+              <mat-label></mat-label>
+              <input #searchInput matInput (keyup)="onSearch()"
+                placeholder="{{ 'dft.role.search-placeholder' | translate}}" />
+            </mat-form-field>
+          </div>
+        </div>
+        </mat-toolbar>
+
+
+        <!-- table container -->
+        <div fxFlex class="table-container">
+          <table mat-table [dataSource]="dataSource" matSort #sort="matSort" matSortActive="createdTime"
+            matSortDirection="desc" matSortDisableClear>
+
+            <!-- action column-->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item
+                    (click)="openEditDialog(0, element.id, element.name, tableAction.DETAIL_ENTITY)">
+                    <span>{{ 'dft.role.detail-button' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="openEditDialog(0, element.id, element.name, tableAction.EDIT_ENTITY)">
+                    <span>{{ 'dft.role.edit-button' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="openEditDialog(1, element.id, element.name, tableAction.EDIT_ENTITY)">
+                    <span>{{ 'dft.role.phanquyen-button' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteEntity(element.id, element.name)">
+                    <span>{{ 'dft.role.delete-button' | translate }}</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <!-- name column-->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.role.tenVaiTro' | translate }}</th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- note column-->
+            <ng-container matColumnDef="note">
+              <th mat-header-cell style="min-width: 30% !important; max-width: 30% !important;"
+                  *matHeaderCellDef mat-sort-header>{{ 'dft.role.ghiChu' | translate }}</th>
+              <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+            </ng-container>
+
+            <!-- created time column-->
+            <ng-container matColumnDef="createdTime">
+              <th mat-header-cell class="data-col-width" *matHeaderCellDef mat-sort-header>{{ 'dft.role.ngayTao' | translate }}</th>
+              <td mat-cell *matCellDef="let element"> {{element.createdTime | date : 'dd/MM/yyyy'}} </td>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </table>
+
+          <!-- no data message -->
+          <span [fxShow]="!(isLoading$ | async) && ((dataSource.data === null) || dataSource.data.length === 0)"
+            fxLayoutAlign="center center" class="no-data-found">{{ 'dft.role.noEntities' | translate }}</span>
+
+          <!-- loading message -->
+          <span [fxShow]="isLoading$ | async" fxLayoutAlign="center center" class="no-data-found">{{ 'dft.role.loading'
+            | translate }}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-paginator class="footer-format1 footer-format2 footer-format3" [length]="totalElements"
+          [pageSizeOptions]="pageSizeOptions" [disabled]="!isLoading$" [pageSize]="defaultPageSize"
+          (page)="handlePage($event)" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,154 @@
+<form class="popup-c my-dialog-content"
+      (ngSubmit)="onSubmitForm()" [formGroup]="entityForm" (keydown.enter)="$event.preventDefault()">
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title"> {{ titleForm }} </h2>
+    <!--    <h2 mat-dialog-title class="b-dialog-title"> Test title form </h2>-->
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">
+      close
+    </mat-icon>
+  </div>
+  <div class="fixed-modal-height">
+    <mat-dialog-content class="create-form">
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td colspan="2">
+            <mat-form-field class="margin-t-16">
+              <mat-label translate>dft.group-rpc.group-name</mat-label>
+              <input matInput #inputName formControlName="name" required/>
+              <mat-hint align="end">{{inputName.value?.length || 0}}/255</mat-hint>
+              <mat-error *ngIf="entityForm.get('name').hasError('required')">
+                {{ 'dft.admin.khachhang.validate.required' | translate }}
+              </mat-error>
+              <mat-error *ngIf="entityForm.get('name').hasError('maxlength')">
+                {{ 'dft.admin.khachhang.validate.maxLength' | translate: {number: '255'} }}
+              </mat-error>
+              <mat-error *ngIf="entityForm.get('name').hasError('uniqueGroupRpcName')">
+                {{ 'dft.group-rpc.unique-name' | translate }}
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </mat-dialog-content>
+    <mat-toolbar style="margin-top: 16px !important;">
+      <div class="mat-toolbar-tools">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+             class="title-container">
+          <span class="tb-entity-table-title">{{ 'dft.group-rpc.title' | translate }}*</span>
+          <tb-anchor #entityTableHeader></tb-anchor>
+        </div>
+        <span fxFlex></span>
+        <div>
+          <button *ngIf="data.action === tableAction.ADD_ENTITY || data.action === tableAction.EDIT_ENTITY"
+                  mat-icon-button [disabled]="(isLoading$ | async) || !selection.hasValue()"
+                  matTooltip="{{ 'dft.group-rpc.delete-button' | translate }}" type="button"
+                  matTooltipPosition="above" (click)="deleteSelection()">
+            <dft-label-icon *ngIf="selection.hasValue()" [name]="'TrashDialog'"></dft-label-icon>
+            <dft-label-icon *ngIf="!selection.hasValue()" [name]="'Trash'"></dft-label-icon>
+          </button>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <button *ngIf="data.action === tableAction.ADD_ENTITY || data.action === tableAction.EDIT_ENTITY"
+                  mat-icon-button color="primary" [disabled]="isLoading$ | async"
+                  matTooltip="{{ 'dft.admin.khachhang.add-button' | translate }}" type="button"
+                  matTooltipPosition="above" (click)="openEditDialog(deviceRpcList, dataSource)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-toolbar>
+    <mat-dialog-content style="padding: 0px !important;">
+      <div fxFlex class="table-container">
+        <table mat-table #mytable [dataSource]="dataSource">
+          <ng-container matColumnDef="select">
+            <th class="mat-column-select" mat-header-cell *matHeaderCellDef>
+              <mat-checkbox *ngIf="data.action === tableAction.ADD_ENTITY || data.action === tableAction.EDIT_ENTITY"
+                            (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox *ngIf="data.action === tableAction.ADD_ENTITY || data.action === tableAction.EDIT_ENTITY"
+                            (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(element) : null"
+                            [checked]="selection.isSelected(element)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="deviceName">
+            <th class="mat-column-time" mat-header-cell *matHeaderCellDef>Tên thiết bị</th>
+            <td mat-cell *matCellDef="let element"> {{ element.label }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="valueControl">
+            <th class="mat-column-action" mat-header-cell *matHeaderCellDef>{{ 'dft.device-rpc.valueControl' | translate }}</th>
+            <td mat-cell *matCellDef="let element"> {{ element.valueControl === 1 ?
+              ('dft.device-rpc.on' | translate) : ('dft.device-rpc.off' | translate) }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="delayTime">
+            <th class="mat-column-time" mat-header-cell *matHeaderCellDef>Thực hiện sau</th>
+            <td mat-cell *matCellDef="let element"> {{ getFormathours(element.delayTime) }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="timeCallback">
+            <th class="mat-column-time" mat-header-cell *matHeaderCellDef>Thực hiện trong</th>
+            <td mat-cell *matCellDef="let element">
+              <span *ngIf="element.callbackOption">
+                {{getFormathours(element.timeCallback ? element.timeCallback : 0)}}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="loopTimeStep">
+            <th class="mat-column-time" mat-header-cell *matHeaderCellDef>Lặp lại sau</th>
+            <td mat-cell *matCellDef="let element">
+              <span *ngIf="element.loopOption">
+              {{getFormathours(element.loopTimeStep ? element.loopTimeStep : 0)}}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="loopCount">
+            <th class="mat-column-action" mat-header-cell *matHeaderCellDef>Số lần lại</th>
+            <td mat-cell *matCellDef="let element">
+              <span *ngIf="element.loopOption">
+              {{element.loopCount}}
+              </span>
+            </td>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+        <span [fxShow]="(dataSource === null || dataSource.length === 0) && !(isLoading$ | async)"
+              fxLayoutAlign="center center"
+              style="padding-top: 20%; padding-bottom: 20%">{{ 'dft.device-rpc.noEntities' | translate }}</span>
+        <span [fxShow]="(isLoading$ | async)"
+              fxLayoutAlign="center center"
+              style="padding-top: 20%; padding-bottom: 20%">{{ 'common.loading' | translate }}
+        </span>
+      </div>
+    </mat-dialog-content>
+  </div>
+
+  <mat-divider></mat-divider>
+  <mat-dialog-actions fxLayoutAlign="end">
+    <button class="btn-huy" [fxShow]="isDetailsEntity"
+            mat-button color="primary" type="button" cdkFocusInitial [disabled]="(isLoading$ | async)"
+            [mat-dialog-close]="true">
+      <mat-icon>clear</mat-icon>
+      {{ 'dft.group-rpc.close-button' | translate }}
+    </button>
+    <button class="btn-huy" [fxShow]="isAddEntity || isEditEntity"
+            mat-button color="primary" type="button" cdkFocusInitial [disabled]="(isLoading$ | async)"
+            [mat-dialog-close]="true">
+      <mat-icon>clear</mat-icon>
+      {{ 'dft.group-rpc.cancel-button' | translate }}
+    </button>
+    <button class="btn-luu" [fxShow]="isAddEntity || isEditEntity" mat-raised-button color="primary" type="submit"
+            [disabled]="(isLoading$ | async) || entityForm?.invalid">
+      <dft-label-icon class="icon-center" [name]="'FloppyDisk'"></dft-label-icon>
+      {{ 'dft.group-rpc.submit-button' | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>

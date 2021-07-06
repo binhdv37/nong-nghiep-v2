@@ -1,0 +1,35 @@
+<form class="popup-c" (ngSubmit)="onSubmitForm()" [formGroup]="entityForm" (keydown.enter)="$event.preventDefault()">
+<div class="popup-dialog-title">
+  <h2 mat-dialog-title class="b-dialog-title">Sửa thiết bị</h2>
+  <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">close</mat-icon>
+</div>
+
+  <mat-dialog-content class="b-dialog-content b-margin-top">
+    <fieldset [disabled]="(isLoading$ | async)">
+        <mat-form-field class="mat-block" style="padding: 16px 0px !important;">
+          <mat-label>Tên thiết bị</mat-label>
+          <input matInput #label formControlName="label" required/>
+          <mat-hint align="end">{{label.value?.length || 0}}/255</mat-hint>
+          <mat-error *ngIf="entityForm.get('label').hasError('required')">
+            {{ 'dft.admin.khachhang.validate.required' | translate }}
+          </mat-error>
+          <mat-error *ngIf="entityForm.get('label').hasError('maxlength')">
+            {{ 'dft.admin.khachhang.validate.maxLength' | translate: {number: '255'} }}
+          </mat-error>
+        </mat-form-field>
+    </fieldset>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions fxLayoutAlign="end center">
+    <button class="btn-huy" mat-button color="primary" type="button" cdkFocusInitial [disabled]="(isLoading$ | async)"
+            [mat-dialog-close]="true">
+            <mat-icon>clear</mat-icon>
+      {{ 'dft.group-rpc.cancel-button' | translate }}
+    </button>
+    <button class="btn-luu" mat-raised-button color="primary" type="submit"
+            [disabled]="(isLoading$ | async) || entityForm?.invalid">
+            <dft-label-icon class="icon-center" [name]="'FloppyDisk'"></dft-label-icon>
+      {{ 'dft.group-rpc.submit-button' | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>

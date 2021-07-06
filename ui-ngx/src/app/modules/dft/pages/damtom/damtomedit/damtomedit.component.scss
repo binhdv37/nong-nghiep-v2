@@ -1,0 +1,72 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+
+.close-button{
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+.b-dialog-title{
+  margin: 0px;
+  padding: 0px;
+  display: inline;
+}
+.b-dialog-header{
+  margin: 0;
+  padding: 0;
+}
+
+.mat-column-select{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 10% !important;
+  width: 1% !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  //text-align: center !important;
+}
+
+.mat-column-name{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 20% !important;
+  width:35% !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  //text-align: center !important;
+
+}
+
+.mat-column-sdt{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 50% !important;
+  width: 35% !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  //text-align: center !important;
+
+}
+
+.mat-column-emial{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 50% !important;
+  width: 30% !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  //text-align: center !important;
+
+}
+

@@ -1,0 +1,18 @@
+<mat-card style="border-radius: 20px !important; padding: 0px !important;" class="example-card">
+  <div  class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title">Chi tiết</h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">
+      close</mat-icon>
+  </div>
+  <mat-dialog-content>
+      <mat-card-subtitle style="margin-top: 16px !important; font-weight: bold !important; color: #43484D !important;">Nội dung</mat-card-subtitle>
+    <mat-card-content>
+      <pre *ngIf="currentLog?.actionStatus == 'SUCCESS'">{{currentLog.actionData | json}}</pre>
+      <pre *ngIf="currentLog?.actionStatus == 'FAILURE'">{{currentLog.actionFailureDetails | json}}</pre>
+    </mat-card-content>
+  </mat-dialog-content>
+  <!-- <mat-divider></mat-divider>
+  <mat-dialog-actions align="end">
+    <button class="btn-huy" mat-button [mat-dialog-close]="true" cdkFocusInitial><mat-icon >clear</mat-icon>Đóng</button>
+  </mat-dialog-actions> -->
+</mat-card>

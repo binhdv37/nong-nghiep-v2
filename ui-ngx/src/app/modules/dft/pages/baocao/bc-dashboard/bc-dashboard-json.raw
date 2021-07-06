@@ -1,0 +1,747 @@
+{
+  "title": "test",
+  "configuration": {
+    "description": "",
+    "widgets": {
+      "637a7b85-ffa4-1f99-43ef-13f3e84f583b": {
+        "isSystemType": true,
+        "bundleAlias": "charts",
+        "typeAlias": "basic_timeseries",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 8,
+        "sizeY": 5,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "entityAliasId",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "Temperature",
+                  "type": "timeseries",
+                  "label": "${entityName}",
+                  "color": "#2196f3",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "left",
+                    "thresholds": [
+                      {
+                        "thresholdValueSource": "predefinedValue"
+                      }
+                    ],
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.0939673252993728,
+                  "units": null,
+                  "decimals": 2,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454",
+              "min": 0,
+              "max": 40,
+              "tickDecimals": 2
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "months",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            },
+            "hideZeros": false,
+            "customLegendEnabled": false,
+            "comparisonEnabled": false
+          },
+          "title": "Biểu đồ nhiệt độ (°C)",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "14px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showTitleIcon": false,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "Biểu đồ nhiệt độ (°C)",
+          "widgetStyle": {},
+          "decimals": 2,
+          "showLegend": true,
+          "legendConfig": {
+            "direction": "column",
+            "position": "top",
+            "sortDataKeys": false,
+            "showMin": true,
+            "showMax": true,
+            "showAvg": true,
+            "showTotal": false
+          },
+          "titleIcon": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "637a7b85-ffa4-1f99-43ef-13f3e84f583b"
+      },
+      "c247b9ad-5c38-6129-513c-21bd05b1cfed": {
+        "isSystemType": true,
+        "bundleAlias": "charts",
+        "typeAlias": "basic_timeseries",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 8,
+        "sizeY": 5,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "entityAliasId",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "pH",
+                  "type": "timeseries",
+                  "label": "${entityName}",
+                  "color": "#2196f3",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "left",
+                    "thresholds": [
+                      {
+                        "thresholdValueSource": "predefinedValue"
+                      }
+                    ],
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.0939673252993728,
+                  "units": null,
+                  "decimals": 2,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454",
+              "min": 0,
+              "max": 14,
+              "tickDecimals": 2
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "months",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            },
+            "hideZeros": false,
+            "customLegendEnabled": false,
+            "comparisonEnabled": false,
+            "smoothLines": false
+          },
+          "title": "Biểu đồ độ pH",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "14px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showTitleIcon": false,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "Biểu đồ độ pH",
+          "widgetStyle": {},
+          "decimals": 2,
+          "showLegend": true,
+          "legendConfig": {
+            "direction": "column",
+            "position": "top",
+            "sortDataKeys": false,
+            "showMin": true,
+            "showMax": true,
+            "showAvg": true,
+            "showTotal": false
+          },
+          "titleIcon": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "c247b9ad-5c38-6129-513c-21bd05b1cfed"
+      },
+      "7fc6ed85-286e-3225-1642-2415a1fd486f": {
+        "isSystemType": true,
+        "bundleAlias": "charts",
+        "typeAlias": "basic_timeseries",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 8,
+        "sizeY": 5,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "entityAliasId",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "Salinity",
+                  "type": "timeseries",
+                  "label": "${entityName}",
+                  "color": "#2196f3",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "left",
+                    "thresholds": [
+                      {
+                        "thresholdValueSource": "predefinedValue"
+                      }
+                    ],
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.24542722474711032,
+                  "units": null,
+                  "decimals": 2,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454",
+              "min": 0,
+              "max": 35,
+              "tickDecimals": 2
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "months",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            },
+            "hideZeros": false,
+            "customLegendEnabled": false,
+            "comparisonEnabled": false,
+            "smoothLines": false
+          },
+          "title": "Biểu đồ độ mặn (‰)",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "14px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showTitleIcon": false,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "Biểu đồ độ mặn (‰)",
+          "widgetStyle": {},
+          "decimals": 2,
+          "showLegend": true,
+          "legendConfig": {
+            "direction": "column",
+            "position": "top",
+            "sortDataKeys": false,
+            "showMin": true,
+            "showMax": true,
+            "showAvg": true,
+            "showTotal": false
+          },
+          "titleIcon": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "7fc6ed85-286e-3225-1642-2415a1fd486f"
+      },
+      "4e821c64-29a1-7eb2-72f4-b895931c0f44": {
+        "isSystemType": true,
+        "bundleAlias": "charts",
+        "typeAlias": "basic_timeseries",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 8,
+        "sizeY": 5,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": null,
+              "entityAliasId": "entityAliasId",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "DO",
+                  "type": "timeseries",
+                  "label": "${entityName}",
+                  "color": "#2196f3",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "left",
+                    "thresholds": [
+                      {
+                        "thresholdValueSource": "predefinedValue"
+                      }
+                    ],
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.726323377389065,
+                  "units": null,
+                  "decimals": 2,
+                  "funcBody": null,
+                  "usePostProcessing": null,
+                  "postFuncBody": null
+                }
+              ]
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "0px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454",
+              "min": 0,
+              "max": 10,
+              "tickDecimals": 2
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "months",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            },
+            "hideZeros": false,
+            "customLegendEnabled": false,
+            "comparisonEnabled": false,
+            "smoothLines": false
+          },
+          "title": "Biểu đồ oxy hòa tan (mg/l)",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "14px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showTitleIcon": false,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "Biểu đồ oxy hòa tan (mg/l)",
+          "widgetStyle": {},
+          "decimals": 2,
+          "showLegend": true,
+          "legendConfig": {
+            "direction": "column",
+            "position": "top",
+            "sortDataKeys": false,
+            "showMin": true,
+            "showMax": true,
+            "showAvg": true,
+            "showTotal": false
+          },
+          "titleIcon": ""
+        },
+        "row": 0,
+        "col": 0,
+        "id": "4e821c64-29a1-7eb2-72f4-b895931c0f44"
+      },
+      "4b602090-a3dc-9ca5-c6df-0874aed2d23d": {
+        "isSystemType": true,
+        "bundleAlias": "alarm_widgets",
+        "typeAlias": "alarms_table",
+        "type": "alarm",
+        "title": "New widget",
+        "sizeX": 10.5,
+        "sizeY": 6.5,
+        "config": {
+          "timewindow": {
+            "hideInterval": false,
+            "hideAggregation": false,
+            "hideAggInterval": false,
+            "selectedTab": 0,
+            "realtime": {
+              "timewindowMs": 86400000,
+              "interval": 1000
+            },
+            "aggregation": {
+              "type": "NONE",
+              "limit": 200
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "rgb(255, 255, 255)",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "4px",
+          "settings": {
+            "enableSelection": true,
+            "enableSearch": false,
+            "displayDetails": false,
+            "allowAcknowledgment": false,
+            "allowClear": false,
+            "displayPagination": false,
+            "defaultPageSize": 9999,
+            "defaultSortOrder": "-createdTime",
+            "enableSelectColumnDisplay": false,
+            "enableStickyAction": false,
+            "enableFilter": false,
+            "alarmsTitle": "Danh sách cảnh báo"
+          },
+          "title": "Danh sách cảnh báo",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "14px",
+            "fontWeight": 400,
+            "padding": "5px 10px 5px 10px"
+          },
+          "useDashboardTimewindow": false,
+          "showLegend": false,
+          "alarmSource": {
+            "type": "entity",
+            "name": "alarms",
+            "entityAliasId": "entityAliasId",
+            "filterId": null,
+            "dataKeys": [
+              {
+                "name": "createdTime",
+                "type": "alarm",
+                "label": "Thời gian",
+                "color": "#2196f3",
+                "settings": {
+                  "columnWidth": "0px"
+                },
+                "_hash": 0.8145612476869782,
+                "units": null,
+                "decimals": null,
+                "funcBody": null,
+                "usePostProcessing": null,
+                "postFuncBody": null
+              },
+              {
+                "name": "originator",
+                "type": "alarm",
+                "label": "Bộ thiết bị",
+                "color": "#4caf50",
+                "settings": {
+                  "columnWidth": "0px"
+                },
+                "_hash": 0.047298843835686055,
+                "units": null,
+                "decimals": null,
+                "funcBody": null,
+                "usePostProcessing": null,
+                "postFuncBody": null
+              },
+              {
+                "name": "type",
+                "type": "alarm",
+                "label": "Tên cảnh báo",
+                "color": "#f44336",
+                "settings": {
+                  "columnWidth": "0px"
+                },
+                "_hash": 0.23333082266018756,
+                "units": null,
+                "decimals": null,
+                "funcBody": null,
+                "usePostProcessing": null,
+                "postFuncBody": null
+              }
+            ]
+          },
+          "alarmSearchStatus": "ANY",
+          "alarmsPollingInterval": 5,
+          "showTitleIcon": false,
+          "titleIcon": "more_horiz",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "Danh sách cảnh báo",
+          "widgetStyle": {},
+          "displayTimewindow": false,
+          "actions": {},
+          "alarmStatusList": [
+            "ACTIVE"
+          ],
+          "alarmSeverityList": [
+            "CRITICAL"
+          ],
+          "alarmTypeList": [],
+          "searchPropagatedAlarms": false,
+          "datasources": []
+        },
+        "row": 0,
+        "col": 0,
+        "id": "4b602090-a3dc-9ca5-c6df-0874aed2d23d"
+      }
+    },
+    "states": {
+      "default": {
+        "name": "test",
+        "root": true,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "637a7b85-ffa4-1f99-43ef-13f3e84f583b": {
+                "sizeX": 12,
+                "sizeY": 6,
+                "row": 6,
+                "col": 0
+              },
+              "c247b9ad-5c38-6129-513c-21bd05b1cfed": {
+                "sizeX": 8,
+                "sizeY": 6,
+                "row": 0,
+                "col": 8
+              },
+              "7fc6ed85-286e-3225-1642-2415a1fd486f": {
+                "sizeX": 8,
+                "sizeY": 6,
+                "row": 0,
+                "col": 16
+              },
+              "4e821c64-29a1-7eb2-72f4-b895931c0f44": {
+                "sizeX": 12,
+                "sizeY": 6,
+                "row": 6,
+                "col": 12
+              },
+              "4b602090-a3dc-9ca5-c6df-0874aed2d23d": {
+                "sizeX": 8,
+                "sizeY": 6,
+                "row": 0,
+                "col": 0
+              }
+            },
+            "gridSettings": {
+              "backgroundColor": "#eeeeee",
+              "color": "rgba(0,0,0,0.870588)",
+              "columns": 24,
+              "margin": 10,
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      }
+    },
+    "entityAliases": {
+      "entityAliasId": {
+        "id": "entityAliasId",
+        "alias": "QueryAllGateway",
+        "filter": {
+          "type": "relationsQuery",
+          "resolveMultiple": true,
+          "rootStateEntity": false,
+          "stateEntityParamName": null,
+          "defaultStateEntity": null,
+          "rootEntity": {
+            "entityType": "ASSET",
+            "id": "6e05f0f3-b2b1-457b-8c61-2b061148b4ea"
+          },
+          "direction": "FROM",
+          "maxLevel": 1,
+          "fetchLastLevelOnly": false,
+          "filters": [
+            {
+              "relationType": "Contains",
+              "entityTypes": [
+                "DEVICE"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "filters": {},
+    "timewindow": {
+      "hideInterval": false,
+      "hideAggregation": false,
+      "hideAggInterval": false,
+      "selectedTab": 0,
+      "realtime": {
+        "timewindowMs": 7200000,
+        "interval": 120000
+      },
+      "aggregation": {
+        "type": "AVG",
+        "limit": 25000
+      }
+    },
+    "settings": {
+      "stateControllerId": "entity",
+      "showTitle": false,
+      "showDashboardsSelect": false,
+      "showEntitiesSelect": false,
+      "showDashboardTimewindow": false,
+      "showDashboardExport": false,
+      "toolbarAlwaysOpen": true,
+      "titleColor": "rgba(0,0,0,0.870588)",
+      "showFilters": false
+    }
+  },
+  "name": "test"
+}

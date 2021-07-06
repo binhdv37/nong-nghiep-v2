@@ -1,0 +1,41 @@
+<div fxLayout="column" style="width: 100%; height: 100%">
+  <div fxFlex="10" fxLayout="column" fxLayoutAlign="space-around center">
+    <h4>Biểu đồ thống kê số lần gửi thông tin cảnh báo</h4>
+  </div>
+
+  <div fxFlex="83" *ngIf="data.length > 0">
+    <ngx-charts-bar-vertical-2d
+      [results]="data"
+      [scheme]="colorScheme"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)"
+    >
+    </ngx-charts-bar-vertical-2d>
+  </div>
+
+  <div fxFlex="7" fxLayout="column" *ngIf="data.length > 0">
+    <ngx-charts-legend
+      fxFlex
+      class="chart-legend"
+      [title]=""
+      [data]="chartNames"
+      [colors]="colors"
+      horizontal="true"
+      (labelActivate)="legendLabelActivate($event)"
+      (labelDeactivate)="legendLabelDeactivate($event)"
+    >
+    </ngx-charts-legend>
+  </div>
+
+  <div
+    fxFlex
+    *ngIf="data.length == 0"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  >
+    <span fxFlex="none">Chưa gửi thông tin cảnh báo nào</span>
+  </div>
+</div>

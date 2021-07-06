@@ -1,0 +1,13 @@
+::ng-deep tb-b-pie-chart {
+  .chart-legend .legend-wrap {
+    display: flex;
+    justify-content: center;
+    .legend-labels {
+      //white-space: pre-wrap;
+      width: auto !important;
+
+      overflow: auto;
+      z-index: 10;
+    }
+  }
+}

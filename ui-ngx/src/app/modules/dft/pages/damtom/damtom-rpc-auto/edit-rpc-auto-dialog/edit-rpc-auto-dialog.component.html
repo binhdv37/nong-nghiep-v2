@@ -1,0 +1,345 @@
+<form class="popup-c" (ngSubmit)="onSubmitForm()" [formGroup]="myForm">
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title">Cập nhật {{dialogData.alarmType}}</h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">
+      close
+    </mat-icon>
+  </div>
+
+
+  <!-- content -->
+  <mat-dialog-content class="b-dialog fixed-modal-height">
+    <mat-form-field class="b-w-50">
+      <mat-label>Tên điều khiển tự động</mat-label>
+      <input matInput formControlName="alarmType"/>
+      <mat-error *ngIf="myForm.get('alarmType').hasError('required')
+       || myForm.get('alarmType').hasError('pattern')">
+        Đây là trường bắt buộc
+      </mat-error>
+      <mat-error *ngIf="myForm.get('alarmType').hasError('maxLength')">
+        Tối đa 255 kí tự
+      </mat-error>
+    </mat-form-field>
+
+    <!-- operation 'AND' or 'OR' -->
+    <div class="example-full-width">
+      <mat-radio-group class="b-margin-top"
+                       formControlName="operation"
+                       fxLayout="row" fxLayoutAlign="space-around none"
+                       aria-label="Select an option">
+        <mat-radio-button fxFlex="40" value="AND">
+          Nếu xảy ra đồng thời các sự kiện
+        </mat-radio-button>
+        <mat-radio-button fxFlex="40" value="OR">
+          Nếu xảy ra một trong các sự kiện
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <!-- danh sach su kien-->
+    <div class="b-margin b-w-60">
+      <mat-card *ngFor="let suKien of listSuKien; let i = index">
+        <mat-card-content fxLayout="row" fxLayoutAlign="space-around center">
+          <div fxFlex="60">
+            <span (click)="openEditSuKienDialog(i,  suKien)" class="b-link">
+              {{getTenSuKien(suKien)}}
+            </span>
+          </div>
+          <div fxFlex="20">{{ suKien.toanTu === 'GREATER_OR_EQUAL' ? '>=' : '<=' }} {{suKien.nguongGiaTri}}</div>
+          <div fxFlex="20">
+            <button type="button" (click)="deleteSuKien(i)"
+                    style="border: unset !important; background-color: unset !important; cursor: pointer;"
+                    color="primary">
+              <dft-label-icon [name]="'Trash'"></dft-label-icon>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- button add su kien -->
+    <div class="b-margin-top">
+      <button mat-button type="button" class="btn-luu"
+              (click)="openCreateSuKienDialog()"
+              matTooltip="Thêm mới sự kiện"
+              matTooltipPosition="above">
+        <mat-icon>add</mat-icon>
+        Thêm mới sự kiện
+      </button>
+    </div>
+
+    <!-- dieu kien bo sung-->
+    <mat-card class="b-margin-top b-w-60">
+      <mat-card-header>
+        <mat-card-title>Điều kiện bổ sung</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <span fxFlex="80">Kết hợp trạng thái thiết bị điều khiển</span>
+          <span fxFLex>
+            <button type="button" (click)="addDkBoSung()"
+                    mat-icon-button
+                    matTooltip="Thêm điều kiện bổ sung"
+                    matTooltipPosition="above">
+                <mat-icon class="hover-icon">add</mat-icon>
+            </button>
+          </span>
+        </div>
+
+        <ng-container formArrayName="dkBoSung">
+          <mat-card *ngFor="let dkBoSung of dkBoSung.controls; let i = index" [formGroup]="dkBoSung">
+            <mat-card-content style="padding: 0 !important;" fxLayout="row" fxLayoutAlign="space-around center">
+              <mat-form-field fxFlex="60">
+                <mat-label>Thiết bị</mat-label>
+                <mat-select formControlName="thietBi" disableRipple>
+                  <mat-option value="">Chọn</mat-option>
+                  <mat-option *ngFor="let rpcDevice of getRpcDevice()" [value]="rpcDevice.name">
+                    {{rpcDevice.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div fxFlex="15" style="text-align: center">
+                <mat-slide-toggle formControlName="active">
+                </mat-slide-toggle>
+              </div>
+
+              <div fxFlex="15">
+                <button type="button" (click)="deleteDkBoSung(i)" style="border: unset !important;
+             background-color: unset !important; cursor: pointer;"
+                        color="primary">
+                  <dft-label-icon [name]="'Trash'"></dft-label-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+
+      </mat-card-content>
+    </mat-card>
+
+    <!-- khoang tg su kien xay ra-->
+    <div class="b-margin-top b-w-90"
+         fxLayout="row" fxLayoutAlign="space-around center">
+
+      <div fxFlex="40">Khoảng thời gian sự kiện xảy ra:</div>
+
+      <div fxFlex="60" fxLayout="row" fxLayoutAlign="space-around none" formGroupName="duration">
+        <mat-form-field fxFlex="30">
+          <mat-label>Giờ</mat-label>
+          <mat-select formControlName="hour">
+            <mat-option *ngFor="let hour of [].constructor(24) let i = index" [value]="i">
+              {{i}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <mat-label>Phút</mat-label>
+          <mat-select formControlName="minute">
+            <mat-option *ngFor="let hour of [].constructor(60) let i = index" [value]="i">
+              {{i}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <mat-label>Giây</mat-label>
+          <mat-select formControlName="second">
+            <mat-option *ngFor="let hour of [].constructor(60) let i = index" [value]="i">
+              {{i}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- từ giờ -> đến giờ -->
+    <div class="b-margin-top example-full-width"
+         fxLayout="row" fxLayoutAlign="space-around center">
+
+      <div fxFlex="50" fxLayout="row" fxLayoutAlign="space-around center" formGroupName="startTime">
+        <span fxFlex="20">Từ giờ:</span>
+        <mat-form-field fxFlex="30">
+          <mat-label>Giờ</mat-label>
+          <mat-select formControlName="hour">
+            <mat-option *ngFor="let hour of [].constructor(24) let i = index" [value]="i">
+              {{i}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <mat-label>Phút</mat-label>
+          <mat-select formControlName="minute">
+            <mat-option *ngFor="let hour of [].constructor(60) let i = index" [value]="i">
+              {{i}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" fxLayout="row" fxLayoutAlign="space-around center" formGroupName="endTime">
+        <span fxFlex="20">Đến giờ:</span>
+        <mat-form-field fxFlex="30">
+          <mat-label>Giờ</mat-label>
+          <mat-select formControlName="hour">
+            <mat-option *ngFor="let hour of [].constructor(24) let i = index" [value]="i">
+              {{i}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <mat-label>Phút</mat-label>
+          <mat-select formControlName="minute">
+            <mat-option *ngFor="let hour of [].constructor(60) let i = index" [value]="i">
+              {{i}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <!-- vào các ngày -->
+    <div class="b-margin-top example-full-width">
+      <span class="b-margin">Vào các ngày</span>
+      <div fxLayout="row" fxLayoutAlign="space-around center" formGroupName="daysOfWeek">
+        <div fxFlex="13">
+          <mat-checkbox formControlName="t2">
+            Thứ 2
+          </mat-checkbox>
+        </div>
+        <div fxFlex="13">
+          <mat-checkbox formControlName="t3">
+            Thứ 3
+          </mat-checkbox>
+        </div>
+        <div fxFlex="13">
+          <mat-checkbox formControlName="t4">
+            Thứ 4
+          </mat-checkbox>
+        </div>
+        <div fxFlex="13">
+          <mat-checkbox formControlName="t5">
+            Thứ 5
+          </mat-checkbox>
+        </div>
+        <div fxFlex="13">
+          <mat-checkbox formControlName="t6">
+            Thứ 6
+          </mat-checkbox>
+        </div>
+        <div fxFlex="13">
+          <mat-checkbox formControlName="t7">
+            Thứ 7
+          </mat-checkbox>
+        </div>
+        <div fxFlex="13">
+          <mat-checkbox formControlName="cn">
+            Chủ nhật
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <!-- điều khiển-->
+    <div class="b-w-60">
+      <div class="example-full-width b-margin-top" fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxFlex="40">Điều khiển</div>
+        <div fxFlex="20" style="text-align: end">
+          <button *ngIf="allowAddDieuKhien()"
+                  type="button" (click)="openCreateDieuKhienDialog()"
+                  mat-icon-button
+                  matTooltip="Thêm mới điều khiển"
+                  matTooltipPosition="above">
+            <mat-icon class="hover-icon">add</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- is group rpc-->
+      <div *ngIf="listDieuKhien.length !== 0 && listDieuKhien[0].typeRpc === 'GROUP-RPC'"
+           class="example-full-width">
+        <mat-card class="b-margin" *ngFor="let dieuKhien of listDieuKhien;let i = index">
+          <mat-card-content fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxFlex="60">
+              <span (click)="openEditDieuKhienDialog(i, dieuKhien)" class="b-link">
+                Nhóm điều khiển : {{ getGroupRpcNameById(dieuKhien.groupRpcId) }}
+              </span>
+            </div>
+            <div fxFlex="20">
+              <button type="button" (click)="deleteDieuKhien(i)" style="border: unset !important;
+                       background-color: unset !important; cursor: pointer;"
+                      color="primary">
+                <dft-label-icon [name]="'Trash'"></dft-label-icon>
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- is rpc-->
+      <div *ngIf="listDieuKhien.length !== 0 && listDieuKhien[0].typeRpc === 'RPC'"
+           class="example-full-width">
+        <mat-card class="b-margin" *ngFor="let dieuKhien of listDieuKhien; let i = index">
+          <mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="space-around center" class="b-margin" >
+              <div fxFlex="50">
+                  <span (click)="openEditDieuKhienDialog(i, dieuKhien)" class="b-link">
+                    {{dieuKhien.valueControl === 1 ? 'Bật' : 'Tắt' }} {{getDeviceNameById(dieuKhien.deviceId)}}
+                  </span>
+              </div>
+              <div fxFlex="20">
+                <button type="button" (click)="deleteDieuKhien(i)" style="border: unset !important;
+                 background-color: unset !important; cursor: pointer;"
+                        color="primary">
+                  <dft-label-icon [name]="'Trash'"></dft-label-icon>
+                </button>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-around center" class="b-margin">
+              <div fxFlex="50">
+                Thực hiện sau khi kích hoạt
+              </div>
+              <div fxFlex="20">
+                {{dieuKhien.delayTime}} ms
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div *ngIf="listDieuKhien.length === 0" class="example-full-width b-text-center">
+        Chưa có điều khiển
+      </div>
+
+    </div>
+
+
+    <div class="b-margin-top b-w-60">
+      <mat-slide-toggle formControlName="active">Kích hoạt</mat-slide-toggle>
+    </div>
+
+  </mat-dialog-content>
+  <!-- /content -->
+
+
+  <mat-divider></mat-divider>
+  <mat-dialog-actions fxFlex="none" align="end" class="binhdv-dialog-action">
+    <button class="btn-huy" mat-button mat-dialog-close>
+      <mat-icon>clear</mat-icon>
+      Hủy
+    </button>
+    <button class="btn-luu" mat-button cdkFocusInitial type="submit"
+            [disabled]="(isLoading$ | async) || !isFormValid()">
+      <dft-label-icon class="icon-center" [name]="'FloppyDisk'">
+      </dft-label-icon>
+      Lưu
+    </button>
+  </mat-dialog-actions>
+
+</form>

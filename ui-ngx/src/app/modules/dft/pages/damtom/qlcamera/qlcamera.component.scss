@@ -1,0 +1,160 @@
+// binhdv
+/* camera section above */
+.camera-section-container{
+  height: 65vh;
+  width: 100%;
+  background: #fff;
+  padding: 10px;
+}
+
+.cam-leftside{
+  //position: relative;
+  //border: 1px solid red;
+}
+
+.b-cam-control{
+  //position: absolute;
+  //top: 10px;
+  //right: 10px;
+}
+
+.b-cam-container{
+  //border: 1px solid blue;
+  width: 100%;
+  height: 100%;
+}
+
+.b-leftcam-name{
+  padding-left: 20px;
+  font-family: "SF Pro Display";
+  color: #43484D;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.b-fullscreen{
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.b-close-fullscreen{
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+}
+
+.cam-rightside{
+  overflow: auto;
+  height: 100%;
+  background: #43484D;
+}
+
+// camera container it self
+.cam-container{
+  min-height: 110px;
+  max-height: 110px;
+  border-radius: 20px !important;
+  margin-bottom: 0px !important;
+  color: white;
+}
+
+.cam-container:hover{
+  background-color: #6F7780;
+  color: white;
+  cursor: pointer;
+}
+
+.choosen-cam{
+  background-color: white;
+  color: black;
+}
+
+.cam-frame-container{
+  position: relative;
+  padding: 8px !important;
+  height: 100%;
+}
+
+.cam-frame-div{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+// div to reveice click event -> toggle camera
+.b-right-div{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.b-right-div :hover{
+}
+
+.b-rightcam-name{
+  //position: absolute;
+  //bottom: 10px;
+  //left: 10px;
+  //background: white;
+  //color: black;
+  //padding: 5px;
+  //border-radius: 3px;
+}
+
+
+// table section bottom
+.table-section-container{
+  //min-height: 70vh;
+  background: #fff;
+  //border: 1px solid black;
+}
+
+.table-container{
+  min-height: 45vh;
+  max-height: 45vh;
+  overflow: auto;
+}
+
+.mat-column-actions{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 10% !important;
+  width: 10% !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.mat-column-code{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 25% !important;
+  width: 25% !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.mat-column-name{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 25% !important;
+  width: 25% !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.mat-column-note{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 40% !important;
+  width: 40% !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+

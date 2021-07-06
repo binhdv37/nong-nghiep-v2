@@ -1,0 +1,74 @@
+<!--
+
+    Copyright © 2016-2021 The Thingsboard Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<div class="tb-login-content mat-app-background tb-dark" fxFlex fxLayoutAlign="center center">
+  <mat-card style="overflow-y: auto; padding: 0PX !important;">
+    <mat-card-content>
+      <form class="tb-login-form boder-login" [formGroup]="loginFormGroup" (ngSubmit)="login()">
+        <fieldset [disabled]="isLoading$ | async" fxLayout="column">
+          <div style="margin-top: 24px !important;" fxLayout="column" fxLayoutAlign="start center">
+            <tb-logo class="login-logo"></tb-logo>
+          </div>
+          <mat-progress-bar color="warn" mode="indeterminate" *ngIf="isLoading$ | async">
+          </mat-progress-bar>
+          <span style="height: 4px;" *ngIf="!(isLoading$ | async)"></span>
+          <div tb-toast fxLayout="column" style="padding: 0px 24px !important;">
+            <div style="text-align: center;">
+              <h3 style="color: #43484D; font-size: 24px; font-family: SF Pro Display; font-weight: 600 !important;">Đăng nhập</h3>
+            </div>
+            <div class="oauth-container tb-default" fxLayout="column" fxLayoutGap="16px" *ngIf="oauth2Clients?.length">
+              <ng-container *ngFor="let oauth2Client of oauth2Clients">
+                <a mat-raised-button class="login-with-button" href="{{ oauth2Client.url }}">
+                  <mat-icon class="icon" svgIcon="{{ oauth2Client.icon }}"></mat-icon>
+                  {{ 'login.login-with' | translate: {name: oauth2Client.name} }}
+                </a>
+              </ng-container>
+              <div class="container-divider">
+                <div class="line"><mat-divider></mat-divider></div>
+                <div class="text mat-typography">{{ "login.or" | translate | uppercase }}</div>
+                <div class="line"><mat-divider></mat-divider></div>
+              </div>
+            </div>
+            <mat-form-field style="padding-bottom: 24px;">
+              <mat-label>Tên đăng nhập (Email)</mat-label>
+              <input id="username-input" matInput type="email" autofocus formControlName="username" email required/>
+              <dft-label-icon matSuffix [name]="'User'"></dft-label-icon>
+              <mat-error *ngIf="loginFormGroup.get('username').invalid">
+                {{ 'user.invalid-email-format' | translate }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Nhập mật khẩu</mat-label>
+              <input id="password-input" matInput [type]="show ? 'text' : 'password'" formControlName="password"/>
+              <dft-label-icon matSuffix [name]="'Key'"></dft-label-icon>
+              <dft-label-icon class="icon-login" style="cursor: pointer !important;" *ngIf="!show" (click)="showPass(true)" matPrefix [name]="'EyeSlash'"></dft-label-icon>
+              <dft-label-icon class="icon-login" style="cursor: pointer !important;" *ngIf="show" (click)="showPass(false)" matPrefix [name]="'eye'"></dft-label-icon>
+            </mat-form-field>
+            <div fxLayout="column">
+              <button mat-raised-button color="accent" style="background: #EBF5FF !important; color: #3D85CC; height: 48px; font-size: 16px; font-weight: 600 !important;" [disabled]="(isLoading$ | async)"
+                      type="submit">Đăng nhập</button>
+            </div>
+            <div  fxLayoutAlign="end center"  class="forgot-password">
+              <button style="padding: 10px 0px 14px 0px !important;" class="tb-reset-password" mat-button type="button" routerLink="/login/resetPasswordRequest">Quên mật khẩu?
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

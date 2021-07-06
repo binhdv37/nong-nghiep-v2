@@ -1,0 +1,50 @@
+form{
+  padding: 0;
+  margin: 0;
+}
+
+.b-dialog-header{
+  margin: 0;
+  padding: 0;
+}
+
+.b-dialog-title{
+  margin: 0px;
+  padding: 0px;
+  display: inline;
+}
+
+.close-button{
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+.b-dialog-content{
+  width: 50vw;
+  height:60vh;
+  padding: 0;
+  margin: 0;
+}
+
+mat-tab-group{
+  width: 100%;
+  height: 100%;
+}
+
+.b-margin-top{
+  margin-top: 20px;
+}
+
+.b-display-block{
+  display: block;
+}
+
+.b-textarea{
+  min-height: 100px;
+}
+
+.b-haft-width{
+  width: 50%;
+}
+

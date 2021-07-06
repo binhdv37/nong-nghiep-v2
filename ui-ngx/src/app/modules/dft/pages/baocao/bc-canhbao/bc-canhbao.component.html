@@ -1,0 +1,93 @@
+<mat-drawer-container hasBackdrop="false" class="tb-absolute-fill">
+  <mat-drawer-content>
+    <div class="mat-padding tb-entity-table tb-absolute-fill">
+      <div fxLayout="column" class="mat-elevation-z1 tb-entity-table-content">
+        <!-- toolbar ben tren-->
+        <mat-toolbar fxFlex="none" class="mat-table-toolbar header-background">
+          <div class="mat-toolbar-tools">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+              class="title-container">
+              <!--              <span class="tb-entity-table-title">{{ 'dft.role.manage' | translate }}</span>-->
+              <span class="tb-entity-table-title">Báo cáo cảnh báo</span>
+              <tb-anchor #entityTableHeader></tb-anchor>
+            </div>
+            <span fxFlex></span>
+          </div>
+        </mat-toolbar>
+        <div fxLayout="column" style="border-radius: 0px 0px 20px 20px !important;"
+          class="mat-elevation-z1 tb-entity-table-content b-container">
+          <!--  damtom, timerange select section -->
+
+          <form (ngSubmit)="onSubmitForm()" [formGroup]="formTimeQuery" id="myForm">
+            <div fxLayout="row" style="margin-top: 16px !important;">
+              <div fxFlex="32" style="padding: 0px 8px 0px 24px !important;">
+                <span class="text-tim-kiem">Chọn đầm</span>
+                <mat-form-field class="b-select" style="width: 100% !important;" class="margin-cmb-tk">
+                  <!--                  <mat-select [(value)]="selectedValue">-->
+                  <mat-select [(value)]="selectedValue">
+                    <mat-option *ngFor="let damtom of damtomList" [value]="damtom.id"
+                      (click)="changeSelectedDamtomName(damtom.name)">
+                      {{damtom.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex="32" style="padding: 0px 8px !important;">
+                <span class="text-tim-kiem" translate="dft.dlcb.startTime"></span>
+                <mat-form-field class="mat-block datetime-input">
+                  <mat-datepicker-toggle class="size-icon" [for]="startDatetimePicker" matSuffix>
+                    <mat-icon matDatepickerToggleIcon>history</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datetimepicker #startDatetimePicker type="date" openOnFocus="false">
+                  </mat-datetimepicker>
+                  <input matInput [matDatetimepicker]="startDatetimePicker" autocomplete="false" [max]="maxDate"
+                    [min]="minDate" formControlName="startRangeTime">
+                </mat-form-field>
+              </div>
+              <div fxFlex="32" style="padding: 0px 8px !important;">
+                <span class="text-tim-kiem" translate="dft.dlcb.endTime"></span>
+                <mat-form-field class="mat-block datetime-input">
+                  <mat-datepicker-toggle class="size-icon" [for]="endDatetimePicker" matSuffix>
+                    <mat-icon matDatepickerToggleIcon>update</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datetimepicker #endDatetimePicker type="date" openOnFocus="false">
+                  </mat-datetimepicker>
+                  <input matInput [matDatetimepicker]="endDatetimePicker" autocomplete="false" [max]="maxDate"
+                    [min]="minDate" formControlName="endRangeTime">
+                  <mat-error *ngIf="formTimeQuery.get('endRangeTime').hasError('timeRangeInvalid')">
+                    {{ 'dft.dlcb.validate.timeRangeInvalid' | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="4" style="text-align: center !important; padding-top: 30px !important;">
+                <button mat-icon-button color="primary" form="myForm" [disabled]="(isLoading$ | async) || (isLoadingChart1$ | async) ||
+               (isLoadingChart2$ | async) || formTimeQuery?.invalid">
+                  <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div style="padding: 0px 24px 16px 24px !important;">
+          <div class="row" fxLayoutAlign="space-between none">
+            <div fxFlex="49" class="b-chart-container">
+              <tb-b-pie-chart class="title-bao-cao-tron" [chartTitle]="chartDatas[0].chartTitle" [data]="chartDatas[0].datas">
+              </tb-b-pie-chart>
+            </div>
+
+            <!-- chart container 2 -->
+            <div fxFlex="49" class="b-chart-container">
+              <tb-b-pie-chart class="title-bao-cao-tron" [chartTitle]="chartDatas[1].chartTitle" [data]="chartDatas[1].datas">
+              </tb-b-pie-chart>
+            </div>
+
+          </div>
+          <!-- chart section -->
+          <!-- <div fxFlex fxLayout="column" fxLayoutAlign="space-between center" class="b-chart-section"> -->
+
+            <!-- chart container 1 -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

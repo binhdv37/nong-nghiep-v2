@@ -1,0 +1,93 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.width-30 {
+  width: 30%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.width-10 {
+  width: 10%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+td {
+  padding-right: 8px;
+}
+.accordion .card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: .25rem;
+  overflow: hidden;
+}
+
+.accordion > .card .card-header {
+  border-radius: calc(.25rem - 1px);
+  margin-bottom: -1px;
+  padding: .75rem 1.25rem;
+  background-color: rgba(0, 0, 0, .03);
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+.card-header > span {
+  font-weight: 400;
+  color: #007bff;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+}
+
+.card-header h2 {
+  font-size: unset;
+  line-height: unset;
+}
+
+.card-header h2 > span {
+  border: none;
+  background: unset;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+.close-button{
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+.b-dialog-title{
+  margin: 0px;
+  padding: 0px;
+  display: inline;
+}
+.b-dialog-header{
+  margin: 0;
+  padding: 0;
+}

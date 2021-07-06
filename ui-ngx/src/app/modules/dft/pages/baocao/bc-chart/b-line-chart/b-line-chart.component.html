@@ -1,0 +1,81 @@
+<div fxLayout="column" style="width: 100%; height: 100%" class="b-chart-container">
+
+  <div fxFlex="15" fxLayout="column" fxLayoutAlign="space-around center">
+    <span fxFlex="none">{{chartTitle}}</span>
+  </div>
+
+  <div fxFlex="70">
+    <ngx-charts-line-chart
+
+      [scheme]="colorScheme"
+
+      [legend]="legend"
+
+      [results]="data"
+
+      [activeEntries]="activeEntries"
+
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxis]="xAxis"
+      [yAxis]="yAxis"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+
+      [timeline]="timeline"
+
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)"
+    >
+    </ngx-charts-line-chart>
+  </div>
+
+
+  <div fxFlex="15" fxLayout="column">
+    <ngx-charts-legend
+
+      fxFlex
+
+      class="chart-legend"
+
+      [title]=""
+
+      [data]="chartNames"
+
+      [colors]="colors"
+
+      horizontal="true"
+
+      (labelActivate)="legendLabelActivate($event)"
+      (labelDeactivate)="legendLabelDeactivate($event)">
+    </ngx-charts-legend>
+  </div>
+
+</div>
+
+<!--<div fxLayout="row">-->
+<!--  <div fxFlex="50%">-->
+<!--    <ngx-charts-line-chart-->
+<!--      [legend]="false"-->
+<!--      [activeEntries]="activeEntries"-->
+<!--      [results]="multi"-->
+<!--      [scheme]="colorScheme">-->
+<!--    </ngx-charts-line-chart>-->
+<!--  </div>-->
+<!--  <div fxFlex="50%">-->
+<!--    <ngx-charts-legend-->
+<!--      fxFlex="100%"-->
+<!--      class="chart-legend"-->
+<!--      [data]="chartNames"-->
+<!--      [title]="'Legend Title'"-->
+<!--      [colors]="colors"-->
+<!--      (labelActivate)="legendLabelActivate($event)"-->
+<!--      (labelDeactivate)="legendLabelDeactivate($event)">-->
+<!--    </ngx-charts-legend>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<!--legendPosition="below"-->
+<!--legendTitle=""-->

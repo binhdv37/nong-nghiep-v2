@@ -1,0 +1,2 @@
+mkdir /opt/dam_tom
+cp  application/target/data /opt/dam_tom/data

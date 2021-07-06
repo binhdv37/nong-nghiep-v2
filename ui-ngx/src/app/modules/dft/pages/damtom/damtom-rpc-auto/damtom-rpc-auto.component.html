@@ -1,0 +1,84 @@
+<mat-drawer-container hasBackdrop="false" class="tb-absolute-fill">
+  <mat-drawer-content style="padding: 0px !important;">
+    <div class="tb-entity-table tb-absolute-fill">
+      <div fxLayout="column" class="mat-elevation-z1 tb-entity-table-content">
+
+        <mat-toolbar style="padding: 0px 0px 0px 24px !important; border-radius: 0px !important;"
+                     class="mat-table-toolbar">
+          <div class="mat-toolbar-tools">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+                 class="title-container">
+              <span class="text-dieu-khien">Danh sách điều khiển tự động</span>
+              <tb-anchor #entityTableHeader></tb-anchor>
+            </div>
+            <span fxFlex></span>
+            <div>
+              <button mat-icon-button color="primary" class="icon-blue" [disabled]="isLoading$ | async"
+                      matTooltip="Thêm mới"
+                      matTooltipPosition="above"
+                      (click)="openCreateDialog()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-toolbar>
+        <div fxFlex class="table-container" style="height: 85% !important; overflow: auto !important;">
+          <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="openEditDialog(element)">
+                    <span>Cập nhật</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteRpcAuto(element.id, element.alarmType)">
+                    <span>Xóa</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Tên điều khiển tự động</th>
+              <td mat-cell *matCellDef="let element"> {{element.alarmType}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="active">
+              <th mat-header-cell *matHeaderCellDef>Trạng thái</th>
+              <td mat-cell *matCellDef="let element">
+                <mat-icon class="material-icons mat-icon">
+                  {{getAlarmActive(element) ? 'check_box' : 'check_box_outline_blank'}}
+                </mat-icon>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdTime">
+              <th mat-header-cell *matHeaderCellDef>Thời gian tạo</th>
+              <td mat-cell *matCellDef="let element"> {{element.dftAlarmRule.createdTime !== null
+                ? (element.dftAlarmRule.createdTime | date: "dd/MM/yyyy")
+                : (1624381200000 | date: "dd/MM/yyyy")
+                }} </td>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </table>
+          <span
+            [fxShow]="(dataSource === undefined || dataSource.data === null || dataSource.data.length === 0) && !(isLoading$ | async)"
+            fxLayoutAlign="center center" style="padding-top: 15%; padding-bottom: 15%">
+   Không tìm thấy dữ liệu</span>
+          <span [fxShow]="(isLoading$ | async)"
+                fxLayoutAlign="center center"
+                style="padding-top: 15%; padding-bottom: 15%">{{ 'common.loading' | translate }}</span>
+        </div>
+        <mat-divider></mat-divider>
+<!--        <mat-paginator class="footer-format1 footer-format2 footer-format3" [pageSizeOptions]="pageSizeOptions"-->
+<!--                       showFirstLastButtons></mat-paginator>-->
+
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

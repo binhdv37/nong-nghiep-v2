@@ -1,0 +1,5 @@
+export enum TableAction {
+  EDIT_ENTITY = 'EDIT_ENTITY',
+  ADD_ENTITY = 'ADD_ENTITY',
+  DETAIL_ENTITY = 'DETAIL_ENTITY'
+}

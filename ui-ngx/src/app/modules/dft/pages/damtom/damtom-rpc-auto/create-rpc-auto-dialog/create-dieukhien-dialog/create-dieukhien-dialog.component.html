@@ -1,0 +1,206 @@
+<form class="popup-c" (ngSubmit)="onSubmit()" [formGroup]="myForm">
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title">{{getDialogTitle()}}</h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">
+      close
+    </mat-icon>
+  </div>
+
+
+  <!-- content -->
+  <mat-dialog-content class="b-dialog fixed-modal-height">
+
+    <!-- nhóm đk or thiest bị -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Chọn nhóm điều khiển hay thiết bị</mat-label>
+      <mat-select formControlName="typeRpc" disableRipple>
+        <mat-option value="GROUP-RPC" *ngIf="dialogData.allowAddGroupRpc">
+          Nhóm điều khiển
+        </mat-option>
+        <mat-option value="RPC">
+          Thiết bị
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Điều khiển (nhóm dk)-->
+    <mat-form-field *ngIf="myForm.controls.typeRpc.value==='GROUP-RPC'" class="example-full-width">
+      <mat-label>Điều khiển</mat-label>
+      <mat-select formControlName="groupRpcId" disableRipple>
+        <mat-option value="">
+          Chọn nhóm điều khiển
+        </mat-option>
+        <mat-option *ngFor="let groupRpc of groupRpcList" [value]="groupRpc.groupRpcId">
+          {{groupRpc.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <!-- -->
+    <div *ngIf="myForm.controls.typeRpc.value=='RPC'">
+      <!-- Điều khiển (th bị) -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Điều khiển</mat-label>
+        <mat-select formControlName="deviceId" disableRipple>
+          <mat-option value="">
+            Chọn thiết bị
+          </mat-option>
+          <mat-option *ngFor="let rpcDevice of rpcDeviceList" [value]="rpcDevice.id">
+            {{rpcDevice.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Thao tac : -->
+      <div class="example-full-width">
+        <div>Thao tác</div>
+        <mat-slide-toggle class="b-margin" formControlName="valueControl">
+          Bật
+        </mat-slide-toggle>
+      </div>
+
+      <!-- Thực hiện sau khi kích hoạt ( Delay time ) : -->
+      <div class="example-full-width b-margin-top" formGroupName="delayTime">
+        <div class="b-margin">Thực hiện sau khi kích hoạt</div>
+
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-form-field fxFlex="30">
+            <mat-label>Giờ</mat-label>
+            <mat-select formControlName="hour">
+              <mat-option *ngFor="let hour of [].constructor(24) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="30">
+            <mat-label>Phút</mat-label>
+            <mat-select formControlName="minute">
+              <mat-option *ngFor="let minute of [].constructor(60) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="30">
+            <mat-label>Giây</mat-label>
+            <mat-select formControlName="second">
+              <mat-option *ngFor="let second of [].constructor(60) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Thực hiện trong (call back options)-->
+      <div class="example-full-width b-margin-top">
+
+        <div class="b-margin">
+          <mat-checkbox formControlName="callbackOption">Thực hiện trong</mat-checkbox>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-around center" formGroupName="timeCallback">
+          <mat-form-field fxFlex="30">
+            <mat-label>Giờ</mat-label>
+            <mat-select formControlName="hour" [disabled]="!getCallbackOption()">
+              <mat-option *ngFor="let hour of [].constructor(24) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="30">
+            <mat-label>Phút</mat-label>
+            <mat-select formControlName="minute" [disabled]="!getCallbackOption()">
+              <mat-option *ngFor="let minute of [].constructor(60) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="30">
+            <mat-label>Giây</mat-label>
+            <mat-select formControlName="second" [disabled]="!getCallbackOption()">
+              <mat-option *ngFor="let second of [].constructor(60) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <!-- Lặp lại -->
+      <div class="example-full-width b-margin-top">
+        <mat-checkbox formControlName="loopOption">Lặp lại</mat-checkbox>
+      </div>
+
+      <!-- Lặp lại sau -->
+      <div class="example-full-width b-margin-top">
+        <div class="b-margin">
+          Lặp lại sau
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-around center" formGroupName="loopTimeStep">
+          <mat-form-field fxFlex="30">
+            <mat-label>Giờ</mat-label>
+            <mat-select formControlName="hour" [disabled]="!getLoopOption()">
+              <mat-option *ngFor="let hour of [].constructor(24) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="30">
+            <mat-label>Phút</mat-label>
+            <mat-select formControlName="minute" [disabled]="!getLoopOption()">
+              <mat-option *ngFor="let minute of [].constructor(60) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="30">
+            <mat-label>Giây</mat-label>
+            <mat-select formControlName="second" [disabled]="!getLoopOption()">
+              <mat-option *ngFor="let second of [].constructor(60) let i = index" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Số lần lặp-->
+      <mat-form-field class="example-full-width">
+        <mat-label>Số lần lặp lại</mat-label>
+        <mat-select formControlName="loopCount" [disabled]="!getLoopOption()">
+          <mat-option *ngFor="let loopCount of [].constructor(20) let i = index" [value]="i+1">
+            {{i + 1}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+
+  </mat-dialog-content>
+
+
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="end" class="binhdv-dialog-action">
+    <button class="btn-huy" mat-button mat-dialog-close type="reset">
+      <mat-icon>clear</mat-icon>
+      Hủy
+    </button>
+    <button class="btn-luu" mat-button cdkFocusInitial type="submit"
+            [disabled]="!isFormValid()">
+      <dft-label-icon class="icon-center" [name]="'FloppyDisk'">
+      </dft-label-icon>
+      Lưu
+    </button>
+  </mat-dialog-actions>
+
+</form>

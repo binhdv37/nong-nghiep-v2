@@ -1,0 +1,115 @@
+<form class="popup-c" (ngSubmit)="onSubmit()" [formGroup]="createForm">
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title">Thêm mới tài khoản</h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">close</mat-icon>
+  </div>
+  <div class="fixed-modal-height">
+  <mat-tab-group  class="m-g" style="min-width: 600px !important;" mat-align-tabs="start">
+    <mat-tab label="Thông tin chung">
+        <table  style="width: 100% !important;" class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+                <dft-label-icon matSuffix [name]="'User'"></dft-label-icon>
+                <mat-label>Họ tên người dùng</mat-label>
+                <input matInput formControlName="firstName" required/>
+                <mat-error *ngIf="createForm.get('firstName').hasError('required') ||
+                 createForm.get('firstName').hasError('pattern')">
+                  Không được để trống
+                </mat-error>
+                <mat-error *ngIf="createForm.get('firstName').hasError('maxlength')">Độ dài tên không quá 255 ký tự</mat-error>
+              </mat-form-field>
+            </td>
+            <td style="padding: 0px 0px 0px 8px !important;">
+              <mat-form-field class="example-full-width" >
+                <dft-label-icon matSuffix [name]="'EnvelopeOpen'"></dft-label-icon>
+                <mat-label>Địa chỉ Email</mat-label>
+                <input matInput type="email" formControlName="email" required/>
+                <mat-error *ngIf="createForm.get('email').hasError('required')">Không được để trống</mat-error>
+                <mat-error *ngIf="createForm.get('email').hasError('maxlength')">Độ dài tên không quá 320 ký tự</mat-error>
+                <mat-error *ngIf="createForm.get('email').hasError('pattern')">Không đúng định dạng email</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td style="padding: 0px !important;">
+              <mat-form-field class="example-full-width">
+                <dft-label-icon matSuffix [name]="'Phone'"></dft-label-icon>
+                <mat-label>SĐT</mat-label>
+                <input matInput type="text" formControlName="lastName"/>
+                <mat-error *ngIf="createForm.get('lastName').hasError('maxlength')">Độ dài số điện thoại không quá 45 số</mat-error>
+                <mat-error *ngIf="createForm.get('lastName').hasError('pattern')">Không đúng định dạng số điện thoại</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+                <dft-label-icon matSuffix [name]="'Key'"></dft-label-icon>
+                <mat-label>Mật khẩu</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required/>
+                <!-- <button type="button" mat-icon-button matPrefix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"> -->
+                  <!-- <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+                  <dft-label-icon matPrefix style="cursor: pointer !important;" (click)="hide = !hide" *ngIf="!hide" [name]="'eye'"></dft-label-icon>
+                  <dft-label-icon matPrefix style="cursor: pointer !important;" (click)="hide = !hide" *ngIf="hide" [name]="'EyeClosed'"></dft-label-icon>
+                <!-- </button> -->
+                <mat-error *ngIf="createForm.get('password').hasError('required')">Không được để trống</mat-error>
+                <mat-error *ngIf="createForm.get('password').hasError('maxlength')">Độ dài mật khẩu không quá 255 ký tự</mat-error>
+                <mat-error *ngIf="createForm.get('password').hasError('pattern')">Mật khẩu từ 6 kí tự trở lên, không bao gồm các kí tự có dấu tiếng việt hoặc khoảng trắng</mat-error>
+              </mat-form-field>
+            </td>
+            <td style="padding: 0px 0px 0px 8px !important;">
+              <mat-form-field class="example-full-width">
+                <mat-label>Xác nhận mật khẩu</mat-label>
+                <dft-label-icon matSuffix [name]="'Key'"></dft-label-icon>
+                <input matInput [type]="hideXacNhan ? 'password' : 'text'" formControlName="rePassword" required/>
+                <!-- <button type="button" mat-icon-button matPrefix (click)="hideXacNhan = !hideXacNhan" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideXacNhan"> -->
+                  <!-- <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+                  <dft-label-icon matPrefix style="cursor: pointer !important;" (click)="hideXacNhan = !hideXacNhan"  *ngIf="!hideXacNhan" [name]="'eye'"></dft-label-icon>
+                  <dft-label-icon matPrefix style="cursor: pointer !important;" (click)="hideXacNhan = !hideXacNhan" *ngIf="hideXacNhan" [name]="'EyeClosed'"></dft-label-icon>
+                <!-- </button> -->
+                <mat-error *ngIf="createForm.get('rePassword').hasError('required')">Không được để trống</mat-error>
+                <mat-error *ngIf="createForm.get('rePassword').hasError('maxlength')">Độ dài mật khẩu không quá 255 ký tự</mat-error>
+                <mat-error *ngIf="createForm.get('rePassword').hasError('notEquivalent')">Mật khẩu không giống nhau</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+
+        <mat-slide-toggle formControlName="enabled" checked="false">Kích hoạt</mat-slide-toggle>
+
+        <mat-form-field class="example-full-width binhdv-margin-top">
+          <dft-label-icon matSuffix [name]="'Note'"></dft-label-icon>
+          <mat-label>Ghi chú</mat-label>
+          <textarea matInput #additionalInfo formControlName="additionalInfo" rows="1"></textarea>
+          <mat-hint align="end">{{additionalInfo.value.length}} / 4000</mat-hint>
+          <mat-error *ngIf="createForm.get('additionalInfo').hasError('maxlength')">Độ dài ghi chú không quá 4000 ký tự</mat-error>
+        </mat-form-field>
+    </mat-tab>
+    <mat-tab label="Phân quyền">
+      <div *ngFor="let role of roleList">
+      <section class="example-section">
+        <mat-checkbox class="example-margin" formArrayName="roleId" [value]="role.id" (change)="onCheckboxChange($event)">{{role.name}}</mat-checkbox>
+      </section>
+      </div>
+      <!--<mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Chọn quyền</mat-label>
+        <mat-select formControlName="roleId">
+          <mat-option *ngFor="let role of roleList" [value]="role.id">{{role.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>-->
+    </mat-tab>
+  </mat-tab-group>
+</div>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="end" class="binhdv-dialog-action">
+    <button class="btn-huy" mat-button mat-dialog-close type="reset" (click)="backToIndex()"> <mat-icon >clear</mat-icon> Hủy</button>
+    <button  class="btn-luu" mat-button cdkFocusInitial type="submit" [disabled]="createForm?.invalid"><dft-label-icon class="icon-center" [name]="'FloppyDisk'"></dft-label-icon>Lưu</button>
+  </mat-dialog-actions>
+</form>

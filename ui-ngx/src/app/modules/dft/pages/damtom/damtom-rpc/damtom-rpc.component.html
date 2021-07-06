@@ -1,0 +1,114 @@
+<div class="tb-entity-table tb-absolute-fill">
+  <div fxLayout="column" class="tb-entity-table-content">
+    <mat-accordion multi>
+      <mat-expansion-panel [expanded]="true" class="pd">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="tb-entity-table-title">
+            Thủ công
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="rpc-manual-device-tab">
+          <mat-toolbar class="mat-table-toolbar">
+            <div class="mat-toolbar-tools">
+              <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+                   class="title-container">
+                <span class="text-dieu-khien">Điều khiển thiết bị</span>
+                <tb-anchor #entityTableHeader></tb-anchor>
+              </div>
+            </div>
+          </mat-toolbar>
+          <div fxFlex style="height: 60% !important; overflow: auto !important; padding: 0px 24px 0px 8px !important;">
+            <div class="row">
+              <div *ngFor="let deviceRpc of listDeviceRpc" class="col-md-4 col-xs-4 col-sm-6"
+                   style="padding: 0px 0px 16px 16px !important; height: 100% !important;">
+                <mat-toolbar
+                  style="border-radius: 8px !important; background-color: #fff !important;
+                  padding: 0px !important; height: 30% !important;">
+                  <div class="mat-toolbar-tools b-fontsize rpc-device-bg">
+                    <div style="align-items: flex-start; margin-top: -1vh;">
+                      <img class="padding-icon" style="padding-left: 3px !important" matSuffix
+                                      src="assets/Rpcdevice.png">
+                    </div>
+                    <div>
+                      <span>{{ deviceRpc.label }}</span>
+                      <br>
+                      <span>Trạng thái:&nbsp;</span>
+                      <span *ngIf="deviceRpc.statusDevice === 1"
+                            style="color: green !important">{{ 'dft.device-rpc.on' | translate }}</span>
+                      <span *ngIf="deviceRpc.statusDevice === 0">{{ 'dft.device-rpc.off' | translate }}</span>
+                      <span *ngIf="deviceRpc.statusDevice !== 0 && deviceRpc.statusDevice !== 1"
+                            style="color: red !important">{{ 'dft.device-rpc.disconnect' | translate }}</span>
+                      <br>
+                      <span *ngIf="deviceRpc.statusDevice === 0 || deviceRpc.statusDevice === 1"
+                            style="color: #6F7780; opacity: 0.7;">{{getTimeDurationStatus(deviceRpc.statusTime)}}</span>
+                    </div>
+                    <span fxFlex></span>
+                    <mat-slide-toggle [disabled]="deviceRpc.statusDevice !== 1
+                  && deviceRpc.statusDevice !== 0" (change)="onToggle($event, deviceRpc)"
+                                      *ngIf="!inControlLoading(deviceRpc)" [checked]="deviceRpc.statusDevice === 1">
+                    <span *ngIf="deviceRpc.statusDevice === 1">
+                       {{  'dft.device-rpc.on' | translate }}
+                    </span>
+                      <span *ngIf="deviceRpc.statusDevice === 0">
+                       {{ 'dft.device-rpc.off' | translate }}
+                    </span>
+                    </mat-slide-toggle>
+                    <button [disabled]="deviceRpc.statusDevice !== 1 && deviceRpc.statusDevice !== 0"
+                            mat-icon-button aria-label="Điều khiển nâng cao" *ngIf="!inControlLoading(deviceRpc)"
+                            (click)="openDeviceSettingDialog(deviceRpc,deviceRpc.statusDevice === 1 ? 0 : 1)">
+                      <mat-icon>more_vert</mat-icon>
+                      <mat-icon *ngIf="inControlLoading(deviceRpc)" class="icon-rotate">loop</mat-icon>
+                    </button>
+                  </div>
+                </mat-toolbar>
+              </div>
+            </div>
+            <span [fxShow]="(listDeviceRpc === null || listDeviceRpc.length === 0) && !(isLoading$ | async)"
+                  fxLayoutAlign="center center" style="padding-top: 15%; padding-bottom: 15%">
+          Không tìm thấy thiết bị điều khiển</span>
+            <span [fxShow]="(isLoading$ | async)"
+                  fxLayoutAlign="center center"
+                  style="padding-top: 15%; padding-bottom: 15%">{{ 'common.loading' | translate }}</span>
+          </div>
+        </div>
+        <div class="rpc-manual-group-tab">
+          <tb-damtom-group-rpc [damTomId]="damTomId" [rpcDeviceList]="listDeviceRpc"></tb-damtom-group-rpc>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="false" class="pd" style="margin-top: 0px !important;">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="tb-entity-table-title">
+            Tự động
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="rpc-manual-group-tab">
+          <tb-damtom-rpc-auto [damtomId]="damTomId" [rpcDeviceList]="listDeviceRpc">
+          </tb-damtom-rpc-auto>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="false" class="pd" style="margin-top: 0px !important;">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="tb-entity-table-title">
+            Lập lịch
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="rpc-manual-group-tab">
+          <tb-damtom-rpc-schedule [damTomId]="damTomId" [rpcDeviceList]="listDeviceRpc"></tb-damtom-rpc-schedule>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="false" class="pd">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="tb-entity-table-title">
+            Lịch sử
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="rpc-manual-group-tab">
+          <tb-damtom-rpc-history [damTomId]="damTomId"></tb-damtom-rpc-history>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-divider></mat-divider>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<mat-toolbar class="mat-table-toolbar" style="background: #F5F5F5 !important; border-radius: 0px !important;">
+  <div class="mat-toolbar-tools">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+         class="title-container">
+      <span class="tb-entity-table-title">{{ 'dft.bc-ketnoi.table-title' | translate }}</span>
+      <tb-anchor #entityTableHeader></tb-anchor>
+    </div>
+    <span fxFlex></span>
+  </div>
+</mat-toolbar>
+<div fxFlex class="table-container">
+  <table mat-table [dataSource]="dataSource" matSort #sort="matSort" matSortActive="created_time"
+         matSortDirection="desc" matSortDisableClear>
+
+    <ng-container matColumnDef="thoiGian">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.bc-ketnoi.time' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{element.thoiGian}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Temperature">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.bc-ketnoi.temperature' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{element.data.TEMPERATURE ? element.data.TEMPERATURE : 0}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="pH">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.bc-ketnoi.ph' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{element.data.PH ? element.data.PH : 0}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Salinity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.bc-ketnoi.salinity' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{element.data.SALINITY ? element.data.SALINITY : 0}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="DO">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.bc-ketnoi.DO' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{ element.data.DO ? element.data.DO : 0 }} </td>
+    </ng-container>
+
+<!--    <ng-container matColumnDef="ORP">-->
+<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.bc-ketnoi.ORP' | translate }}</th>-->
+<!--      <td mat-cell *matCellDef="let element"> {{ element.data.ORP ? element.data.ORP : 0 }} </td>-->
+<!--    </ng-container>-->
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns ; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </table>
+  <span [fxShow]="(dataSource.data === null || dataSource.data.length === 0)"
+        fxLayoutAlign="center center"
+        class="no-data-found">{{ 'dft.bc-ketnoi.noEntities' | translate }}</span>
+  <span [fxShow]="(isLoading$ | async)"
+        fxLayoutAlign="center center"
+        class="no-data-found">{{ 'common.loading' | translate }}</span>
+</div>
+<mat-divider></mat-divider>

@@ -1,0 +1,70 @@
+<mat-toolbar style="padding: 0px 0px 0px 24px !important; border-radius: 0px !important;"  class="mat-table-toolbar">
+  <div class="mat-toolbar-tools">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+         class="title-container">
+      <span class="text-dieu-khien">{{ 'dft.group-rpc.title' | translate }}</span>
+      <tb-anchor #entityTableHeader></tb-anchor>
+    </div>
+    <span fxFlex></span>
+    <div>
+      <button mat-icon-button color="primary" class="icon-blue" [disabled]="isLoading$ | async"
+              matTooltip="{{ 'dft.group-rpc.add-button' | translate }}"
+              matTooltipPosition="above"
+              (click)="openEditDialog(null, damTomId, null, tableAction.ADD_ENTITY, rpcDeviceList)">
+              <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
+<div fxFlex class="table-container" style="height: 85% !important; overflow: auto !important;">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">
+          <mat-icon *ngIf="!isLoadingGroupRpc(element)">more_vert</mat-icon>
+          <mat-icon *ngIf="isLoadingGroupRpc(element)" class="icon-rotate">loop</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="startGroupRpc(element)" *ngIf="!isLoadingGroupRpc(element)">
+            <span>{{ 'dft.group-rpc.start-command' | translate }}</span>
+          </button>
+          <button mat-menu-item (click)="stopGroupRpc(element)" *ngIf="isLoadingGroupRpc(element)">
+            <span>{{ 'dft.group-rpc.stop-command' | translate }}</span>
+          </button>
+          <button mat-menu-item (click)="openEditDialog(element.groupRpcId, damTomId,
+          element.name, tableAction.DETAIL_ENTITY, rpcDeviceList)">
+            <span>{{ 'dft.group-rpc.details-button' | translate }}</span>
+          </button>
+          <button mat-menu-item (click)="openEditDialog(element.groupRpcId, damTomId,
+          element.name, tableAction.EDIT_ENTITY, rpcDeviceList)" *ngIf="!isLoadingGroupRpc(element)">
+            <span>{{ 'dft.group-rpc.update-button' | translate }}</span>
+          </button>
+          <button mat-menu-item (click)="deleteEntity(element)" *ngIf="!isLoadingGroupRpc(element)">
+            <span>{{ 'dft.group-rpc.delete-button' | translate }}</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>{{ 'dft.group-rpc.group-name' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdTime">
+      <th mat-header-cell *matHeaderCellDef>Ngày tạo</th>
+      <td mat-cell *matCellDef="let element"> {{element.createdTime | date:"dd/MM/yyyy"}} </td>
+    </ng-container>
+
+     <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </table>
+  <span [fxShow]="(dataSource.data === null || dataSource.data.length === 0) && !(isLoading$ | async)"
+        fxLayoutAlign="center center" style="padding-top: 15%; padding-bottom: 15%">
+    {{ 'dft.group-rpc.noEntities' | translate }}</span>
+  <span [fxShow]="(isLoading$ | async)"
+        fxLayoutAlign="center center"
+        style="padding-top: 15%; padding-bottom: 15%">{{ 'common.loading' | translate }}</span>
+</div>
+

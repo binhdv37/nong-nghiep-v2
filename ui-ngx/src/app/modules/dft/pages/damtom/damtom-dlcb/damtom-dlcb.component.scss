@@ -1,0 +1,97 @@
+@import "src/scss/constants.scss";
+
+:host {
+  width: 100%;
+  height: 100%;
+  .tb-entity-table {
+    .tb-entity-table-content {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+
+      .mat-toolbar-tools {
+        min-height: auto;
+      }
+
+      .title-container {
+        overflow: hidden;
+      }
+
+      .tb-entity-table-title {
+        padding-right: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .table-container {
+        overflow: auto;
+      }
+
+      .tb-entity-table-info {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  @media #{$mat-xs} {
+    .mat-toolbar {
+      height: auto;
+      min-height: 100px;
+
+      .tb-entity-table-title {
+        padding-bottom: 5px;
+        width: 100%;
+      }
+    }
+  }
+}
+
+:host ::ng-deep .mat-sort-header-sorted .mat-sort-header-arrow {
+  opacity: 1 !important;
+}
+
+:host ::ng-deep .custom-mat-toolbar {
+  font: 500 17px Roboto, "Helvetica Neue", sans-serif !important;
+}
+
+:host ::ng-deep .dbcl-table {
+  th,
+  td {
+    vertical-align: top;
+    border-right: 1px solid #D3e5f8 !important;
+    padding-left: 16px !important;
+    padding-top: 14px !important;
+  }
+}
+
+.data-col-width {
+  min-width: 90px;
+  max-width: 90px;
+}
+
+.icon-rotate {
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+      -webkit-transform: rotate(359deg);
+  }
+  to {
+      -webkit-transform: rotate(0deg);
+  }
+}
+
+.w-100 {
+  max-width: 100px;
+}
+
+//.custom-border-buttom {
+//  border-radius: 26%;
+//  border: 1px #8d8b8b solid;
+//  padding-bottom: 18%;
+//  width: 19%;
+//}

@@ -1,0 +1,85 @@
+@import "src/scss/constants.scss";
+
+:host ::ng-deep {
+  width: 100%;
+  height: auto;
+}
+
+:host ::ng-deep .mat-sort-header-sorted .mat-sort-header-arrow {
+  opacity: 1 !important;
+}
+
+:host ::ng-deep .custom-mat-toolbar {
+  font: 500 17px Roboto, "Helvetica Neue", sans-serif !important;
+}
+
+.data-col-width {
+  min-width: 70px;
+  max-width: 70px;
+}
+
+.icon-rotate {
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(359deg);
+  }
+  to {
+    -webkit-transform: rotate(0deg);
+  }
+}
+
+.w-100 {
+  min-width: 100px;
+  max-width: 100px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.b-fontsize {
+  font-size: 15px;
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+}
+
+.rpc-device-bg {
+  background: rgb(245, 244, 244);
+  padding: 0 15px 0 15px !important;
+  height: 100% !important;
+  border-radius: 8px !important;
+  background: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  height: 8vh !important;
+}
+
+.rpc-manual-tab {
+  height: 150vh;
+}
+
+.rpc-manual-device-tab {
+  display: block;
+  position: relative;
+  min-height: 30vh;
+}
+
+.rpc-manual-group-tab {
+  display: block;
+  position: relative;
+  min-height: 50vh;
+}
+
+.rpc-toolbar {
+  padding: 0px 0px 0px 24px !important;
+  border-radius: 0px !important;
+  margin-bottom: 24px;
+}
+
+.icon-rotate {
+  animation: rotation 2s infinite linear;
+}

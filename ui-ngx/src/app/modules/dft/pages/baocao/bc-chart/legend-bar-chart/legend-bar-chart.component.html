@@ -1,0 +1,46 @@
+<div style="width: 100%; height: 100%" fxLayout="column">
+
+  <div fxFlex="15" fxLayout="column" fxLayoutAlign="space-around center">
+    <span style="font-size: 20px">{{chartTitle}}</span>
+  </div>
+
+  <div fxFlex="85">
+    <ngx-charts-bar-vertical
+      [scheme]="colorScheme"
+
+      [results]="data"
+
+      [gradient]="false"
+      [roundDomains]="true"
+      [xAxis]="false"
+      [yAxis]="true"
+      [roundEdges]="false"
+      [legend]="false"
+      [barPadding]="100"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      (select)="onSelect($event)">
+    </ngx-charts-bar-vertical>
+  </div>
+
+  <div fxFlex="10" fxLayout="column" *ngIf="data.length > 0" >
+    <ngx-charts-legend
+      fxFlex
+      class="chart-legend"
+      [title]=""
+      [data]="chartNames"
+      [colors]="colors"
+      horizontal="true"
+      (labelActivate)="legendLabelActivate($event)"
+      (labelDeactivate)="legendLabelDeactivate($event)">
+    </ngx-charts-legend>
+  </div>
+
+  <!-- no data -->
+  <div *ngIf="data.length == 0" fxFlex fxLayout="column" fxLayoutAlign="center center">
+    <span fxFlex="none">{{ 'dft.bc-ketnoi.noEntities' | translate }}</span>
+  </div>
+
+</div>

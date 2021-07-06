@@ -1,0 +1,215 @@
+<mat-drawer-container hasBackdrop="false" class="tb-absolute-fill qlcamera-container">
+  <mat-drawer-content>
+    <!-- camera section  -->
+    <div fxLayout="row" fxLayoutGap="3px" class="camera-section-container">
+
+      <!-- left cam -->
+      <div style="padding: 16px 8px 16px 16px !important;"
+           fxFlex="64" class="cam-leftside"
+           #leftcam
+           fxLayout="column">
+        <div fxFlex="90">
+          <iframe style="border-radius: 20px !important;"
+                  *ngIf="listCameras.length > 0"
+                  width="100%" height="100%"
+                  [src]="mainCamera?.url | safe"
+                  title="Live camera streaming"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+          <div *ngIf="listCameras.length == 0" style="background-color: #e1e4e8; height: 100%;" fxLayout="row" fxLayoutAlign="center center">
+            <span fxFlex="none">Không tìm thấy camera</span>
+          </div>
+        </div>
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-around center">
+          <div fxFlex class="b-leftcam-name">
+            <span *ngIf="listCameras.length > 0">
+               {{ mainCamera?.name }}
+            </span>
+          </div>
+          <div fxFlex="20" style="text-align: end">
+            <button *ngIf="!isFullscreen && this.cameraServerUrl !== ''"
+                    [matMenuTriggerFor]="menu"
+                    mat-button color="primary" type="button">
+              <dft-label-icon [name]="'QlcameraGear'"></dft-label-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item (click)="openShinobi()">Lịch sử camera</button>
+              <button mat-menu-item (click)="openShinobi()">Điều khiển camera</button>
+            </mat-menu>
+          </div>
+        </div>
+
+        <!-- ten cam -->
+        <!--        <span class="b-leftcam-name" *ngIf="listCameras.length > 0">{{ mainCamera?.name }}</span>-->
+
+        <!--        &lt;!&ndash; full screen button &ndash;&gt;-->
+        <!--        <button mat-mini-fab color="primary" class="b-fullscreen" *ngIf="listCameras.length > 0 && !isFullscreen" (click)="openFullscreen()">-->
+        <!--          <mat-icon>fullscreen</mat-icon>-->
+        <!--        </button>-->
+
+        <!--        &lt;!&ndash; exit full screen button&ndash;&gt;-->
+        <!--        <button mat-mini-fab color="primary" class="b-close-fullscreen" *ngIf="isFullscreen" (click)="closeFullscreen()">-->
+        <!--          <mat-icon>fullscreen_exit</mat-icon>-->
+        <!--        </button>-->
+
+        <!-- no camera found message -->
+<!--                <div *ngIf="listCameras.length == 0" style="background-color: #e1e4e8; height: 100%;" fxLayout="row" fxLayoutAlign="center center">-->
+<!--                  <span fxFlex="none">Không tìm thấy camera</span>-->
+<!--                </div>-->
+      </div>
+
+      <!-- right cam -->
+      <div style="padding: 16px 16px 16px 8px !important; border-radius: 20px !important;"
+           fxFlex="36" fxLayout="column" class="cam-rightside"
+           fxLayoutGap="10px">
+        <div *ngFor="let camera of listCameras"
+             fxFlex class="cam-container" (click)="toggleCamera(camera)"
+             fxLayout="row" fxLayoutAlign="space-around center"
+        [ngClass]="{'choosen-cam': mainCamera?.id === camera.id}">
+<!--          <div class="b-right-div" (click)="toggleCamera(camera)"></div>-->
+<!--          <span class="b-rightcam-name">{{camera.name}}</span>-->
+<!--          <div class="b-cam-container" fxLayout="row" fxLayoutAlign="space-around center">-->
+            <div fxFlex="50" class="cam-frame-container">
+              <div class="cam-frame-div"></div>
+              <iframe style="border-radius: 20px !important;"
+                         width="100%" height="100%"
+                         [src]="camera.url | safe"
+                         title="Live camera streaming"
+                         frameborder="0"
+                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                         allowfullscreen></iframe>
+            </div>
+            <div fxFlex="43">{{camera.name}}</div>
+            <div fxFlex="7">
+              <dft-label-icon *ngIf="camera.main" [name]="'QlcameraStar'"></dft-label-icon>
+            </div>
+<!--          </div>-->
+        </div>
+
+        <div *ngIf="listCameras.length === 0" fxFlex style="height: 100%; color: white" fxLayout="column">
+          <span fxFlex fxLayoutAlign="center center">Không tìm thấy camera</span>
+        </div>
+      </div>
+      <!-- / right cam -->
+
+    </div>
+
+    <!-- table bottom section -->
+    <div fxLayout="column" class="table-section-container">
+
+      <!-- toolbar ben tren-->
+      <mat-toolbar
+        style="background: #F5F5F5 !important; padding: 0px 0px 0px 24px !important; border-radius: 0px !important;"
+        fxFlex="none" class="mat-table-toolbar">
+        <div class="mat-toolbar-tools">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutAlign.xs="center start"
+               class="title-container">
+            <span class="tb-entity-table-title">{{ 'dft.qlcamera.title' | translate }}</span>
+            <tb-anchor #entityTableHeader></tb-anchor>
+          </div>
+          <span fxFlex></span>
+          <button style="padding-right: 20px !important; margin-right: 0px !important;"
+                  mat-icon-button
+                  matTooltip="{{ 'dft.qlcamera.add-button' | translate}}"
+                  matTooltipPosition="above"
+                  color="primary"
+                  (click)="openEditDialog(null, null, tableAction.ADD_ENTITY)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </mat-toolbar>
+      <!-- / toolbar ben tren-->
+
+
+      <!-- thanh tim kiem -->
+      <label class="t-k">Tìm kiếm</label>
+      <mat-toolbar fxFlex="none" class="mat-table-toolbar">
+        <div class="mat-toolbar-tools">
+          <div class="col-md-6 text-position" style="padding: 0px !important;">
+            <mat-form-field fxFlex class="mat-block">
+              <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
+              <mat-label></mat-label>
+              <input #searchInput matInput (keyup)="onSearch()"
+                     placeholder="{{ 'dft.qlcamera.search-placeholder' | translate}}"/>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-toolbar>
+      <!-- / thanh tim kiem -->
+
+      <!-- table container -->
+      <div fxFlex class="table-container" fxLayout="column">
+        <table fxFlex="none" mat-table [dataSource]="dataSource" matSort #sort="matSort"
+               matSortDisableClear>
+
+          <!-- action column-->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openEditDialog(element.id, element.name, tableAction.DETAIL_ENTITY)">
+                  <span>{{ 'dft.qlcamera.detail-button' | translate }}</span>
+                </button>
+                <button mat-menu-item (click)="openEditDialog(element.id, element.name, tableAction.EDIT_ENTITY)">
+                  <span>{{ 'dft.qlcamera.edit-button' | translate }}</span>
+                </button>
+                <button mat-menu-item (click)="deleteEntity(element.id, element.name)">
+                  <span>{{ 'dft.qlcamera.delete-button' | translate }}</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+          <!-- / action column-->
+
+          <!-- name column-->
+          <ng-container matColumnDef="code">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.qlcamera.camera-code' | translate }}</th>
+            <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+          </ng-container>
+
+          <!-- note column-->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.qlcamera.camera-name' | translate }}</th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- created time column-->
+          <ng-container matColumnDef="note">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.qlcamera.camera-note' | translate }}</th>
+            <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+
+        <!-- no data message -->
+        <span fxFlex [fxShow]="!(isLoading$ | async) && ((dataSource.data === null) || dataSource.data.length === 0)"
+              fxLayoutAlign="center center"
+              class="no-data-found">{{ 'dft.qlcamera.no-data-found' | translate }}</span>
+
+        <!-- loading message -->
+        <span fxFlex [fxShow]="isLoading$ | async"
+              fxLayoutAlign="center center"
+              class="no-data-found">{{ 'dft.qlcamera.loading' | translate }}</span>
+      </div>
+      <!-- /table container -->
+
+      <!-- divider, pagination section -->
+      <div class="pagination-bottom">
+        <mat-divider></mat-divider>
+        <mat-paginator class="footer-format1 footer-format2 footer-format3" [length]="totalElements"
+                       [pageSizeOptions]="pageSizeOptions" [disabled]="!isLoading$"
+                       [pageSize]="defaultPageSize" (page)="handlePage($event)" showFirstLastButtons></mat-paginator>
+      </div>
+      <!-- / divider, pagination section -->
+
+    </div>
+    <!-- / table bottom section-->
+
+  </mat-drawer-content>
+</mat-drawer-container>

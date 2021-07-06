@@ -1,0 +1,124 @@
+<form class ="popup-c" (ngSubmit)="onSubmit()" [formGroup]="createForm">
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title">Thêm mới lịch xuất báo cáo</h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">close</mat-icon>
+  </div>
+  <mat-dialog-content class="create-form fixed-modal-height"  style="min-width: 700px!important;">
+          <table class="example-full-width" cellspacing="0">
+            <tr>
+              <td >
+                <mat-form-field class="example-full-width">
+                  <dft-label-icon matSuffix [name]="'CalendarBlank'"></dft-label-icon>
+                  <mat-label>Tên lịch xuất báo cáo</mat-label>
+                  <input matInput formControlName="reportScheduleName" required/>
+                  <mat-error *ngIf="createForm.get('reportScheduleName').hasError('required') ||
+                   createForm.get('reportScheduleName').hasError('pattern')">
+                    Đây là trường bắt buộc
+                  </mat-error>
+                  <mat-error *ngIf="createForm.get('reportScheduleName').hasError('maxlength')">Độ dài tên không quá 255 ký tự</mat-error>
+                </mat-form-field>
+              </td>
+              <td style="padding: 0px 0px 0px 8px !important;">
+                <mat-form-field class="example-full-width">
+                  <dft-label-icon matSuffix [name]="'ClipboardText'"></dft-label-icon>
+                  <mat-label>Tên báo cáo</mat-label>
+                  <mat-select (selectionChange)="onChangeReportType($event)" formControlName="reportName" disableRipple required>
+                    <mat-option *ngFor="let reportName of ReportNameMap" [value]="reportName.key">
+                      {{reportName.value}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="createForm.get('reportName').hasError('required')">
+                    Đây là trường bắt buộc
+                  </mat-error>
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+          <table class="example-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="example-full-width">
+                  <dft-label-icon matSuffix [name]="'House'"></dft-label-icon>
+                  <mat-label>Báo cáo đầm tôm</mat-label>
+                  <mat-select formControlName="damtom" (selectionChange)="selectDamTomChange($event)"  disableRipple required>
+                    <mat-option *ngFor="let damtom of damTomList" [value]="damtom">
+                      {{damtom.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="createForm.get('damtom').hasError('required')">
+                    Đây là trường bắt buộc
+                  </mat-error>
+                </mat-form-field>
+              </td>
+              <td style="padding: 0px 0px 0px 8px !important;">
+                <mat-form-field class="example-full-width">
+                  <dft-label-icon matSuffix [name]="'User'"></dft-label-icon>
+                  <mat-label>Người nhận báo cáo</mat-label>
+                  <mat-select multiple formControlName="reportRecipients"  disableRipple required>
+                    <mat-option *ngFor="let user of staffOfDamTom" [value]="user">
+                      {{user.firstName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="createForm.get('reportRecipients').hasError('required')">Đây là trường bắt buộc</mat-error>
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+
+          <table class="example-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="example-full-width">
+                  <mat-label>Lặp lại</mat-label>
+                  <mat-select  (selectionChange)="selectrepeatChange($event)" formControlName="repeat" disableRipple>
+                    <mat-option value="day">Ngày</mat-option>
+                    <mat-option value="month">Tháng</mat-option>
+                    <mat-option value="week">Tuần</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+              <td style="padding: 0px 0px 0px 8px !important;" *ngIf="!isReceviedDay">
+                <mat-form-field  class="example-full-width">
+                  <!-- <dft-label-icon matSuffix [name]="'Clock'"></dft-label-icon> -->
+                  <mat-label>Giờ gửi báo cáo</mat-label>
+                  <input  matInput mdbInput type="time" formControlName="receivedhour" required/>
+                  <mat-error *ngIf="createForm.get('receivedhour').hasError('required')">Đây là trường bắt buộc</mat-error>
+                </mat-form-field>
+              </td>
+              <td style="padding: 0px 0px 0px 8px !important;"  *ngIf="isReceviedDay" >
+                <mat-form-field class="example-full-width">
+                  <dft-label-icon matSuffix [name]="'CalendarBlank'"></dft-label-icon>
+                  <mat-label>Ngày gửi báo cáo</mat-label>
+                  <mat-select formControlName="receivedDate"  disableRipple required>
+                    <mat-option *ngFor="let value of dayData" [value]="value.key">
+                      {{value.value}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="createForm.get('receivedDate').hasError('required')">Đây là trường bắt buộc</mat-error>
+                </mat-form-field>
+              </td>
+              <td  style="padding: 0px 0px 0px 8px !important;"  *ngIf="isReceviedDay">
+                <mat-form-field class="example-full-width">
+                  <!-- <dft-label-icon matSuffix [name]="'Clock'"></dft-label-icon> -->
+                  <mat-label>Giờ gửi báo cáo</mat-label>
+                  <input   matInput mdbInput type="time" formControlName="receivedhour" required/>
+                  <mat-error *ngIf="createForm.get('receivedhour').hasError('required')">Đây là trường bắt buộc</mat-error>
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+          <mat-form-field class="example-full-width">
+            <dft-label-icon matSuffix [name]="'Note'"></dft-label-icon>
+            <mat-label>Nội dung báo cáo</mat-label>
+            <textarea matInput #note formControlName="note" rows="1"></textarea>
+            <mat-hint align="end">{{note.value.length}} / 4000</mat-hint>
+            <mat-error *ngIf="createForm.get('note').hasError('maxlength')">Độ dài nội dung báo cáo không quá 4000 ký tự</mat-error>
+          </mat-form-field>
+          <mat-slide-toggle formControlName="enabled" checked="false">Kích hoạt</mat-slide-toggle>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="end" class="binhdv-dialog-action">
+    <button  class="btn-huy" mat-button mat-dialog-close type="reset" [disabled]="(isLoading$ | async)" (click)="backToIndex()"><mat-icon >clear</mat-icon>Hủy</button>
+    <button class="btn-luu" mat-button cdkFocusInitial type="submit" [disabled]="createForm?.invalid || (isLoading$ | async) "><dft-label-icon class="icon-center" [name]="'FloppyDisk'"></dft-label-icon>Lưu</button>
+  </mat-dialog-actions>
+</form>

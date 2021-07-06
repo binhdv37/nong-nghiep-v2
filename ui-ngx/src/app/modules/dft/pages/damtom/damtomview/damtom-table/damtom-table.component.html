@@ -1,0 +1,69 @@
+<div class="tb-entity-table tb-absolute-fill">
+  <div fxLayout="column" class="tb-entity-table-content">
+    <div fxFlex class="table-container">
+      <div style="padding: 16px 24px 16px 24px !important;" fxFlex>
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+                <dft-label-icon matSuffix [name]="'House'"></dft-label-icon>
+                <mat-label>Tên đầm</mat-label>
+                <input disabled matInput value="{{data?.name}}" placeholder="Nhập tên đầm"/>
+              </mat-form-field>
+            </td>
+            <td style="padding: 0px 0px 0px 8px !important;">
+              <mat-form-field class="example-full-width">
+                <dft-label-icon matSuffix [name]="'MapPin'"></dft-label-icon>
+                <mat-label>Địa chỉ</mat-label>
+                <input disabled matInput value="{{data?.address}}" placeholder="Nhập vị trí"/>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+        <mat-form-field class="example-full-width">
+          <dft-label-icon matSuffix [name]="'Note'"></dft-label-icon>
+          <mat-label>Ghi chú</mat-label>
+          <textarea rows="1" disabled matInput value="{{data?.note}}"
+                    placeholder="Nhập ghi chú"></textarea>
+        </mat-form-field>
+        <mat-slide-toggle disabled checked="{{data?.active}}">{{ 'dft.damtom.active' | translate}}
+        </mat-slide-toggle>
+      </div>
+      <div style="background: #F5F5F5; padding: 12px 24px; height: 50px;">
+                      <span
+                        style="font-size: 18px; font-weight: 600; color: #43484D;">Danh sách người dùng quản lý</span>
+      </div>
+      <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef>{{ 'dft.damtom.manager.name' | translate}}</th>
+          <td mat-cell *matCellDef="let element"> {{element.firstName ? element.firstName :
+            element.staff.firstName}} </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef>{{ 'dft.damtom.manager.phone' | translate}}</th>
+          <td mat-cell *matCellDef="let element"> {{element.lastName ? element.lastName :
+            element.staff.lastName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>{{ 'dft.damtom.manager.email' | translate}}</th>
+          <td mat-cell
+              *matCellDef="let element"> {{element.email ? element.email : element.staff.email}}
+          </td>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumnsdt; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsdt;"></mat-row>
+      </table>
+<!--      <mat-divider></mat-divider>-->
+<!--      <mat-paginator class="footer-format1 footer-format2 footer-format3" [length]="dataSource.data.length"-->
+<!--                     [pageSizeOptions]="[2, 10, 20]"-->
+<!--                     [pageSize]="2" showFirstLastButtons></mat-paginator>-->
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,80 @@
+<form (ngSubmit)="onSubmitForm()" [formGroup]="entityForm" id="entityForm">
+
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title"> {{ titleForm }} </h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">
+      close</mat-icon>
+  </div>
+  <div class="fixed-modal-height">
+    <mat-tab-group class="m-g" style="min-width: 600px !important" animationDuration="0ms"
+      [(selectedIndex)]="data.tabIndex">
+      <mat-tab label="{{'dft.role.dialog.tab-thongTinChung' | translate}}" class="b-tab">
+        <!-- ten vai tro : -->
+        <table style="width: 100% !important;" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="margin-t-16">
+                <dft-label-icon matSuffix [name]="'ShieldCheck'"></dft-label-icon>
+                <mat-label translate>dft.role.dialog.tenVaiTro</mat-label>
+                <input matInput formControlName="name" required />
+                <!-- handle input error -->
+                <mat-error
+                  *ngIf="entityForm.get('name').hasError('required') || entityForm.get('name').hasError('pattern')">
+                  {{'dft.role.dialog.input-blank-err' | translate}}
+                </mat-error>
+                <mat-error *ngIf="entityForm.get('name').hasError('maxlength')">
+                  {{'dft.role.dialog.name-maxlength-error' | translate}}
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding: 0px !important;">
+              <mat-form-field class="margin-t-16">
+                <dft-label-icon matSuffix [name]="'Note'"></dft-label-icon>
+                <mat-label translate>dft.role.dialog.ghiChu</mat-label>
+                <textarea matInput formControlName="note" rows="1"></textarea>
+                <!-- handle input error -->
+                <mat-error *ngIf="entityForm.get('note').hasError('maxlength')">
+                  {{'dft.role.dialog.note-maxlength-error' | translate}}
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </mat-tab>
+
+      <!-- Permisson -->
+      <mat-tab label="{{'dft.role.dialog.tab-phanQuyen' | translate}}">
+        <ng-container *ngFor="let p of initPermissions">
+          <binhdv-check-box-tree [isDetailEntity]="isDetailEntity" [permission]="p"
+            (quyenEmitter)="updateCheckedKeys($event)"></binhdv-check-box-tree>
+        </ng-container>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+  <mat-divider></mat-divider>
+  <div mat-dialog-actions fxLayoutAlign="end center">
+    <!-- close button -->
+    <button class="btn-huy" *ngIf="isDetailEntity" mat-button color="primary" type="button" cdkFocusInitial
+      [disabled]="(isLoading$ | async)" [mat-dialog-close]="true">
+      <mat-icon>clear</mat-icon>
+      {{ 'dft.role.dialog.close-button' | translate }}
+    </button>
+
+    <!-- cancel button -->
+    <button class="btn-huy" *ngIf="isAddEntity || isEditEntity" mat-button color="primary" type="button" cdkFocusInitial
+      [disabled]="(isLoading$ | async)" [mat-dialog-close]="true">
+      <mat-icon>clear</mat-icon>
+      {{ 'dft.role.dialog.cancel-button' | translate }}
+    </button>
+
+    <!-- save button -->
+    <button class="btn-luu" *ngIf="isAddEntity || isEditEntity" mat-raised-button color="primary" type="submit"
+      form="entityForm" [disabled]="(isLoading$ | async) || entityForm?.invalid">
+      <dft-label-icon class="icon-center" [name]="'FloppyDisk'"></dft-label-icon>
+      {{ 'dft.role.dialog.save-button' | translate }}
+    </button>
+  </div>
+</form>

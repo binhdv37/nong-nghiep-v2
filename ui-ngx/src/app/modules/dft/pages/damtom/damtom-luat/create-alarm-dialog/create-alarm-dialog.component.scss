@@ -1,0 +1,56 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+td {
+  padding-right: 8px;
+}
+
+.create-form {
+  //width: 500px;
+  //height: 500px;
+  width: 40vw;
+  height: 80vh;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}
+
+.b-dialog-header{
+  margin: 0;
+  padding: 0;
+}
+
+.b-dialog-title{
+  margin: 0px;
+  padding: 0px;
+  display: inline;
+}
+
+.close-button{
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+
+//binhdv
+.binhdv-margin-top{
+  margin-top: 25px;
+}

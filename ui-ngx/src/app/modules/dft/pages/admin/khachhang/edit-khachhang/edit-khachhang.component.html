@@ -1,0 +1,148 @@
+<form class="popup-c" (ngSubmit)="onSubmitForm()" [formGroup]="entityForm" (keydown.enter)="$event.preventDefault()">
+  <div class="popup-dialog-title">
+    <h2 mat-dialog-title class="b-dialog-title"> {{ titleForm }} </h2>
+    <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">
+      close</mat-icon>
+  </div>
+  <div class="fixed-modal-height">
+    <mat-dialog-content class="create-form">
+      <fieldset [disabled]="(isLoading$ | async)">
+        <div fxLayout.gt-xs="row" style="padding-top: 16px !important;" fxLayoutGap.gt-sm="20px">
+          <mat-form-field class="mat-block">
+            <mat-label translate>dft.admin.khachhang.maKhachHang</mat-label>
+            <input matInput formControlName="maKhachHang" required />
+            <mat-error *ngIf="entityForm.get('maKhachHang').hasError('required')">
+              {{ 'dft.admin.khachhang.validate.required' | translate }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('maKhachHang').hasError('uniqueMaKhachHang')">
+              {{ 'dft.admin.khachhang.validate.uniqueMaKhachHang' | translate }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('maKhachHang').hasError('whitespace')">
+              {{ 'dft.admin.khachhang.validate.whiteSpace' | translate }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('maKhachHang').hasError('maxlength')">
+              {{ 'dft.admin.khachhang.validate.maxLength' | translate: {number: '50'} }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('maKhachHang').hasError('pattern')">
+              {{ 'dft.admin.khachhang.validate.maKhachHang' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="mat-block">
+            <mat-label translate>dft.admin.khachhang.tenKhachHang</mat-label>
+            <input matInput type="text" formControlName="tenKhachHang" required />
+            <mat-error *ngIf="entityForm.get('tenKhachHang').hasError('required')">
+              {{ 'dft.admin.khachhang.validate.required' | translate }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('tenKhachHang').hasError('whitespace')">
+              {{ 'dft.admin.khachhang.validate.whiteSpace' | translate }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('tenKhachHang').hasError('maxlength')">
+              {{ 'dft.admin.khachhang.validate.maxLength' | translate:{number: '255'} }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="mat-block">
+            <mat-label translate>dft.admin.khachhang.email</mat-label>
+            <input matInput type="email" formControlName="email" required />
+            <mat-error *ngIf="entityForm.get('email').hasError('required')">
+              {{ 'dft.admin.khachhang.validate.required' | translate }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('email').hasError('email') || entityForm.get('email').hasError('pattern')">
+              {{ 'dft.admin.khachhang.validate.email' | translate }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('email').hasError('uniqueEmail')">
+              {{ 'dft.admin.khachhang.validate.uniqueEmail' | translate }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('email').hasError('whitespace')">
+              {{ 'dft.admin.khachhang.validate.whiteSpace' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout.gt-xs="row" fxLayoutGap.gt-sm="20px">
+          <mat-form-field class="mat-block">
+            <mat-label translate>dft.admin.khachhang.soDienThoai</mat-label>
+            <input matInput type="text" formControlName="soDienThoai" required />
+            <mat-error *ngIf="entityForm.get('soDienThoai').hasError('required')">
+              {{ 'dft.admin.khachhang.validate.required' | translate }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('soDienThoai').hasError('uniquePhoneNumber')">
+              {{ 'dft.admin.khachhang.validate.uniquePhoneNumber' | translate }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('soDienThoai').hasError('pattern')">
+              {{ 'dft.admin.khachhang.validate.phoneNumber' | translate }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label translate>dft.admin.khachhang.ngayBatDau</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="ngayBatDau" [min]="minDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="mat-block">
+          <mat-slide-toggle formControlName="active" checked="true">
+            {{ "dft.admin.khachhang.active" | translate }}
+          </mat-slide-toggle>
+        </div>
+        <div style="padding: 10px;"></div>
+        <div class="mat-block" *ngIf="isAddEntity || isEditEntity">
+          <div style="display: inline;">
+            <mat-label translate>dft.admin.khachhang.upload</mat-label>
+            <button type="button" mat-stroked-button style="float: right;" color="warn" (click)="onRemoveAllFile()">
+              <dft-label-icon class="icon-center" [name]="'Trash'"></dft-label-icon> Xóa tất cả
+            </button>
+          </div>
+          <mat-chip-list  cdkDropList cdkDropListOrientation="horizontal">
+            <mat-chip cdkDrag *ngFor="let taiLieu of dsTaiLieu" [selectable]="selectable" [removable]="removable"
+              (removed)="onRemoveFile(taiLieu)" #tooltip="matTooltip" matTooltip="{{ taiLieu }}"
+              (click)="downloadFile(taiLieu)">
+              <span class="file-name-wrap">{{ taiLieu }}</span>
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+          <div style="padding:20px 0 10px 0;"></div>
+          <div class="ng-dropzone-custom" ngx-dropzone (change)="onSelectFiles($event)">
+            <ngx-dropzone-label>{{ "dft.admin.khachhang.dropzone-title" | translate }}</ngx-dropzone-label>
+          </div>
+        </div>
+        <div class="mat-block" *ngIf="isDetailsEntity">
+          <mat-label translate>dft.admin.khachhang.upload</mat-label>
+          <mat-selection-list [multiple]="false">
+            <mat-list-option *ngFor="let taiLieu of dsTaiLieu">
+              <mat-icon mat-list-icon>note</mat-icon>
+              <div mat-line (click)="downloadFile(taiLieu)">{{taiLieu}}</div>
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+        <div fxLayout="column" style="padding-top: 15px;">
+          <mat-form-field class="mat-block">
+            <mat-label translate>dft.admin.khachhang.ghiChu</mat-label>
+            <textarea matInput formControlName="ghiChu" rows="3"></textarea>
+            <mat-error *ngIf="entityForm.get('ghiChu').hasError('whitespace')">
+              {{ 'dft.admin.khachhang.validate.whiteSpace' | translate }}
+            </mat-error>
+            <mat-error *ngIf="entityForm.get('ghiChu').hasError('maxlength')">
+              {{ 'dft.admin.khachhang.validate.maxLength' | translate: {number: '4000'} }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </fieldset>
+    </mat-dialog-content>
+  </div>
+  <mat-dialog-actions fxLayoutAlign="end center">
+    <button class="btn-huy" [fxShow]="isDetailsEntity" mat-button color="primary" type="button" cdkFocusInitial
+      [disabled]="(isLoading$ | async)" [mat-dialog-close]="true">
+      <mat-icon>clear</mat-icon>
+      {{ 'dft.admin.khachhang.close-button' | translate }}
+    </button>
+    <button class="btn-huy" [fxShow]="isAddEntity || isEditEntity" mat-button color="primary" type="button"
+      cdkFocusInitial [disabled]="(isLoading$ | async)" [mat-dialog-close]="true">
+      <mat-icon>clear</mat-icon>
+      {{ 'dft.admin.khachhang.cancel-button' | translate }}
+    </button>
+    <button class="btn-luu" [fxShow]="isAddEntity || isEditEntity" mat-raised-button color="primary" type="submit"
+      [disabled]="(isLoading$ | async) || entityForm?.invalid">
+      <dft-label-icon class="icon-center" [name]="'FloppyDisk'"></dft-label-icon>
+      {{ 'dft.admin.khachhang.submit-button' | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>
