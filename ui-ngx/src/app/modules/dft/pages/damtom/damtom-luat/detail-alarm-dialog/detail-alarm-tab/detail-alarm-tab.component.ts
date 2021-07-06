@@ -114,29 +114,25 @@ export class DetailAlarmTabComponent implements OnInit {
     return nguongDuoi;
   }
 
-  getNguongTrenLabel(){
+  getNguongTrenLabel() {
     switch (this.key) {
-      case 'DO':
-        return 'DO (mg/l) >= ';
-      case 'Salinity':
-        return 'Độ mặn (‰) >= ';
-      case 'Temperature':
-        return 'Nhiệt độ (°C) >= ';
+      case 'Humidity':
+        return 'Độ ẩm (%) >= ';
+      case 'Luminosity':
+        return 'Ánh sáng (Lux) >= ';
       default :
-        return 'pH >= ';
+        return 'Nhiệt độ (°C) >= ';
     }
   }
 
-  getNguongDuoiLabel(){
+  getNguongDuoiLabel() {
     switch (this.key) {
-      case 'DO':
-        return 'hoặc DO (mg/l) <= ';
-      case 'Salinity':
-        return 'hoặc Độ mặn (‰) <= ';
-      case 'Temperature':
-        return 'hoặc Nhiệt độ (°C) <= ';
+      case 'Humidity':
+        return 'Độ ẩm (%) <= ';
+      case 'Luminosity':
+        return 'Ánh sáng (Lux) <= ';
       default :
-        return 'hoặc pH <= ';
+        return 'Nhiệt độ (°C) <= ';
     }
   }
 

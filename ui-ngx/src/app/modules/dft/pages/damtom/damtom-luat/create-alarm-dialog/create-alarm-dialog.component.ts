@@ -29,7 +29,7 @@ const ALARM_RULE_NAME_CANNOT_BE_NULL = 'Alarm rule name can not be null';
 export class CreateAlarmDialogComponent implements OnInit {
   isLoading$: Subject<boolean>;
 
-  allKey: string[] = [TelemetryKey.DO, TelemetryKey.PH, TelemetryKey.SALINITY, TelemetryKey.TEMPERATURE];
+  allKey: string[] = [TelemetryKey.TEMPERATURE, TelemetryKey.HUMIDITY, TelemetryKey.LUMINOSITY];
 
   outputFormData: CreateAlarmFormData[] = [];
 
@@ -61,12 +61,10 @@ export class CreateAlarmDialogComponent implements OnInit {
 
   keyToLabel(key: string) {
     switch (key) {
-      case 'DO':
-        return 'DO';
-      case 'Salinity':
-        return 'Độ mặn';
-      case 'pH':
-        return 'pH';
+      case 'Humidity':
+        return 'Độ ẩm';
+      case 'Luminosity':
+        return 'Ánh sáng';
       default:
         return 'Nhiệt độ';
     }
