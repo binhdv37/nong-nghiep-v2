@@ -1,10 +1,10 @@
 <form (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
   <div class="popup-dialog-title" style="margin-bottom: 16px !important;">
-    <h2 mat-dialog-title class="b-dialog-title">Thêm người dùng quản lý đầm tôm</h2>
+    <h2 mat-dialog-title class="b-dialog-title">Thêm người dùng quản lý nhà vườn</h2>
     <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">
       close</mat-icon>
   </div>
-  <div  class="fixed-modal-height"> 
+  <div  class="fixed-modal-height">
   <label class="t-k">Tìm kiếm</label>
   <mat-toolbar class="mat-table-toolbar">
     <div class="mat-toolbar-tools">
@@ -13,7 +13,7 @@
         <mat-label>&nbsp;</mat-label>
         <input style="margin: 0px !important;" #searchInput matInput (keyup)="getData()" placeholder="Nhập họ tên người dùng, số điện thoại, email" />
       </mat-form-field>
-      
+
     </div>
   </mat-toolbar>
     <mat-dialog-content class="create-form">
@@ -32,23 +32,23 @@
               </mat-checkbox>
             </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.damtom.manager.name' | translate }}</th>
             <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="lastName">
             <th mat-header-cell *matHeaderCellDef> {{ 'dft.damtom.manager.phone' | translate }}</th>
             <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'dft.damtom.manager.email' | translate }}</th>
             <td mat-cell *matCellDef="let element"> {{element.email}} </td>
           </ng-container>
-  
-  
+
+
           <!--        <ng-container matColumnDef="active">-->
           <!--          <th mat-header-cell *matHeaderCellDef>{{ 'dft.users.active' | translate }}</th>-->
           <!--          <td mat-cell *matCellDef="let element"> {{element.active}} </td>-->

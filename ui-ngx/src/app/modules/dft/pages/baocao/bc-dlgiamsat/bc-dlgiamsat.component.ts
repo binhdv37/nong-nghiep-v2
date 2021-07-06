@@ -5,6 +5,7 @@ import {DialogService} from '@core/services/dialog.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, Subject} from 'rxjs';
 import {BcMultiData} from '@modules/dft/models/bao-cao/bao-cao.model';
+import {TelemetryKey} from "@modules/dft/models/alarm-history/telemetryKey.constant";
 
 export class MyLineChartDataMap {
   key: string;
@@ -21,30 +22,20 @@ export class BcDlgiamsatComponent implements OnInit {
 
   dataMaps: MyLineChartDataMap[] = [
     {
-      key: 'pH',
-      chartTitle: 'Biểu đồ so sánh độ ph giữa các đầm tôm',
+      key: TelemetryKey.TEMPERATURE,
+      chartTitle: 'Biểu đồ so sánh nhiệt độ giữa các nhà vườn',
       data: []
     },
     {
-      key: 'Salinity',
-      chartTitle: 'Biểu đồ so sánh độ mặn giữa các đầm tôm',
+      key: TelemetryKey.HUMIDITY,
+      chartTitle: 'Biểu đồ so sánh độ ẩm giữa các nhà vườn',
       data: []
     },
     {
-      key: 'Temperature',
-      chartTitle: 'Biểu đồ so sánh nhiệt độ giữa các đầm tôm',
+      key: TelemetryKey.LUMINOSITY,
+      chartTitle: 'Biểu đồ so sánh ánh sáng giữa các nhà vườn',
       data: []
-    },
-    {
-      key: 'DO',
-      chartTitle: 'Biểu đồ so sánh độ oxy hòa tan giữa các đầm tôm',
-      data: []
-    },
-    // {
-    //   key: 'ORP',
-    //   chartTitle: 'Biểu đồ so sánh độ oxy hóa khử giữa các đầm tôm',
-    //   data: []
-    // },
+    }
   ];
 
   formTimeQuery: FormGroup;

@@ -3,5 +3,7 @@ export enum TelemetryKey {
   PH = 'pH',
   SALINITY = 'Salinity',
   DO = 'DO',
-  ORP = 'ORP'
+  ORP = 'ORP',
+  HUMIDITY = 'Humidity',
+  LUMINOSITY = 'Luminosity'
 }

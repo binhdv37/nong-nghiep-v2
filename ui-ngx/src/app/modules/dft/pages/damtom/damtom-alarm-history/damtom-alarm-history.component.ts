@@ -54,7 +54,8 @@ export class DamtomAlarmHistoryComponent implements OnInit, OnDestroy, AfterView
 
   dataSource = new MatTableDataSource<AlarmHistory>();
   selection = new SelectionModel<AlarmHistory>(true, []);
-  displayedColumns: string[] = ['select', 'actions', 'timeSnapshot', 'tenCanhBao', 'tenGateway', 'Temperature', 'pH', 'Salinity', 'DO', 'clear'];
+  // displayedColumns: string[] = ['select', 'actions', 'timeSnapshot', 'tenCanhBao', 'tenGateway', 'Temperature', 'pH', 'Salinity', 'DO', 'clear'];
+  displayedColumns: string[] = ['select', 'actions', 'timeSnapshot', 'tenCanhBao', 'tenGateway', 'Temperature', 'Humidity', 'Luminosity', 'clear'];
   defaultPageSize = 20;
   displayPagination = true;
   pageSizeOptions = [5, 10, 20, 30, 40, 50];

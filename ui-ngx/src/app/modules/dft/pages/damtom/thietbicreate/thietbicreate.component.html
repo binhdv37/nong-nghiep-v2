@@ -13,7 +13,7 @@
             <mat-label>Tên Bộ thiết bị</mat-label>
             <input matInput formControlName="name" required/>
             <mat-error *ngIf="createForm.get('name').hasError('required') || createForm.get('name').hasError('pattern')">Không được để trống</mat-error>
-            <mat-error *ngIf="createForm.get('name').hasError('maxlength')">Độ dài tên đầm tôm không quá 255 ký tự</mat-error>
+            <mat-error *ngIf="createForm.get('name').hasError('maxlength')">Độ dài tên nhà vườn không quá 255 ký tự</mat-error>
           </mat-form-field>
         </td>
       </tr>

@@ -57,7 +57,7 @@ public class BcTongHopServiceImpl implements BcTongHopService {
             return getDamtomMailContentData(tenantId, damtomId, startTs, endTs);
         }
         catch (Exception e){
-            String response = "<h2>Báo cáo tổng hợp của đầm tôm từ "
+            String response = "<h2>Báo cáo tổng hợp của nhà vườn từ "
                     + convertTs(startTs) + " đến " + convertTs(endTs) + "</h2>";
             response += "<p>Hệ thống xảy ra sự cố trong quá trình tổng hợp dữ liệu!</p>";
             response += "<p>Chi tiết : " + e.getMessage() + "</p>";
@@ -68,11 +68,10 @@ public class BcTongHopServiceImpl implements BcTongHopService {
     // get tenant bc tong hop mail content
     private String getTenantMailContentData(UUID tenantId, long startTs, long endTs) throws ExecutionException, InterruptedException {
 
-        String title = "Báo cáo tổng hợp của tất cả các đầm tôm từ "
+        String title = "Báo cáo tổng hợp của tất cả các nhà vườn từ "
                 + convertTs(startTs) + " đến " + convertTs(endTs);
 
-        String canhbaoData = "", phData = "", domanData = "",
-                nhietdoData = "", oxyhoatanData = "";
+        String canhbaoData = "", nhietdoData = "", doamData = "", dosangData = "";
 
         // get all active dam tom :
         List<DamTomEntity> activeDamtomList =
@@ -82,12 +81,12 @@ public class BcTongHopServiceImpl implements BcTongHopService {
         activeDamtomList.forEach(x -> activeDamtomIdList.add(x.getId()));
 
         if(activeDamtomList.size() == 0){
-            canhbaoData = phData = domanData = nhietdoData = oxyhoatanData =
-                            "<tr>" +
-                            "   <td colspan=\"2\" style=\"text-align:center\">Không tìm thấy đầm tôm nào</td>" +
+            canhbaoData = nhietdoData = doamData = dosangData =
+                    "<tr>" +
+                            "   <td colspan=\"2\" style=\"text-align:center\">Không tìm thấy nhà vườn nào</td>" +
                             "</tr>";
-            return getMailTemplate(title, canhbaoData, phData,
-                    domanData, nhietdoData, oxyhoatanData);
+            return getMailTemplate(title, canhbaoData, nhietdoData,
+                    doamData, dosangData);
         }
 
         List<TimeRangeNameDto> timeRangeNameDtoList = timeRangeNameService.convertTimeRange(startTs, endTs);
@@ -101,54 +100,37 @@ public class BcTongHopServiceImpl implements BcTongHopService {
                     "   </td>" +
                     "</tr>" ;
 
-            phData +=
-                    "<tr>" +
-                    "   <td>" + x.getName() + "</td>" +
-                    "   <td>" +
-                            df.format(bcDlGiamSatService.getTenantActiveDamtomKeyAvgToDouble(new TenantId(tenantId),
-                                    TelemetryConstant.pH, x.getStartTs(), x.getEndTs())) +
-                    "   </td>" +
-                    "</tr>" ;
-
-            domanData +=
-                    "<tr>" +
-                    "   <td>" + x.getName() + "</td>" +
-                    "   <td>" +
-                            df.format(bcDlGiamSatService.getTenantActiveDamtomKeyAvgToDouble(new TenantId(tenantId),
-                                    TelemetryConstant.Salinity, x.getStartTs(), x.getEndTs())) +
-                    "   </td>" +
-                    "</tr>" ;
-
             nhietdoData +=
                     "<tr>" +
-                    "   <td>" + x.getName() + "</td>" +
-                    "   <td>" +
+                            "   <td>" + x.getName() + "</td>" +
+                            "   <td>" +
                             df.format(bcDlGiamSatService.getTenantActiveDamtomKeyAvgToDouble(new TenantId(tenantId),
                                     TelemetryConstant.Temperature, x.getStartTs(), x.getEndTs())) +
-                    "   </td>" +
-                    "</tr>" ;
+                            "   </td>" +
+                            "</tr>" ;
 
-            oxyhoatanData +=
+            doamData +=
                     "<tr>" +
-                    "   <td>" + x.getName() + "</td>" +
-                    "   <td>" +
+                            "   <td>" + x.getName() + "</td>" +
+                            "   <td>" +
                             df.format(bcDlGiamSatService.getTenantActiveDamtomKeyAvgToDouble(new TenantId(tenantId),
-                                    TelemetryConstant.DO, x.getStartTs(), x.getEndTs())) +
-                    "   </td>" +
-                    "</tr>" ;
+                                    TelemetryConstant.Humidity, x.getStartTs(), x.getEndTs())) +
+                            "   </td>" +
+                            "</tr>" ;
 
-//            oxyhoakhuData +=
-//                    "<tr>" +
-//                    "   <td>" + x.getName() + "</td>" +
-//                    "   <td>" +
-//                            df.format(bcDlGiamSatService.getTenantActiveDamtomKeyAvgToDouble(new TenantId(tenantId),
-//                                    TelemetryConstant.ORP, x.getStartTs(), x.getEndTs())) +
-//                    "   </td>" +
-//                    "</tr>" ;
+            dosangData +=
+                    "<tr>" +
+                            "   <td>" + x.getName() + "</td>" +
+                            "   <td>" +
+                            df.format(bcDlGiamSatService.getTenantActiveDamtomKeyAvgToDouble(new TenantId(tenantId),
+                                    TelemetryConstant.Luminosity, x.getStartTs(), x.getEndTs())) +
+                            "   </td>" +
+                            "</tr>" ;
+
         }
 
-        return getMailTemplate(title, canhbaoData, phData,
-                domanData, nhietdoData, oxyhoatanData);
+        return getMailTemplate(title, canhbaoData, nhietdoData,
+                doamData, dosangData);
     }
 
     // get damtom bc tong hop mail content
@@ -156,32 +138,29 @@ public class BcTongHopServiceImpl implements BcTongHopService {
 
         String title = "";
 
-        String canhbaoData = "", phData = "", domanData = "",
-                nhietdoData = "", oxyhoatanData = "";
+        String canhbaoData = "", nhietdoData = "", doamData = "", dosangData = "";
 
         // get damtom :
         DamTomEntity damTomEntity = damTomService.getDamTomById(tenantId, damtomId);
 
         if(damTomEntity == null){
-            title = "Báo cáo tổng hợp của đầm tôm từ " + convertTs(startTs) +
+            title = "Báo cáo tổng hợp của nhà vườn từ " + convertTs(startTs) +
                     " đến " + convertTs(endTs);
-            canhbaoData = phData = domanData = nhietdoData = oxyhoatanData =
+            canhbaoData = nhietdoData  = doamData = dosangData =
                     "<tr>" +
-                    "   <td colspan=\"2\" style=\"text-align:center\">Đầm tôm không tồn tại</td>" +
-                    "</tr>";
-            return getMailTemplate(title, canhbaoData, phData, domanData,
-                    nhietdoData, oxyhoatanData);
+                            "   <td colspan=\"2\" style=\"text-align:center\">Nhà vườn không tồn tại</td>" +
+                            "</tr>";
+            return getMailTemplate(title, canhbaoData, nhietdoData, doamData, dosangData);
         }
 
         if(!damTomEntity.isActive()){
             title = "Báo cáo tổng hợp của " + damTomEntity.getName() +
                     " từ " + convertTs(startTs) + " đến " + convertTs(endTs);
-            canhbaoData = phData = domanData = nhietdoData = oxyhoatanData =
+            canhbaoData = nhietdoData  = doamData = dosangData =
                     "<tr>" +
-                    "   <td colspan=\"2\" style=\"text-align:center\">Đầm tôm đang bị vô hiệu hóa</td>" +
-                    "</tr>";
-            return getMailTemplate(title, canhbaoData, phData, domanData,
-                    nhietdoData, oxyhoatanData);
+                            "   <td colspan=\"2\" style=\"text-align:center\">Nhà vườn đang bị vô hiệu hóa</td>" +
+                            "</tr>";
+            return getMailTemplate(title, canhbaoData, nhietdoData, doamData, dosangData);
         }
 
         List<TimeRangeNameDto> timeRangeNameDtoList = timeRangeNameService.convertTimeRange(startTs, endTs);
@@ -198,58 +177,40 @@ public class BcTongHopServiceImpl implements BcTongHopService {
                     "   </td>" +
                     "</tr>" ;
 
-            phData +=
-                    "<tr>" +
-                    "   <td>" + x.getName() + "</td>" +
-                    "   <td>" +
-                            df.format(bcDlGiamSatService.getDamtomKeyAvgToDouble(new TenantId(tenantId),
-                                    damtomId, TelemetryConstant.pH, x.getStartTs(), x.getEndTs())) +
-                    "   </td>" +
-                    "</tr>" ;
-
-            domanData +=
-                    "<tr>" +
-                    "   <td>" + x.getName() + "</td>" +
-                    "   <td>" +
-                            df.format(bcDlGiamSatService.getDamtomKeyAvgToDouble(new TenantId(tenantId),
-                                    damtomId, TelemetryConstant.Salinity, x.getStartTs(), x.getEndTs())) +
-                    "   </td>" +
-                    "</tr>" ;
-
             nhietdoData +=
                     "<tr>" +
-                    "   <td>" + x.getName() + "</td>" +
-                    "   <td>" +
+                            "   <td>" + x.getName() + "</td>" +
+                            "   <td>" +
                             df.format(bcDlGiamSatService.getDamtomKeyAvgToDouble(new TenantId(tenantId),
                                     damtomId, TelemetryConstant.Temperature, x.getStartTs(), x.getEndTs())) +
-                    "   </td>" +
-                    "</tr>" ;
+                            "   </td>" +
+                            "</tr>" ;
 
-            oxyhoatanData +=
+            doamData +=
                     "<tr>" +
-                    "   <td>" + x.getName() + "</td>" +
-                    "   <td>" +
+                            "   <td>" + x.getName() + "</td>" +
+                            "   <td>" +
                             df.format(bcDlGiamSatService.getDamtomKeyAvgToDouble(new TenantId(tenantId),
-                                    damtomId, TelemetryConstant.DO, x.getStartTs(), x.getEndTs())) +
-                    "   </td>" +
-                    "</tr>" ;
+                                    damtomId, TelemetryConstant.Humidity, x.getStartTs(), x.getEndTs())) +
+                            "   </td>" +
+                            "</tr>" ;
 
-//            oxyhoakhuData +=
-//                    "<tr>" +
-//                    "   <td>" + x.getName() + "</td>" +
-//                    "   <td>" +
-//                            df.format(bcDlGiamSatService.getDamtomKeyAvgToDouble(new TenantId(tenantId),
-//                                    damtomId, TelemetryConstant.ORP, x.getStartTs(), x.getEndTs())) +
-//                    "   </td>" +
-//                    "</tr>" ;
+            dosangData +=
+                    "<tr>" +
+                            "   <td>" + x.getName() + "</td>" +
+                            "   <td>" +
+                            df.format(bcDlGiamSatService.getDamtomKeyAvgToDouble(new TenantId(tenantId),
+                                    damtomId, TelemetryConstant.Luminosity, x.getStartTs(), x.getEndTs())) +
+                            "   </td>" +
+                            "</tr>" ;
+
         }
 
-        return getMailTemplate(title, canhbaoData, phData, domanData,
-                nhietdoData, oxyhoatanData);
+        return getMailTemplate(title, canhbaoData, nhietdoData, doamData, dosangData);
     }
 
-    private String getMailTemplate(String title, String canhbaoData, String phData, String domanData,
-                                   String nhietdoData, String oxyhoatanData){
+    private String getMailTemplate(String title, String canhbaoData,
+                                   String nhietdoData, String doamData, String dosangData){
         String result =
                 "<html>" +
                         "<head>" +
@@ -297,28 +258,6 @@ public class BcTongHopServiceImpl implements BcTongHopService {
                         "" +
                         "    <div style=\"min-height: 50px;\"></div>" +
                         "" +
-                        "    <h3>Độ ph trung bình</h3>" +
-                        "    <table>" +
-                        "        <tr>" +
-                        "            <th>Thời gian</th>" +
-                        "            <th>Giá trị</th>" +
-                        "        </tr>" +
-                                 phData +
-                        "    </table>" +
-                        "" +
-                        "    <div style=\"min-height: 50px;\"></div>" +
-                        "" +
-                        "    <h3>Độ mặn trung bình</h3>" +
-                        "    <table>" +
-                        "        <tr>" +
-                        "            <th>Thời gian</th>" +
-                        "            <th>Giá trị</th>" +
-                        "        </tr>" +
-                                 domanData +
-                        "    </table>" +
-                        "" +
-                        "    <div style=\"min-height: 50px;\"></div>" +
-                        "" +
                         "    <h3>Nhiệt độ trung bình</h3>" +
                         "    <table>" +
                         "        <tr>" +
@@ -330,25 +269,25 @@ public class BcTongHopServiceImpl implements BcTongHopService {
                         "" +
                         "    <div style=\"min-height: 50px;\"></div>" +
                         "" +
-                        "    <h3>Độ oxy hòa tan trung bình</h3>" +
+                        "    <h3>Độ ẩm trung bình</h3>" +
                         "    <table>" +
                         "        <tr>" +
                         "            <th>Thời gian</th>" +
                         "            <th>Giá trị</th>" +
                         "        </tr>" +
-                                 oxyhoatanData +
+                                 doamData +
                         "    </table>" +
-//                        "" +
-//                        "    <div style=\"min-height: 50px;\"></div>" +
-//                        "" +
-//                        "    <h3>Độ oxy hóa khử trung bình</h3>" +
-//                        "    <table>" +
-//                        "        <tr>" +
-//                        "            <th>Thời gian</th>" +
-//                        "            <th>Giá trị</th>" +
-//                        "        </tr>" +
-//                                 oxyhoakhuData +
-//                        "    </table>" +
+                        "" +
+                        "    <div style=\"min-height: 50px;\"></div>" +
+                        "" +
+                        "    <h3>Độ sáng trung bình</h3>" +
+                        "    <table>" +
+                        "        <tr>" +
+                        "            <th>Thời gian</th>" +
+                        "            <th>Giá trị</th>" +
+                        "        </tr>" +
+                                 dosangData +
+                        "    </table>" +
                         "</body>" +
                         "</html>";
         return result;

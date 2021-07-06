@@ -3,14 +3,14 @@
   "configuration": {
     "description": "",
     "widgets": {
-      "637a7b85-ffa4-1f99-43ef-13f3e84f583b": {
+      "29785fcf-d004-85b0-a7e8-113ac1b51a2f": {
         "isSystemType": true,
         "bundleAlias": "charts",
         "typeAlias": "basic_timeseries",
         "type": "timeseries",
         "title": "New widget",
-        "sizeX": 8,
-        "sizeY": 5,
+        "sizeX": 12,
+        "sizeY": 6,
         "config": {
           "datasources": [
             {
@@ -20,7 +20,7 @@
               "filterId": null,
               "dataKeys": [
                 {
-                  "name": "Temperature",
+                  "name": "Luminosity",
                   "type": "timeseries",
                   "label": "${entityName}",
                   "color": "#2196f3",
@@ -65,133 +65,7 @@
           "showTitle": true,
           "backgroundColor": "#fff",
           "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "0px",
-          "settings": {
-            "shadowSize": 4,
-            "fontColor": "#545454",
-            "fontSize": 10,
-            "xaxis": {
-              "showLabels": true,
-              "color": "#545454"
-            },
-            "yaxis": {
-              "showLabels": true,
-              "color": "#545454",
-              "min": 0,
-              "max": 40,
-              "tickDecimals": 2
-            },
-            "grid": {
-              "color": "#545454",
-              "tickColor": "#DDDDDD",
-              "verticalLines": true,
-              "horizontalLines": true,
-              "outlineWidth": 1
-            },
-            "stack": false,
-            "tooltipIndividual": false,
-            "timeForComparison": "months",
-            "xaxisSecond": {
-              "axisPosition": "top",
-              "showLabels": true
-            },
-            "hideZeros": false,
-            "customLegendEnabled": false,
-            "comparisonEnabled": false
-          },
-          "title": "Biểu đồ nhiệt độ (°C)",
-          "dropShadow": true,
-          "enableFullscreen": true,
-          "titleStyle": {
-            "fontSize": "14px",
-            "fontWeight": 400
-          },
-          "useDashboardTimewindow": true,
-          "showTitleIcon": false,
-          "iconColor": "rgba(0, 0, 0, 0.87)",
-          "iconSize": "24px",
-          "titleTooltip": "Biểu đồ nhiệt độ (°C)",
-          "widgetStyle": {},
-          "decimals": 2,
-          "showLegend": true,
-          "legendConfig": {
-            "direction": "column",
-            "position": "top",
-            "sortDataKeys": false,
-            "showMin": true,
-            "showMax": true,
-            "showAvg": true,
-            "showTotal": false
-          },
-          "titleIcon": ""
-        },
-        "row": 0,
-        "col": 0,
-        "id": "637a7b85-ffa4-1f99-43ef-13f3e84f583b"
-      },
-      "c247b9ad-5c38-6129-513c-21bd05b1cfed": {
-        "isSystemType": true,
-        "bundleAlias": "charts",
-        "typeAlias": "basic_timeseries",
-        "type": "timeseries",
-        "title": "New widget",
-        "sizeX": 8,
-        "sizeY": 5,
-        "config": {
-          "datasources": [
-            {
-              "type": "entity",
-              "name": null,
-              "entityAliasId": "entityAliasId",
-              "filterId": null,
-              "dataKeys": [
-                {
-                  "name": "pH",
-                  "type": "timeseries",
-                  "label": "${entityName}",
-                  "color": "#2196f3",
-                  "settings": {
-                    "excludeFromStacking": false,
-                    "hideDataByDefault": false,
-                    "disableDataHiding": false,
-                    "removeFromLegend": false,
-                    "showLines": true,
-                    "fillLines": false,
-                    "showPoints": false,
-                    "showPointShape": "circle",
-                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
-                    "showPointsLineWidth": 5,
-                    "showPointsRadius": 3,
-                    "showSeparateAxis": false,
-                    "axisPosition": "left",
-                    "thresholds": [
-                      {
-                        "thresholdValueSource": "predefinedValue"
-                      }
-                    ],
-                    "comparisonSettings": {
-                      "showValuesForComparison": true
-                    }
-                  },
-                  "_hash": 0.0939673252993728,
-                  "units": null,
-                  "decimals": 2,
-                  "funcBody": null,
-                  "usePostProcessing": null,
-                  "postFuncBody": null
-                }
-              ]
-            }
-          ],
-          "timewindow": {
-            "realtime": {
-              "timewindowMs": 60000
-            }
-          },
-          "showTitle": true,
-          "backgroundColor": "#fff",
-          "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "0px",
+          "padding": "8px",
           "settings": {
             "shadowSize": 4,
             "fontColor": "#545454",
@@ -224,9 +98,9 @@
             "hideZeros": false,
             "customLegendEnabled": false,
             "comparisonEnabled": false,
-            "smoothLines": false
+            "smoothLines": true
           },
-          "title": "Biểu đồ độ pH",
+          "title": "Biểu đồ độ sáng (lux)",
           "dropShadow": true,
           "enableFullscreen": true,
           "titleStyle": {
@@ -237,13 +111,13 @@
           "showTitleIcon": false,
           "iconColor": "rgba(0, 0, 0, 0.87)",
           "iconSize": "24px",
-          "titleTooltip": "Biểu đồ độ pH",
+          "titleTooltip": "Biểu đồ độ sáng (lux)",
           "widgetStyle": {},
           "decimals": 2,
           "showLegend": true,
           "legendConfig": {
             "direction": "column",
-            "position": "top",
+            "position": "bottom",
             "sortDataKeys": false,
             "showMin": true,
             "showMax": true,
@@ -256,14 +130,14 @@
         "col": 0,
         "id": "c247b9ad-5c38-6129-513c-21bd05b1cfed"
       },
-      "7fc6ed85-286e-3225-1642-2415a1fd486f": {
+      "722207e1-67b7-2e33-9c4d-4fb1430a8fc6": {
         "isSystemType": true,
         "bundleAlias": "charts",
         "typeAlias": "basic_timeseries",
         "type": "timeseries",
         "title": "New widget",
-        "sizeX": 8,
-        "sizeY": 5,
+        "sizeX": 12,
+        "sizeY": 6,
         "config": {
           "datasources": [
             {
@@ -273,7 +147,7 @@
               "filterId": null,
               "dataKeys": [
                 {
-                  "name": "Salinity",
+                  "name": "Temperature",
                   "type": "timeseries",
                   "label": "${entityName}",
                   "color": "#2196f3",
@@ -318,7 +192,7 @@
           "showTitle": true,
           "backgroundColor": "#fff",
           "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "0px",
+          "padding": "8px",
           "settings": {
             "shadowSize": 4,
             "fontColor": "#545454",
@@ -351,9 +225,9 @@
             "hideZeros": false,
             "customLegendEnabled": false,
             "comparisonEnabled": false,
-            "smoothLines": false
+            "smoothLines": true
           },
-          "title": "Biểu đồ độ mặn (‰)",
+          "title": "Biểu đồ nhiệt độ (°C)",
           "dropShadow": true,
           "enableFullscreen": true,
           "titleStyle": {
@@ -364,13 +238,13 @@
           "showTitleIcon": false,
           "iconColor": "rgba(0, 0, 0, 0.87)",
           "iconSize": "24px",
-          "titleTooltip": "Biểu đồ độ mặn (‰)",
+          "titleTooltip": "Biểu đồ nhiệt độ (°C)",
           "widgetStyle": {},
           "decimals": 2,
           "showLegend": true,
           "legendConfig": {
             "direction": "column",
-            "position": "top",
+            "position": "bottom",
             "sortDataKeys": false,
             "showMin": true,
             "showMax": true,
@@ -383,14 +257,14 @@
         "col": 0,
         "id": "7fc6ed85-286e-3225-1642-2415a1fd486f"
       },
-      "4e821c64-29a1-7eb2-72f4-b895931c0f44": {
+      "4937149c-41d0-5465-c2f0-2e0b092e40f3": {
         "isSystemType": true,
         "bundleAlias": "charts",
         "typeAlias": "basic_timeseries",
         "type": "timeseries",
         "title": "New widget",
-        "sizeX": 8,
-        "sizeY": 5,
+        "sizeX": 12,
+        "sizeY": 6,
         "config": {
           "datasources": [
             {
@@ -400,7 +274,7 @@
               "filterId": null,
               "dataKeys": [
                 {
-                  "name": "DO",
+                  "name": "Humidity",
                   "type": "timeseries",
                   "label": "${entityName}",
                   "color": "#2196f3",
@@ -432,7 +306,7 @@
                   "decimals": 2,
                   "funcBody": null,
                   "usePostProcessing": null,
-                  "postFuncBody": null
+                  "postFuncBody": "return value/100;"
                 }
               ]
             }
@@ -445,7 +319,7 @@
           "showTitle": true,
           "backgroundColor": "#fff",
           "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "0px",
+          "padding": "8px",
           "settings": {
             "shadowSize": 4,
             "fontColor": "#545454",
@@ -478,9 +352,9 @@
             "hideZeros": false,
             "customLegendEnabled": false,
             "comparisonEnabled": false,
-            "smoothLines": false
+            "smoothLines": true
           },
-          "title": "Biểu đồ oxy hòa tan (mg/l)",
+          "title": "Biểu đồ độ ẩm (‰)",
           "dropShadow": true,
           "enableFullscreen": true,
           "titleStyle": {
@@ -491,13 +365,13 @@
           "showTitleIcon": false,
           "iconColor": "rgba(0, 0, 0, 0.87)",
           "iconSize": "24px",
-          "titleTooltip": "Biểu đồ oxy hòa tan (mg/l)",
+          "titleTooltip": "Biểu đồ độ ẩm (‰)",
           "widgetStyle": {},
           "decimals": 2,
           "showLegend": true,
           "legendConfig": {
             "direction": "column",
-            "position": "top",
+            "position": "bottom",
             "sortDataKeys": false,
             "showMin": true,
             "showMax": true,
@@ -510,14 +384,14 @@
         "col": 0,
         "id": "4e821c64-29a1-7eb2-72f4-b895931c0f44"
       },
-      "4b602090-a3dc-9ca5-c6df-0874aed2d23d": {
+      "8ea78346-e1cd-767b-9032-5e8be01202ea": {
         "isSystemType": true,
         "bundleAlias": "alarm_widgets",
         "typeAlias": "alarms_table",
         "type": "alarm",
         "title": "New widget",
-        "sizeX": 10.5,
-        "sizeY": 6.5,
+        "sizeX": 12,
+        "sizeY": 6,
         "config": {
           "timewindow": {
             "hideInterval": false,
@@ -646,42 +520,36 @@
         "layouts": {
           "main": {
             "widgets": {
-              "637a7b85-ffa4-1f99-43ef-13f3e84f583b": {
+              "8ea78346-e1cd-767b-9032-5e8be01202ea": {
+                "sizeX": 12,
+                "sizeY": 6,
+                "row": 0,
+                "col": 0
+              },
+              "722207e1-67b7-2e33-9c4d-4fb1430a8fc6": {
+                "sizeX": 12,
+                "sizeY": 6,
+                "row": 0,
+                "col": 12
+              },
+              "4937149c-41d0-5465-c2f0-2e0b092e40f3": {
                 "sizeX": 12,
                 "sizeY": 6,
                 "row": 6,
                 "col": 0
               },
-              "c247b9ad-5c38-6129-513c-21bd05b1cfed": {
-                "sizeX": 8,
-                "sizeY": 6,
-                "row": 0,
-                "col": 8
-              },
-              "7fc6ed85-286e-3225-1642-2415a1fd486f": {
-                "sizeX": 8,
-                "sizeY": 6,
-                "row": 0,
-                "col": 16
-              },
-              "4e821c64-29a1-7eb2-72f4-b895931c0f44": {
+              "29785fcf-d004-85b0-a7e8-113ac1b51a2f": {
                 "sizeX": 12,
                 "sizeY": 6,
                 "row": 6,
                 "col": 12
-              },
-              "4b602090-a3dc-9ca5-c6df-0874aed2d23d": {
-                "sizeX": 8,
-                "sizeY": 6,
-                "row": 0,
-                "col": 0
               }
             },
             "gridSettings": {
               "backgroundColor": "#eeeeee",
               "color": "rgba(0,0,0,0.870588)",
               "columns": 24,
-              "margin": 10,
+              "margin": 5,
               "backgroundSizeMode": "100%"
             }
           }

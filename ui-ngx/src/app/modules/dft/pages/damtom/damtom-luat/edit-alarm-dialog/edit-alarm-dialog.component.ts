@@ -77,7 +77,7 @@ export class EditAlarmDialogComponent implements OnInit {
       error => {
         console.log(error);
         if (error.status === 400 && error.error.message === DAMTOM_DOES_NOT_EXIST){
-          this.dialogService.alert('', 'Đầm tôm không tồn tại', 'ok', false);
+          this.dialogService.alert('', 'Nhà vườn không tồn tại', 'ok', false);
         } else if (error.status === 400 && error.error.message === ALARM_RULE_NAME_CANNOT_BE_NULL){
           this.dialogService.alert('', 'Tên luật cảnh báo không được bỏ trống', 'ok', false);
         } else if (error.status === 400 && error.error.message === ALARM_RULE_DOES_NOT_EXIST){

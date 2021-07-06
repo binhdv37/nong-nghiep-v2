@@ -8,6 +8,7 @@ import {DamTomService} from '@modules/dft/service/damtom.service';
 import {BcTonghopService} from '@modules/dft/service/bc-tonghop/bc-tonghop.service';
 import {BcSingleData} from '@modules/dft/models/bao-cao/bao-cao.model';
 import {MyLineChartDataMap} from '@modules/dft/pages/baocao/bc-dlgiamsat/bc-dlgiamsat.component';
+import {TelemetryKey} from "@modules/dft/models/alarm-history/telemetryKey.constant";
 
 @Component({
   selector: 'tb-bc-tonghop',
@@ -41,30 +42,20 @@ export class BcTonghopComponent implements OnInit {
   // data - line chart
   myLineChartDatas: MyLineChartDataMap[] = [
     {
-      key: 'pH',
-      chartTitle: 'Biểu đồ độ pH trung bình',
+      key: TelemetryKey.HUMIDITY,
+      chartTitle: 'Biểu đồ độ ẩm trung bình',
       data: []
     },
     {
-      key: 'Salinity',
-      chartTitle: 'Biểu đồ độ mặn trung bình',
+      key: TelemetryKey.LUMINOSITY,
+      chartTitle: 'Biểu đồ cường độ ánh sáng trung bình',
       data: []
     },
     {
-      key: 'Temperature',
+      key: TelemetryKey.TEMPERATURE,
       chartTitle: 'Biểu đồ nhiệt độ trung bình',
       data: []
-    },
-    {
-      key: 'DO',
-      chartTitle: 'Biểu đồ độ oxy hòa tan trung bình',
-      data: []
-    },
-    // {
-    //   key: 'ORP',
-    //   chartTitle: 'Biểu đồ độ oxy hóa khử trung bình',
-    //   data: []
-    // },
+    }
   ];
 
   constructor(

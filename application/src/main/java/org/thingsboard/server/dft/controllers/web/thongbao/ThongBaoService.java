@@ -121,7 +121,7 @@ public class ThongBaoService {
 //            boDieuKhienService.startGroupRpc(damTomEntity.getTenantId(), damTomAlarmEntity.getGroupRpcId());
 //        }
 
-        String EMAIL_SUBJECT = "IoT Đầm tôm - Cảnh báo " + damTomEntity.getName();
+        String EMAIL_SUBJECT = "IoT Nông nghiệp - Cảnh báo " + damTomEntity.getName();
         String TITLE_SUBJECT = "Cảnh báo " + damTomEntity.getName();
         String MESSAGE;
         Date timeAlarm = new Date();
@@ -132,11 +132,11 @@ public class ThongBaoService {
         }
 
         MESSAGE =
-                "Đầm tôm: " + damTomEntity.getName() + "<br>" +
+                "Nhà vườn: " + damTomEntity.getName() + "<br>" +
                         "Cảnh báo: " + alarm.getType() + "<br>" +
                         "Thời gian: " + timeAlarm.toString();
-        String SMS_MESSAGE = "IoT Đầm tôm - Cảnh báo " + damTomEntity.getName() + "." +
-                "Đầm tôm: " + damTomEntity.getName() + ", " +
+        String SMS_MESSAGE = "IoT Nông Nghiệp - Cảnh báo " + damTomEntity.getName() + "." +
+                "Nhà vườn: " + damTomEntity.getName() + ", " +
                 "Cảnh báo: " + alarm.getType() + "," +
                 "Thời gian: " + timeAlarm.toString();
 

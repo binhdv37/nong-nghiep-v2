@@ -21,7 +21,7 @@ public class ReportScheduleCreateOrUpdateDto {
 
     private UUID tenantId;
 
-    @NotNull(message = "Đầm tôm không được null")
+    @NotNull(message = "Nhà vườn không được null")
     private UUID damTomId;
 
     @NotBlank(message = "Tên lịch xuất báo cáo không được để trống")

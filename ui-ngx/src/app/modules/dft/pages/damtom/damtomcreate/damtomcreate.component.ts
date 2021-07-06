@@ -116,7 +116,7 @@ export class DamtomcreateComponent implements OnInit {
         }
         // @ts-ignore
         if (rs === 2) {
-          this.toast.error('Tên Đầm tôm đã tồn tại, lưu không thành công', '', {
+          this.toast.error('Tên nhà vườn đã tồn tại, lưu không thành công', '', {
             positionClass: 'toast-bottom-right',
             timeOut: 3000,
           });
@@ -143,7 +143,7 @@ export class DamtomcreateComponent implements OnInit {
   delete() {
     this.dialogService.confirm(
       'Bạn có chắc chắn không?',
-      'Danh sách người dùng quản lý đã chọn sẽ bị xóa khỏi đầm tôm ',
+      'Danh sách người dùng quản lý đã chọn sẽ bị xóa khỏi nhà vườn ',
       'Hủy', 'Xóa',
       true
     ).subscribe(rs => {

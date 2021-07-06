@@ -20,7 +20,7 @@
           <form (ngSubmit)="onSubmitForm()" [formGroup]="formTimeQuery" id="myForm">
             <div fxLayout="row" style="margin-top: 16px !important;">
               <div fxFlex="32" style="padding: 0px 8px 0px 24px !important;">
-                <span class="text-tim-kiem">Chọn đầm</span>
+                <span class="text-tim-kiem">Chọn nhà vườn</span>
                 <mat-form-field style="width: 100% !important;" class="margin-cmb-tk">
                   <mat-select [(value)]="selectedValue">
                     <mat-option [value]="defaultSelectedValue">Tất cả</mat-option>
@@ -90,49 +90,14 @@
           <!-- <div class="b-linechart-section" fxLayout="column" fxLayoutAlign="space-between none"> -->
           <div style="padding: 0px 24px !important;">
 
-            <div class="row" fxLayout="row" fxLayoutAlign="space-between none" style="padding-bottom: 24px !important;">
+            <div fxLayout="row" fxLayoutAlign="space-between none" style="padding-bottom: 24px !important;">
               <!-- chart container 1-->
-              <div fxFlex="49" class="b-chart-container">
-                <tb-no-legend-line-chart class="title-bao-cao-duong" [chartTitle]="myLineChartDatas[0].chartTitle"
-                  [data]="myLineChartDatas[0].data">
-                </tb-no-legend-line-chart>
-              </div>
-
-              <!-- chart container 2-->
-              <div fxFlex="49" class="b-chart-container">
-                <tb-no-legend-line-chart class="title-bao-cao-duong" [chartTitle]="myLineChartDatas[1].chartTitle"
-                  [data]="myLineChartDatas[1].data">
-                </tb-no-legend-line-chart>
-              </div>
-
-            </div>
-
-
-            <!-- line chart section 2-->
-            <div class="row" fxLayout="row" fxLayoutAlign="space-between none">
-
-              <!-- chart container 1-->
-              <div fxFlex="49" class="b-chart-container">
-                <tb-no-legend-line-chart class="title-bao-cao-duong" [chartTitle]="myLineChartDatas[2].chartTitle"
-                  [data]="myLineChartDatas[2].data">
-                </tb-no-legend-line-chart>
-              </div>
-
-              <!-- chart container 2-->
-              <div fxFlex="49" class="b-chart-container">
-                <tb-no-legend-line-chart class="title-bao-cao-duong" [chartTitle]="myLineChartDatas[3].chartTitle"
-                  [data]="myLineChartDatas[3].data">
+              <div fxFlex="33" class="b-chart-container" *ngFor="let chartData of myLineChartDatas">
+                <tb-no-legend-line-chart class="title-bao-cao-duong" [chartTitle]="chartData.chartTitle"
+                  [data]="chartData.data">
                 </tb-no-legend-line-chart>
               </div>
             </div>
-            <!-- line chart section 1-->
-
-            <!--            &lt;!&ndash; chart container 3&ndash;&gt;-->
-            <!--            <div fxFlex="32" class="b-chart-container">-->
-            <!--              <tb-no-legend-line-chart [chartTitle]="myLineChartDatas[4].chartTitle" [data]="myLineChartDatas[4].data">-->
-            <!--              </tb-no-legend-line-chart>-->
-            <!--            </div>-->
-
           </div>
 
         </div>

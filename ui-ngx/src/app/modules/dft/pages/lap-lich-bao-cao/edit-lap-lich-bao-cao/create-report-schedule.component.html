@@ -39,7 +39,7 @@
               <td>
                 <mat-form-field class="example-full-width">
                   <dft-label-icon matSuffix [name]="'House'"></dft-label-icon>
-                  <mat-label>Báo cáo đầm tôm</mat-label>
+                  <mat-label>Báo cáo nhà vườn</mat-label>
                   <mat-select formControlName="damtom" (selectionChange)="selectDamTomChange($event)"  disableRipple required>
                     <mat-option *ngFor="let damtom of damTomList" [value]="damtom">
                       {{damtom.name}}

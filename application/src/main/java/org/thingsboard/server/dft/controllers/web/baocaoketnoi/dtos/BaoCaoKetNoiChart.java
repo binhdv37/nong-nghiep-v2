@@ -19,18 +19,12 @@ public class BaoCaoKetNoiChart {
     if (baoCaoKetNoi.getDeviceType().equals(DeviceTypeConstant.Temperature)) {
       this.sort = 1;
       this.name = DeviceTypeNameConstant.Temperature;
-    } else if (baoCaoKetNoi.getDeviceType().equals(DeviceTypeConstant.pH)) {
+    } else if (baoCaoKetNoi.getDeviceType().equals(DeviceTypeConstant.Humidity)) {
       this.sort = 2;
-      this.name = DeviceTypeNameConstant.pH;
-    } else if (baoCaoKetNoi.getDeviceType().equals(DeviceTypeConstant.Salinity)) {
+      this.name = DeviceTypeNameConstant.Humidity;
+    } else if (baoCaoKetNoi.getDeviceType().equals(DeviceTypeConstant.Luminosity)) {
       this.sort = 3;
-      this.name = DeviceTypeNameConstant.Salinity;
-//    } else if (baoCaoKetNoi.getDeviceType().equals(DeviceTypeConstant.ORP)) {
-//      this.sort = 5;
-//      this.name = DeviceTypeNameConstant.ORP;
-    } else if (baoCaoKetNoi.getDeviceType().equals(DeviceTypeConstant.DO)) {
-      this.sort = 4;
-      this.name = DeviceTypeNameConstant.DO;
+      this.name = DeviceTypeNameConstant.Luminosity;
     }
     this.value = baoCaoKetNoi.getCountValue();
   }

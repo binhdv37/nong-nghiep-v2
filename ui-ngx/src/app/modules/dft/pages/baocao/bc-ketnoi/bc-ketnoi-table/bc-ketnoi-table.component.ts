@@ -11,7 +11,8 @@ export class BcKetnoiTableComponent implements OnInit {
 
   @Input() isLoading$;
 
-  displayedColumns: string[] = ['thoiGian', 'Temperature', 'pH', 'Salinity', 'DO'];
+  // displayedColumns: string[] = ['thoiGian', 'Temperature', 'pH', 'Salinity', 'DO'];
+  displayedColumns: string[] = ['thoiGian', 'Temperature', 'Humidity', 'Luminosity'];
 
   constructor() {
   }

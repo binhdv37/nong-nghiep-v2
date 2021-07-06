@@ -11,7 +11,7 @@
             <mat-form-field class="margin-t-16">
               <dft-label-icon matSuffix [name]="'House'"></dft-label-icon>
               <mat-label>{{ 'dft.damtom.name' | translate}}</mat-label>
-              <input matInput formControlName="name" required placeholder="Nhập tên đầm"/>
+              <input matInput formControlName="name" required placeholder="Nhập tên nhà vườn"/>
               <mat-error *ngIf="createForm.get('name').hasError('required') || createForm.get('name').hasError('whitespace')">
                 {{ 'dft.admin.khachhang.validate.required' | translate }}
               </mat-error>

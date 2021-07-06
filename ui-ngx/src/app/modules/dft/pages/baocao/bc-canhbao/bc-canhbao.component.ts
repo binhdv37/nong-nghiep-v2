@@ -43,11 +43,11 @@ export class BcCanhbaoComponent implements OnInit {
 
   chartDatas: MyPieChartData[] = [
     {
-      chartTitle: 'Biểu đồ thống kê cảnh báo của đầm tôm',
+      chartTitle: 'Biểu đồ thống kê cảnh báo của nhà vườn',
       datas: []
     },
     {
-      chartTitle: 'Biểu đồ thống kê cảnh báo giữa các đầm',
+      chartTitle: 'Biểu đồ thống kê cảnh báo giữa các nhà vườn',
       datas: []
     }
   ];

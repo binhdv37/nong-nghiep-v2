@@ -61,7 +61,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public class AuthController extends BaseController {
 
-    private final String EMAIL_SUBJECT = "IOT Đầm tôm - Quên mật khẩu";
+    private final String EMAIL_SUBJECT = "IOT Nông Nghiệp - Quên mật khẩu";
 
     private final String CURRENT_PASSWORD_DOES_NOT_MATCH = "Current password does not match";
     private final String NEW_PASSWORD_INVALID = "New password is invalid";

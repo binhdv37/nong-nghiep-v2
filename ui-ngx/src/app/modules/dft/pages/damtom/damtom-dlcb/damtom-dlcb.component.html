@@ -78,14 +78,14 @@
               <td mat-cell *matCellDef="let data"> {{ data.data?.Temperature }} </td>
             </ng-container>
 
-            <ng-container matColumnDef="pH">
-              <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.dlcb.pH' | translate }}</th>
-              <td mat-cell *matCellDef="let data"> {{ data.data?.pH }} </td>
+            <ng-container matColumnDef="Humidity">
+              <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.dlcb.Humidity' | translate }}</th>
+              <td mat-cell *matCellDef="let data"> {{ data.data?.Humidity }} </td>
             </ng-container>
 
-            <ng-container matColumnDef="Salinity">
-              <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.dlcb.Salinity' | translate }}</th>
-              <td mat-cell *matCellDef="let data"> {{ data.data?.Salinity }} </td>
+            <ng-container matColumnDef="Luminosity">
+              <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.dlcb.Luminosity' | translate }}</th>
+              <td mat-cell *matCellDef="let data"> {{ data.data?.Luminosity }} </td>
             </ng-container>
 
 <!--            <ng-container matColumnDef="ORP">-->
@@ -93,10 +93,10 @@
 <!--              <td mat-cell *matCellDef="let data"> {{ data.data?.ORP }} </td>-->
 <!--            </ng-container>-->
 
-            <ng-container matColumnDef="DO">
-              <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.dlcb.DO' | translate }}</th>
-              <td mat-cell *matCellDef="let data"> {{ data.data?.DO }} </td>
-            </ng-container>
+<!--            <ng-container matColumnDef="DO">-->
+<!--              <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.dlcb.DO' | translate }}</th>-->
+<!--              <td mat-cell *matCellDef="let data"> {{ data.data?.DO }} </td>-->
+<!--            </ng-container>-->
 
              <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

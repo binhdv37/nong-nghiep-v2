@@ -88,15 +88,15 @@ public class BcCanhBaoServiceImpl implements BcCanhBaoService {
         // dam tom k ton tai
         if(damTomEntity == null){
             result +=
-                    "<h2 style=\"text-align: center\">Báo cáo cảnh báo của đầm tôm từ " + convertTs(startTs) + " đến " + convertTs(endTs) +  "</h2>" +
-                            "    <h3>Thống kê cảnh báo của đầm tôm</h3>" +
+                    "<h2 style=\"text-align: center\">Báo cáo cảnh báo của nhà vườn từ " + convertTs(startTs) + " đến " + convertTs(endTs) +  "</h2>" +
+                            "    <h3>Thống kê cảnh báo của nhà vườn</h3>" +
                             "    <table>" +
                             "        <tr>" +
                             "            <th style=\"width: 50%;\">Tên luật cảnh báo</th>" +
                             "            <th style=\"width: 50%;\">Số lượng</th>" +
                             "        </tr>" +
                             "        <tr>" +
-                            "            <td style=\"text-align: center;\" colspan=\"2\">Đầm tôm không tồn tại</td>" +
+                            "            <td style=\"text-align: center;\" colspan=\"2\">Nhà vườn không tồn tại</td>" +
                             "        </tr>";
         }
         // dam tom dang bi vo hieu hoa
@@ -110,7 +110,7 @@ public class BcCanhBaoServiceImpl implements BcCanhBaoService {
                             "            <th style=\"width: 50%;\">Số lượng</th>" +
                             "        </tr>" +
                             "        <tr>" +
-                            "            <td style=\"text-align: center;\" colspan=\"2\">Đầm tôm đang bị vô hiệu hóa</td>" +
+                            "            <td style=\"text-align: center;\" colspan=\"2\">Nhà vườn đang bị vô hiệu hóa</td>" +
                             "        </tr>";
         }
         // dam tom dang hd binh thuong
@@ -148,17 +148,17 @@ public class BcCanhBaoServiceImpl implements BcCanhBaoService {
                         "" +
                         "    <div style=\"min-height: 50px;  \"></div>" +
                         "" +
-                        "    <h3>Thống kê cảnh báo giữa các đầm</h3>" +
+                        "    <h3>Thống kê cảnh báo giữa các nhà vườn</h3>" +
                         "    <table>" +
                         "        <tr>" +
-                        "            <th style=\"width: 50%;\">Tên đầm tôm</th>" +
+                        "            <th style=\"width: 50%;\">Tên nhà vườn</th>" +
                         "            <th style=\"width: 50%;\">Số lượng</th>" +
                         "        </tr>";
 
         if(table2Data.size() == 0){
             result +=
                     "<tr>" +
-                    "   <td style=\"text-align: center\" colspan=\"2\">Không tìm thấy đầm tôm</td>" +
+                    "   <td style=\"text-align: center\" colspan=\"2\">Không tìm thấy nhà vườn</td>" +
                     "</tr>";
         }
 
