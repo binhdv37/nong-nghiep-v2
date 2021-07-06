@@ -1,6 +1,6 @@
 <form class="popup-c" [formGroup]="createForm" (ngSubmit)="onSubmit()">
   <div class="popup-dialog-title">
-    <h2 mat-dialog-title class="b-dialog-title">Thêm mới đầm tôm</h2>
+    <h2 mat-dialog-title class="b-dialog-title">Thêm mới nhà vườn</h2>
     <mat-icon style="cursor: pointer !important; float: right !important;" [mat-dialog-close]="true" class="close-icon">
       close</mat-icon>
   </div>
@@ -12,7 +12,7 @@
             <mat-form-field class="margin-t-16">
                 <dft-label-icon matSuffix [name]="'House'"></dft-label-icon>
                 <mat-label>{{ 'dft.damtom.name' | translate}}</mat-label>
-                <input matInput formControlName="name" required placeholder="Nhập tên đầm" />
+                <input matInput formControlName="name" required placeholder="Nhập tên nhà vườn" />
                 <mat-error
                 *ngIf="createForm.get('name').hasError('required') || createForm.get('name').hasError('whitespace')">
                 {{ 'dft.admin.khachhang.validate.required' | translate }}

@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @TbCoreComponent
 @RequestMapping("/api")
 public class RpcAlarmController extends BaseController {
-    private static final String DATOM_DOES_NOT_EXIST = "Đầm tôm không tồn tại";
+    private static final String DATOM_DOES_NOT_EXIST = "Nhà vườn không tồn tại";
     private static final String ALARM_RULE_NAME_ALREADY_EXIST = "Tên điều khiển tự động đã tồn tại!";
     private static final String ALARM_RULE_DOES_NOT_EXIST = "Luật điều khiển không tồn tại";
 

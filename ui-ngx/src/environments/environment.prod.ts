@@ -15,7 +15,7 @@
 ///
 
 export const environment = {
-  appTitle: 'IoT Đầm Tôm',
+  appTitle: 'IoT Nông Nghiệp',
   production: true,
 // @ts-ignore
   tbVersion: TB_VERSION,

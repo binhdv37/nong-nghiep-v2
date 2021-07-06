@@ -189,10 +189,8 @@ public class BaoCaoKetNoiService {
             htmlContentBuilder.append("<tr>");
             htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Thời gian</th>");
             htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Cảm biến nhiệt độ</th>");
-            htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Cảm biến độ pH</th>");
-            htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Cảm biến độ mặn</th>");
-//            htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Cảm biến Oxy hóa khử</th>");
-            htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Cảm biến Oxy hòa tan</th>");
+            htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Cảm biến độ ẩm</th>");
+            htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Cảm biến ánh sáng</th>");
             htmlContentBuilder.append("</tr>");
 
             for (BaoCaoKetNoiTable baoCaoKetNoiTable : baoCaoKetNoiTables) {
@@ -204,29 +202,18 @@ public class BaoCaoKetNoiService {
                     htmlContentBuilder.append("<td>" + 0 + "</td>");
                 }
 
-                if (baoCaoKetNoiTable.getData().containsKey(DeviceTypeConstant.pH)) {
-                    htmlContentBuilder.append("<td>" + baoCaoKetNoiTable.getData().get(DeviceTypeConstant.pH) + "</td>");
+                if (baoCaoKetNoiTable.getData().containsKey(DeviceTypeConstant.Humidity)) {
+                    htmlContentBuilder.append("<td>" + baoCaoKetNoiTable.getData().get(DeviceTypeConstant.Humidity) + "</td>");
                 } else {
                     htmlContentBuilder.append("<td>" + 0 + "</td>");
                 }
 
-                if (baoCaoKetNoiTable.getData().containsKey(DeviceTypeConstant.Salinity)) {
-                    htmlContentBuilder.append("<td>" + baoCaoKetNoiTable.getData().get(DeviceTypeConstant.Salinity) + "</td>");
+                if (baoCaoKetNoiTable.getData().containsKey(DeviceTypeConstant.Luminosity)) {
+                    htmlContentBuilder.append("<td>" + baoCaoKetNoiTable.getData().get(DeviceTypeConstant.Luminosity) + "</td>");
                 } else {
                     htmlContentBuilder.append("<td>" + 0 + "</td>");
                 }
 
-//                if (baoCaoKetNoiTable.getData().containsKey(DeviceTypeConstant.ORP)) {
-//                    htmlContentBuilder.append("<td>" + baoCaoKetNoiTable.getData().get(DeviceTypeConstant.ORP) + "</td>");
-//                } else {
-//                    htmlContentBuilder.append("<td>" + 0 + "</td>");
-//                }
-
-                if (baoCaoKetNoiTable.getData().containsKey(DeviceTypeConstant.DO)) {
-                    htmlContentBuilder.append("<td>" + baoCaoKetNoiTable.getData().get(DeviceTypeConstant.DO) + "</td>");
-                } else {
-                    htmlContentBuilder.append("<td>" + 0 + "</td>");
-                }
                 htmlContentBuilder.append("</tr>");
             }
 

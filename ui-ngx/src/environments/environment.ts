@@ -19,7 +19,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  appTitle: 'IoT Đầm Tôm',
+  appTitle: 'IoT Nông Nghiệp',
   production: false,
 // @ts-ignore
   tbVersion: TB_VERSION,

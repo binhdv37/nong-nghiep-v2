@@ -24,7 +24,7 @@ import javax.validation.Valid;
 @RequestMapping("/public-api")
 public class UserActiveController extends BaseController {
 
-    public static final String EMAIL_SUBJECT = "IOT Đầm Tôm - Kích hoạt Tài khoản";
+    public static final String EMAIL_SUBJECT = "IOT Nông Nghiệp - Kích hoạt Tài khoản";
 
     private final UsersDftService usersDftService;
     private final UserActiveService userActiveService;

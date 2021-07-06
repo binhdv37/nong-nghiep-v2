@@ -140,30 +140,22 @@
             data.data?.Temperature }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="pH">
-          <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.alarm-history.field.pH' | translate }}
+        <ng-container matColumnDef="Humidity">
+          <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.alarm-history.field.Humidity' | translate }}
           </th>
           <td mat-cell *matCellDef="let data"
-            [ngClass]="(data.alarmGateway && checkKeyAlarm(data.alarmKeys, telemetryKey.PH)) ? 'alarm-color' : 'none'">
-            {{ data.data?.pH
+            [ngClass]="(data.alarmGateway && checkKeyAlarm(data.alarmKeys, telemetryKey.HUMIDITY)) ? 'alarm-color' : 'none'">
+            {{ data.data?.Humidity
             }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="Salinity">
-          <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.alarm-history.field.Salinity' | translate
+        <ng-container matColumnDef="Luminosity">
+          <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.alarm-history.field.Luminosity' | translate
             }}</th>
           <td mat-cell *matCellDef="let data"
-            [ngClass]="(data.alarmGateway && checkKeyAlarm(data.alarmKeys, telemetryKey.SALINITY)) ? 'alarm-color' : 'none'">
+            [ngClass]="(data.alarmGateway && checkKeyAlarm(data.alarmKeys, telemetryKey.LUMINOSITY)) ? 'alarm-color' : 'none'">
             {{
-            data.data?.Salinity }} </td>
-        </ng-container>
-        <ng-container matColumnDef="DO">
-          <th mat-header-cell *matHeaderCellDef class="data-col-width">{{ 'dft.alarm-history.field.DO' | translate }}
-          </th>
-          <td mat-cell *matCellDef="let data"
-            [ngClass]="(data.alarmGateway && checkKeyAlarm(data.alarmKeys, telemetryKey.DO)) ? 'alarm-color' : 'none'">
-            {{ data.data?.DO
-            }} </td>
+            data.data?.Luminosity }} </td>
         </ng-container>
 
         <ng-container matColumnDef="clear">

@@ -14,14 +14,12 @@ import {CreateAlarmDialogComponent} from '@modules/dft/pages/damtom/damtom-luat/
 
 export function getMinMaxNguong(key: string){
   switch (key) {
-    case 'DO':
-      return {min: 0, max: 1000};
-    case 'pH':
-      return {min: 0, max: 14};
-    case 'Temperature':
-      return {min: 0, max: 40};
+    case 'Humidity':
+      return {min: 0, max: 100};
+    case 'Luminosity':
+      return {min: 0, max: 500000};
     default:
-      return {min: 0, max: 35};
+      return {min: 0, max: 60};
   }
 }
 

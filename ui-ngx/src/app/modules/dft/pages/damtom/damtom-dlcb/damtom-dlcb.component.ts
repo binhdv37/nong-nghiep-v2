@@ -50,7 +50,8 @@ export class DamTomDLCBComponent implements OnInit, AfterViewInit, OnDestroy {
   // dataSource = ELEMENT_DATA;
   dataSource = new MatTableDataSource<BoDuLieuCamBien>();
 
-  displayedColumns: string[] = ['khoangThoiGian', 'tenGateway', 'Temperature', 'pH', 'Salinity', 'DO'];
+  // displayedColumns: string[] = ['khoangThoiGian', 'tenGateway', 'Temperature', 'pH', 'Salinity', 'DO'];
+  displayedColumns: string[] = ['khoangThoiGian', 'tenGateway', 'Temperature', 'Humidity', 'Luminosity'];
   defaultPageSize = 10;
   displayPagination = true;
   pageSizeOptions = [5, 10, 20, 30, 40, 50, 100];

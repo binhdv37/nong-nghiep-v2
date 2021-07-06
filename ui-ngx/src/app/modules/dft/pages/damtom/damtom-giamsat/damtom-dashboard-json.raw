@@ -1,9 +1,9 @@
 {
-  "title": "Giám sát đầm tôm",
+  "title": "Giám sát nhà vườn",
   "configuration": {
     "description": "",
     "widgets": {
-      "d32159ad-af72-439f-fa02-c394adb4d9f6": {
+      "bc5b66a4-a49a-1b91-4fac-5e5bba9ed510": {
         "isSystemType": true,
         "bundleAlias": "charts",
         "typeAlias": "basic_timeseries",
@@ -20,7 +20,7 @@
               "filterId": null,
               "dataKeys": [
                 {
-                  "name": "pH",
+                  "name": "Temperature",
                   "type": "timeseries",
                   "label": "${entityName}",
                   "color": "#2196f3",
@@ -74,7 +74,7 @@
           "showTitle": true,
           "backgroundColor": "#fff",
           "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "0px",
+          "padding": "8px",
           "settings": {
             "shadowSize": 4,
             "fontColor": "#545454",
@@ -105,7 +105,7 @@
               "showLabels": true
             }
           },
-          "title": "Biểu đồ độ pH",
+          "title": "Biều đồ nhiệt độ (°C)",
           "dropShadow": true,
           "enableFullscreen": true,
           "titleStyle": {
@@ -121,7 +121,7 @@
           "showLegend": true,
           "legendConfig": {
             "direction": "column",
-            "position": "top",
+            "position": "bottom",
             "sortDataKeys": false,
             "showMin": true,
             "showMax": true,
@@ -134,7 +134,7 @@
         "col": 0,
         "id": "d32159ad-af72-439f-fa02-c394adb4d9f6"
       },
-      "f1b9b50b-d908-82e5-89f1-2c2359633c81": {
+      "7b6cca4d-ca96-37cc-6751-33695b2124b4": {
         "isSystemType": true,
         "bundleAlias": "charts",
         "typeAlias": "basic_timeseries",
@@ -151,7 +151,7 @@
               "filterId": null,
               "dataKeys": [
                 {
-                  "name": "Salinity",
+                  "name": "Humidity",
                   "type": "timeseries",
                   "label": "${entityName}",
                   "color": "#2196f3",
@@ -205,7 +205,7 @@
           "showTitle": true,
           "backgroundColor": "#fff",
           "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "0px",
+          "padding": "8px",
           "settings": {
             "shadowSize": 4,
             "fontColor": "#545454",
@@ -235,9 +235,9 @@
               "axisPosition": "top",
               "showLabels": true
             },
-            "smoothLines": false
+            "smoothLines": true
           },
-          "title": "Biều đồ độ mặn  (‰)",
+          "title": "Biều đồ độ ẩm (‰)",
           "dropShadow": true,
           "enableFullscreen": true,
           "titleStyle": {
@@ -253,7 +253,7 @@
           "showLegend": true,
           "legendConfig": {
             "direction": "column",
-            "position": "top",
+            "position": "bottom",
             "sortDataKeys": false,
             "showMin": true,
             "showMax": true,
@@ -266,7 +266,7 @@
         "col": 0,
         "id": "f1b9b50b-d908-82e5-89f1-2c2359633c81"
       },
-      "bbff22ad-8271-b460-b76c-ce492be27e24": {
+      "06b7ec06-20fa-e5e3-6916-53a7d9151b97": {
         "isSystemType": true,
         "bundleAlias": "charts",
         "typeAlias": "basic_timeseries",
@@ -283,7 +283,7 @@
               "filterId": null,
               "dataKeys": [
                 {
-                  "name": "Temperature",
+                  "name": "Luminosity",
                   "type": "timeseries",
                   "label": "${entityName}",
                   "color": "#2196f3",
@@ -337,7 +337,7 @@
           "showTitle": true,
           "backgroundColor": "#fff",
           "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "0px",
+          "padding": "8px",
           "settings": {
             "shadowSize": 4,
             "fontColor": "#545454",
@@ -367,9 +367,9 @@
               "axisPosition": "top",
               "showLabels": true
             },
-            "smoothLines": false
+            "smoothLines": true
           },
-          "title": "Biều đồ nhiệt độ (°C)",
+          "title": "Biều đồ độ sáng (lux)",
           "dropShadow": true,
           "enableFullscreen": true,
           "titleStyle": {
@@ -385,7 +385,7 @@
           "showLegend": true,
           "legendConfig": {
             "direction": "column",
-            "position": "top",
+            "position": "bottom",
             "sortDataKeys": false,
             "showMin": true,
             "showMax": true,
@@ -397,170 +397,32 @@
         "row": 0,
         "col": 0,
         "id": "bbff22ad-8271-b460-b76c-ce492be27e24"
-      },
-      "7ef64e41-909e-549e-8c12-259bb70f1f84": {
-        "isSystemType": true,
-        "bundleAlias": "charts",
-        "typeAlias": "basic_timeseries",
-        "type": "timeseries",
-        "title": "New widget",
-        "sizeX": 8,
-        "sizeY": 6,
-        "config": {
-          "datasources": [
-            {
-              "type": "entity",
-              "name": null,
-              "entityAliasId": "entityAliasId",
-              "filterId": null,
-              "dataKeys": [
-                {
-                  "name": "DO",
-                  "type": "timeseries",
-                  "label": "${entityName}",
-                  "color": "#2196f3",
-                  "settings": {
-                    "excludeFromStacking": false,
-                    "hideDataByDefault": false,
-                    "disableDataHiding": false,
-                    "removeFromLegend": false,
-                    "showLines": true,
-                    "fillLines": false,
-                    "showPoints": false,
-                    "showPointShape": "circle",
-                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
-                    "showPointsLineWidth": 5,
-                    "showPointsRadius": 3,
-                    "showSeparateAxis": false,
-                    "axisPosition": "left",
-                    "thresholds": [
-                      {
-                        "thresholdValueSource": "predefinedValue"
-                      }
-                    ],
-                    "comparisonSettings": {
-                      "showValuesForComparison": true
-                    }
-                  },
-                  "_hash": 0.6737330865893421,
-                  "units": null,
-                  "decimals": null,
-                  "funcBody": null,
-                  "usePostProcessing": null,
-                  "postFuncBody": null
-                }
-              ]
-            }
-          ],
-          "timewindow": {
-            "hideInterval": false,
-            "hideAggregation": false,
-            "hideAggInterval": false,
-            "selectedTab": 0,
-            "realtime": {
-              "timewindowMs": 7200000,
-              "interval": 15000
-            },
-            "aggregation": {
-              "type": "AVG",
-              "limit": 25000
-            }
-          },
-          "showTitle": true,
-          "backgroundColor": "#fff",
-          "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "0px",
-          "settings": {
-            "shadowSize": 4,
-            "fontColor": "#545454",
-            "fontSize": 10,
-            "xaxis": {
-              "showLabels": true,
-              "color": "#545454"
-            },
-            "yaxis": {
-              "showLabels": true,
-              "color": "#545454",
-              "min": 0,
-              "max": 10,
-              "tickDecimals": 2
-            },
-            "grid": {
-              "color": "#545454",
-              "tickColor": "#DDDDDD",
-              "verticalLines": true,
-              "horizontalLines": true,
-              "outlineWidth": 1
-            },
-            "stack": false,
-            "tooltipIndividual": false,
-            "timeForComparison": "months",
-            "xaxisSecond": {
-              "axisPosition": "top",
-              "showLabels": true
-            },
-            "smoothLines": false
-          },
-          "title": "Biều đồ độ oxy hòa tan (mg/l)",
-          "dropShadow": true,
-          "enableFullscreen": true,
-          "titleStyle": {
-            "fontSize": "14px",
-            "fontWeight": 400
-          },
-          "useDashboardTimewindow": true,
-          "showTitleIcon": false,
-          "iconColor": "rgba(0, 0, 0, 0.87)",
-          "iconSize": "24px",
-          "titleTooltip": "",
-          "widgetStyle": {},
-          "showLegend": true,
-          "legendConfig": {
-            "direction": "column",
-            "position": "top",
-            "sortDataKeys": false,
-            "showMin": true,
-            "showMax": true,
-            "showAvg": true,
-            "showTotal": false
-          },
-          "displayTimewindow": false
-        },
-        "row": 0,
-        "col": 0,
-        "id": "7ef64e41-909e-549e-8c12-259bb70f1f84"
       }
     },
     "states": {
       "default": {
-        "name": "Giám sát đầm tôm",
+        "name": "Giám sát nhà vườn",
         "root": true,
         "layouts": {
           "main": {
             "widgets": {
-              "d32159ad-af72-439f-fa02-c394adb4d9f6": {
-                "sizeX": 12,
-                "sizeY": 6,
-                "row": 6,
-                "col": 0
-              },
-              "f1b9b50b-d908-82e5-89f1-2c2359633c81": {
-                "sizeX": 12,
-                "sizeY": 6,
+              "bc5b66a4-a49a-1b91-4fac-5e5bba9ed510": {
+                "sizeX": 8,
+                "sizeY": 7,
                 "row": 0,
                 "col": 0
               },
-              "bbff22ad-8271-b460-b76c-ce492be27e24": {
-                "sizeX": 12,
-                "sizeY": 6,
+              "7b6cca4d-ca96-37cc-6751-33695b2124b4": {
+                "sizeX": 8,
+                "sizeY": 7,
                 "row": 0,
-                "col": 12
+                "col": 8
               },
-              "7ef64e41-909e-549e-8c12-259bb70f1f84": {
-                "sizeX": 12,
-                "sizeY": 6,
-                "row": 6,
-                "col": 12
+              "06b7ec06-20fa-e5e3-6916-53a7d9151b97": {
+                "sizeX": 8,
+                "sizeY": 7,
+                "row": 0,
+                "col": 16
               }
             },
             "gridSettings": {
@@ -633,5 +495,5 @@
       "showFilters": false
     }
   },
-  "name": "Giám sát đầm tôm"
+  "name": "Giám sát nhà vườn"
 }

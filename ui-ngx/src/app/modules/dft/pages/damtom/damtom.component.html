@@ -27,7 +27,7 @@
               <mat-form-field fxFlex class="mat-block">
                  <dft-label-icon [name]="'MagnifyingGlass'"></dft-label-icon>
                 <mat-label>&nbsp;</mat-label>
-                <input matInput #searchInput (keyup)="onSearch()" placeholder="Nhập tên đầm tôm, vị trí" />
+                <input matInput #searchInput (keyup)="onSearch()" placeholder="Nhập tên nhà vườn, vị trí" />
               </mat-form-field>
             </div>
             </div>
@@ -87,7 +87,7 @@
           </table>
           <span class="no-data-found" fxLayoutAlign="center center"
             [fxShow]="(dataSource.data === null || dataSource.data.length === 0) && !(isLoading$ | async)">Không tìm
-            thấy đầm tôm</span>
+            thấy nhà vườn</span>
           <span [fxShow]="(isLoading$ | async)" fxLayoutAlign="center center" class="no-data-found">{{ 'common.loading'
             | translate }}</span>
         </div>

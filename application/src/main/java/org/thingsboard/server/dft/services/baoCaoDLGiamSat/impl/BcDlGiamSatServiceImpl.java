@@ -93,12 +93,12 @@ public class BcDlGiamSatServiceImpl implements BcDlGiamSatService {
       htmlContentBuilder.append("<table style=\"text-align: center;\">");
       htmlContentBuilder.append("<tr>");
       htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Thời gian</th>");
-      htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Đầm tôm</th>");
-      htmlContentBuilder.append("<th style=\"width: 15%; background: yellow\">Độ pH</th>");
-      htmlContentBuilder.append("<th style=\"width: 15%; background: yellow\">Độ mặn</th>");
+      htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Nhà vườn</th>");
       htmlContentBuilder.append("<th style=\"width: 15%; background: yellow\">Nhiệt độ</th>");
+      htmlContentBuilder.append("<th style=\"width: 15%; background: yellow\">Độ ẩm</th>");
+      htmlContentBuilder.append("<th style=\"width: 15%; background: yellow\">Độ sáng</th>");
 //      htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Oxy hóa khử</th>");
-      htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Oxy hòa tan</th>");
+//      htmlContentBuilder.append("<th style=\"width: 20%; background: yellow\">Oxy hòa tan</th>");
       htmlContentBuilder.append("</tr>");
 
       for (BcDlGiamSatTable bcDlGiamSatTable : bcDlGiamSatTables) {
@@ -117,26 +117,26 @@ public class BcDlGiamSatServiceImpl implements BcDlGiamSatService {
         }
         htmlContentBuilder.append("<td>" + bcDlGiamSatTable.getTenDam() + "</td>");
 
-        if (bcDlGiamSatTable.getData().containsKey(TelemetryConstant.pH)) {
+        if (bcDlGiamSatTable.getData().containsKey(TelemetryConstant.Temperature)) {
           htmlContentBuilder.append(
-              "<td>" + df.format(bcDlGiamSatTable.getData().get(TelemetryConstant.pH)) + "</td>");
+              "<td>" + df.format(bcDlGiamSatTable.getData().get(TelemetryConstant.Temperature)) + "</td>");
         } else {
           htmlContentBuilder.append("<td></td>");
         }
 
-        if (bcDlGiamSatTable.getData().containsKey(TelemetryConstant.Salinity)) {
+        if (bcDlGiamSatTable.getData().containsKey(TelemetryConstant.Humidity)) {
           htmlContentBuilder.append(
               "<td>"
-                  + df.format(bcDlGiamSatTable.getData().get(TelemetryConstant.Salinity))
+                  + df.format(bcDlGiamSatTable.getData().get(TelemetryConstant.Humidity))
                   + "</td>");
         } else {
           htmlContentBuilder.append("<td></td>");
         }
 
-        if (bcDlGiamSatTable.getData().containsKey(TelemetryConstant.Temperature)) {
+        if (bcDlGiamSatTable.getData().containsKey(TelemetryConstant.Luminosity)) {
           htmlContentBuilder.append(
                   "<td>"
-                          + df.format(bcDlGiamSatTable.getData().get(TelemetryConstant.Temperature))
+                          + df.format(bcDlGiamSatTable.getData().get(TelemetryConstant.Luminosity))
                           + "</td>");
         } else {
           htmlContentBuilder.append("<td></td>");
@@ -148,13 +148,6 @@ public class BcDlGiamSatServiceImpl implements BcDlGiamSatService {
 //        } else {
 //          htmlContentBuilder.append("<td></td>");
 //        }
-
-        if (bcDlGiamSatTable.getData().containsKey(TelemetryConstant.DO)) {
-          htmlContentBuilder.append(
-              "<td>" + df.format(bcDlGiamSatTable.getData().get(TelemetryConstant.DO)) + "</td>");
-        } else {
-          htmlContentBuilder.append("<td></td>");
-        }
         htmlContentBuilder.append("</tr>");
       }
       htmlContentBuilder.append("</table></body></html>");
@@ -293,34 +286,18 @@ public class BcDlGiamSatServiceImpl implements BcDlGiamSatService {
             getDamtomKeyAvgToDouble(
                 new TenantId(tenantId),
                 x.getId(),
-                TelemetryConstant.pH,
+                TelemetryConstant.Humidity,
                 t.getStartTs(),
                 t.getEndTs());
-        data.put(TelemetryConstant.pH, value2);
+        data.put(TelemetryConstant.Humidity, value2);
         double value3 =
             getDamtomKeyAvgToDouble(
                 new TenantId(tenantId),
                 x.getId(),
-                TelemetryConstant.Salinity,
+                TelemetryConstant.Luminosity,
                 t.getStartTs(),
                 t.getEndTs());
-        data.put(TelemetryConstant.Salinity, value3);
-        double value4 =
-            getDamtomKeyAvgToDouble(
-                new TenantId(tenantId),
-                x.getId(),
-                TelemetryConstant.ORP,
-                t.getStartTs(),
-                t.getEndTs());
-        data.put(TelemetryConstant.ORP, value4);
-        double value5 =
-            getDamtomKeyAvgToDouble(
-                new TenantId(tenantId),
-                x.getId(),
-                TelemetryConstant.DO,
-                t.getStartTs(),
-                t.getEndTs());
-        data.put(TelemetryConstant.DO, value5);
+        data.put(TelemetryConstant.Luminosity, value3);
 
         bcDlGiamSatTable.setData(data);
         bcDlGiamSatTables.add(bcDlGiamSatTable);

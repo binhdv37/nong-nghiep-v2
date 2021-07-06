@@ -282,7 +282,7 @@ export class AccessHistoryComponent implements OnInit, OnDestroy, AfterViewInit 
           result = 'Vai trò';
           break;
         case 'DAM_TOM' :
-          result = 'Đầm tôm';
+          result = 'Nhà vườn';
           break;
         case 'DEVICE' :
           result = 'Thiết bị';

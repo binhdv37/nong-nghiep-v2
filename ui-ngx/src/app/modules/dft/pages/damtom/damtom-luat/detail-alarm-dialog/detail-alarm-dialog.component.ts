@@ -30,14 +30,12 @@ export class DetailAlarmDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  keyToLabel(key: string){
+  keyToLabel(key: string) {
     switch (key) {
-      case 'DO':
-        return 'DO';
-      case 'Salinity':
-        return 'Độ mặn';
-      case 'pH':
-        return 'pH';
+      case 'Humidity':
+        return 'Độ ẩm';
+      case 'Luminosity':
+        return 'Ánh sáng';
       default:
         return 'Nhiệt độ';
     }

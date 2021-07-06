@@ -29,7 +29,7 @@ const ALARM_RULE_NAME_CANNOT_BE_NULL = 'Alarm rule name can not be null';
 export class CreateAlarmDialogComponent implements OnInit {
   isLoading$: Subject<boolean>;
 
-  allKey: string[] = [TelemetryKey.DO, TelemetryKey.PH, TelemetryKey.SALINITY, TelemetryKey.TEMPERATURE];
+  allKey: string[] = [TelemetryKey.TEMPERATURE, TelemetryKey.HUMIDITY, TelemetryKey.LUMINOSITY];
 
   outputFormData: CreateAlarmFormData[] = [];
 
@@ -61,12 +61,10 @@ export class CreateAlarmDialogComponent implements OnInit {
 
   keyToLabel(key: string) {
     switch (key) {
-      case 'DO':
-        return 'DO';
-      case 'Salinity':
-        return 'Độ mặn';
-      case 'pH':
-        return 'pH';
+      case 'Humidity':
+        return 'Độ ẩm';
+      case 'Luminosity':
+        return 'Ánh sáng';
       default:
         return 'Nhiệt độ';
     }
@@ -111,7 +109,7 @@ export class CreateAlarmDialogComponent implements OnInit {
         error => {
           console.log(error);
           if (error.status === 400 && error.error.message === DAMTOM_DOES_NOT_EXIST) {
-            this.dialogService.alert('', 'Đầm tôm không tồn tại', 'ok', false);
+            this.dialogService.alert('', 'Nhà vườn không tồn tại', 'ok', false);
           } else {
             this.dialogService.alert('', 'Lỗi không xác định', 'ok', false);
           }
@@ -139,7 +137,7 @@ export class CreateAlarmDialogComponent implements OnInit {
       error => {
         console.log(error);
         if (error.status === 400 && error.error.message === DAMTOM_DOES_NOT_EXIST) {
-          this.dialogService.alert('', 'Đầm tôm không tồn tại', 'ok', false);
+          this.dialogService.alert('', 'Nhà vườn không tồn tại', 'ok', false);
         } else if (error.status === 400 && error.error.message === ALARM_RULE_NAME_CANNOT_BE_NULL) {
           this.dialogService.alert('', 'Tên luật cảnh báo không được bỏ trống', 'ok', false);
         } else if (error.status === 400 && error.error.message === ALARM_RULE_NAME_ALREADY_EXIST) {

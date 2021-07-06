@@ -1655,7 +1655,7 @@
             "file-storage": "File storage",
             "memory-storage": "Memory storage"
         },
-        "thingsboard": "Đầm tôm IoT",
+        "thingsboard": "nhà vườn IoT",
         "thingsboard-host": "ThingsBoard host",
         "thingsboard-host-required": "Host is required.",
         "thingsboard-port": "ThingsBoard port",
@@ -2493,26 +2493,26 @@
     },
     "dft": {
       "damtom": {
-        "manage": "Quản lý đầm tôm",
-        "type": "Đầm tôm",
-        "typePlural": "Đầm tôm",
-        "list": "Danh sách đầm tôm",
+        "manage": "Quản lý nhà vườn",
+        "type": "Nhà vườn",
+        "typePlural": "Nhà vườn",
+        "list": "Danh sách nhà vườn",
         "nameStartsWith": "Tên bắt đầu với",
         "update-button": "Cập nhật",
         "details-button": "Xem chi tiết",
         "delete-button": "Xóa",
-        "add": "Thêm mới đầm tôm",
+        "add": "Thêm mới nhà vườn",
         "noEntities": "Không có dữ liệu",
-        "search": "Tìm kiếm đầm tôm",
-        "selectedEntities": "Đầm tôm được chọn",
-        "delete-damtom-title": "Xóa đầm tôm",
-        "delete-damtom-text": "Xóa đầm tôm",
-        "delete-damtoms-title": "Xóa danh sách đầm tôm",
-        "delete-damtoms-text": "Xóa danh sách đầm tôm",
+        "search": "Tìm kiếm nhà vườn",
+        "selectedEntities": "Nhà vườn được chọn",
+        "delete-damtom-title": "Xóa nhà vườn",
+        "delete-damtom-text": "Xóa nhà vườn",
+        "delete-damtoms-title": "Xóa danh sách nhà vườn",
+        "delete-damtoms-text": "Xóa danh sách nhà vườn",
         "address": "Vị trí",
         "note": "Ghi chú",
         "refresh": "Làm mới",
-        "name": "Tên đầm tôm",
+        "name": "Tên nhà vườn",
         "active": "Kích hoạt",
         "manager": {
           "order": "STT",
@@ -2657,7 +2657,7 @@
         "checkbox": {
           "QL_TK": "Quản lý tài khoản",
           "QL_VAITRO": "Quản lý vai trò",
-          "QL_DAMTOM": "Quản lý đầm tôm",
+          "QL_DAMTOM": "Quản lý nhà vườn",
           "QL_TT_CHUNG": "Quản lý thông tin chung",
           "GIAM_SAT": "Giám sát",
           "DIEU_KHIEN": "Điều khiển",
@@ -2685,6 +2685,8 @@
         "Salinity": "Độ mặn (‰)",
         "ORP": "Độ Oxi hóa khử (mV)",
         "DO": "Độ Oxi hòa tan(mg/l)",
+        "Humidity": "Độ ẩm (‰)",
+        "Luminosity":  "Độ sáng (lux)",
         "updateTime": "Lọc",
         "noData": "Không có dữ liệu cảm biến",
         "validate": {
@@ -2765,6 +2767,8 @@
           "Salinity": "Độ mặn (‰)",
           "ORP": "ORP (mV)",
           "DO": "DO (mg/l)",
+          "Humidity": "Độ ẩm (‰)",
+          "Luminosity":  "Độ sáng (lux)",
           "clear": "Trạng thái cảnh báo"
         }
       },
@@ -2834,7 +2838,7 @@
       },
       "bc-ketnoi": {
         "chart-title": "Biểu đồ thống kê số lần cảm biến mất kết nối",
-        "select-damtom": "Chọn đầm",
+        "select-damtom": "Chọn nhà vườn",
         "all-damtom": "Tất cả",
         "time-range": "Khoảng thời gian",
         "end-time-required": "Thời gian kết thúc không được rỗng",
@@ -2845,6 +2849,8 @@
         "salinity": "Cảm biến độ mặn",
         "DO": "Cảm biến Oxy hòa tan",
         "ORP": "Cảm biến Oxy hóa khử",
+        "humidity": "Cảm biến độ ẩm",
+        "luminosity": "Cảm biến ánh sáng",
         "table-title": "Thông tin chi tiết"
       },
       "report-schedule": {

@@ -55,57 +55,15 @@
             </div>
           </form>
           <div style="padding: 0px 24px !important;">
-
-            <!-- chart section -->
-            <!-- chart section 1-->
-            <div class="row" fxLayout="row" fxLayoutAlign="space-between none" style="padding-bottom: 24px !important;">
-
-              <!-- chart container 1-->
-              <div fxFlex="49">
-
-                <tb-b-line-chart class="title-bao-cao-duong" [data]="dataMaps[0].data"
-                  [chartTitle]="dataMaps[0].chartTitle">
+            <div fxLayout="row" fxLayoutAlign="space-between none" style="padding-bottom: 24px !important;">
+              <div fxFlex="33" *ngFor="let dataMap of dataMaps;">
+                <tb-b-line-chart
+                  class="title-bao-cao-duong"
+                  [data]="dataMap.data"
+                  [chartTitle]="dataMap.chartTitle">
                 </tb-b-line-chart>
-
               </div>
-
-              <!-- chart container 2-->
-              <div fxFlex="49">
-
-                <tb-b-line-chart class="title-bao-cao-duong" [data]="dataMaps[1].data"
-                  [chartTitle]="dataMaps[1].chartTitle">
-                </tb-b-line-chart>
-
-              </div>
-
             </div>
-
-            <!-- chart section 2-->
-            <div class="row" fxLayout="row" fxLayoutAlign="space-between none">
-              <!-- chart container 1-->
-              <div fxFlex="49">
-                <tb-b-line-chart class="title-bao-cao-duong" [data]="dataMaps[2].data"
-                  [chartTitle]="dataMaps[2].chartTitle">
-                </tb-b-line-chart>
-              </div>
-
-              <!-- chart container 2-->
-              <div fxFlex="49">
-                <tb-b-line-chart class="title-bao-cao-duong" [data]="dataMaps[3].data"
-                  [chartTitle]="dataMaps[3].chartTitle">
-                </tb-b-line-chart>
-              </div>
-
-              <!-- chart container 3-->
-              <!--            <div fxFlex="32">-->
-              <!--              <tb-b-line-chart-->
-              <!--                [data]="dataMaps[4].data"-->
-              <!--                [chartTitle]="dataMaps[4].chartTitle">-->
-              <!--              </tb-b-line-chart>-->
-              <!--            </div>-->
-
-            </div>
-
           </div>
         </div>
 

@@ -44,7 +44,7 @@ public class ExcelDto {
             case "ROLE" :
                 return "Vai trò";
             case "DAM_TOM" :
-                return "Đầm tôm";
+                return "Nhà vườn";
             case "DEVICE" :
                 return "Thiết bị";
             case "GATEWAY" :

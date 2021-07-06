@@ -66,7 +66,7 @@ public class UsersController extends BaseController {
     public static final String EDIT = "edit";
     public static final String EMAIL = "email";
     public static final String LAST_NAME = "lastName";
-    public static final String EMAIL_SUBJECT = "IOT Đầm Tôm - Mã kích hoạt";
+    public static final String EMAIL_SUBJECT = "IOT Nông Nghiệp - Mã kích hoạt";
 
     private final UsersRoleService usersRoleService;
     private final UsersCredentialsService usersCredentialsService;

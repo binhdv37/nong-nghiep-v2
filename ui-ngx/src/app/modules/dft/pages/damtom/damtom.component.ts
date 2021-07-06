@@ -163,7 +163,7 @@ export class DamTomComponent implements OnInit, OnDestroy, AfterViewInit {
   delete(value) {
     this.dialogService.confirm(
       'Bạn có chắc chắn không?',
-      'Đầm tôm ' + value.name + ' sẽ bị xóa',
+      'Nhà vườn ' + value.name + ' sẽ bị xóa',
       'Hủy', 'Xóa',
       true
     ).subscribe((result) => {
@@ -183,7 +183,7 @@ export class DamTomComponent implements OnInit, OnDestroy, AfterViewInit {
           })
         ).subscribe(rs => {
           if (rs === 1) {
-            this.toast.error('Xóa không thành công!', 'Đầm tôm đang chứa thiết bị', {
+            this.toast.error('Xóa không thành công!', 'Nhà vườn đang chứa thiết bị', {
               positionClass: 'toast-bottom-right',
               timeOut: 3000,
             });
