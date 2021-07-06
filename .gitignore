@@ -1,0 +1,11 @@
+
+**/target/**
+**/node_modules/**
+**.DS_Store**
+**/.idea/**
+**.iml**
+**/.gradle/**
+*.log
+**/static/images/**
+/application/src/main/data/static/documents/**
+/application/src/main/resources/thingsboard.yml
